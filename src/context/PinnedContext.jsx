@@ -21,5 +21,7 @@ export function PinnedProvider({ children }) {
 }
 
 export function usePinnedContext() {
-  return useContext(PinnedContext);
+  const ctx = useContext(PinnedContext);
+  if (!ctx) throw new Error('usePinnedContext must be used within PinnedProvider');
+  return ctx;
 }

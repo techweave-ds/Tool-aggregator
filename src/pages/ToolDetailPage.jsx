@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, Star, Pin, Tag, Clock } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Star, Pin, Tag } from 'lucide-react';
 import { getIcon } from '@/utils/icons';
-import tools from '@/data/tools.json';
+import { getAllTools } from '@/utils/tools';
 import { useFavoritesContext } from '@/context/FavoritesContext';
 import { usePinnedContext } from '@/context/PinnedContext';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
@@ -12,7 +12,7 @@ const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilit
 export default function ToolDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const tool = tools.find(t => t.id === id);
+  const tool = getAllTools().find(t => t.id === id);
   const { isFavorite, toggleFavorite } = useFavoritesContext();
   const { isPinned, togglePin } = usePinnedContext();
   const { trackOpen } = useRecentToolsContext();
@@ -80,7 +80,7 @@ export default function ToolDetailPage() {
                 <span className={`text-[10px] font-mono px-2.5 py-1 rounded-full ${tool.status==='Production'?'badge-prod':tool.status==='Beta'?'badge-beta':'badge-alpha'}`}>
                   {tool.status} · v{tool.version}
                 </span>
-                {tool.tags.map(tag => (
+                {(tool.tags || []).map(tag => (
                   <span key={tag} className="flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded"
                     style={{ background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.08)', color:'var(--os-text3)' }}>
                     <Tag size={9} />{tag}

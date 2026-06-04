@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 import { STORAGE_KEYS } from '@/services/storage';
-import tools from '@/data/tools.json';
+import { getAllTools } from '@/utils/tools';
 
 export function useRecentTools() {
   const [recentIds, setRecentIds] = useLocalStorage(STORAGE_KEYS.RECENT_TOOLS, []);
@@ -17,7 +17,8 @@ export function useRecentTools() {
   );
 
   const recents = useMemo(() => {
-    const map = new Map(tools.map((t) => [t.id, t]));
+    const all = getAllTools();
+    const map = new Map(all.map((t) => [t.id, t]));
     return recentIds.map((id) => map.get(id)).filter(Boolean);
   }, [recentIds]);
 

@@ -148,7 +148,7 @@ function ImportContent() {
       ...ghRepos.filter(r => ghSel.has(r.id)).map(repoToTool),
       ...nlSites.filter(s => nlSel.has(s.id)).map(siteToTool),
     ];
-    await new Promise(r => setTimeout(r, 700));
+    await new Promise(r => setTimeout(r, 200));
     const existing = JSON.parse(localStorage.getItem('imported-tools')||'[]');
     const merged = [...existing, ...newTools.filter(t => !existing.find(e => e.id===t.id))];
     localStorage.setItem('imported-tools', JSON.stringify(merged));
@@ -274,7 +274,7 @@ function ImportContent() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-display font-semibold text-sm" style={{ color:'var(--os-text)' }}>Previously Imported ({saved.length})</h2>
-              <button onClick={() => { localStorage.removeItem('imported-tools'); localStorage.removeItem('custom-tools'); setSaved([]); }}
+              <button onClick={() => { localStorage.removeItem('imported-tools'); setSaved([]); }}
                 className="text-[10px] font-mono flex items-center gap-1" style={{ color:'var(--os-text3)' }}>
                 <X size={10}/> Clear all
               </button>

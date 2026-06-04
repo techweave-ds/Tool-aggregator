@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Zap, Search } from 'lucide-react';
-import tools from '@/data/tools.json';
+import { getAllTools } from '@/utils/tools';
 
 // Floating orbs
 function Orb({ style }) {
@@ -24,7 +24,7 @@ function GridPattern() {
 
 // Ticker of tool names
 function ToolTicker() {
-  const names = tools.map(t => t.name);
+  const names = getAllTools().map(t => t.name);
   return (
     <div className="ticker-wrap w-full overflow-hidden py-2">
       <div className="flex gap-6 animate-scroll-x whitespace-nowrap" style={{ animation: 'none' }}>
@@ -166,9 +166,9 @@ export default function HeroSection() {
           className="flex items-center justify-center gap-8 flex-wrap"
         >
           {[
-            [tools.length + '+', 'Tools'],
-            [new Set(tools.map(t => t.category)).size + '', 'Categories'],
-            [tools.filter(t => t.status === 'Production').length + '', 'Production'],
+            [getAllTools().length + '+', 'Tools'],
+            [new Set(getAllTools().map(t => t.category)).size + '', 'Categories'],
+            [getAllTools().filter(t => t.status === 'Production').length + '', 'Production'],
             ['99.9%', 'Uptime'],
           ].map(([val, label]) => (
             <div key={label} className="text-center">

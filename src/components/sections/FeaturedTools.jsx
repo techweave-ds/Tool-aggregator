@@ -3,15 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ExternalLink, Star, Zap } from 'lucide-react';
 import { getIcon } from '@/utils/icons';
-import tools from '@/data/tools.json';
+import { getAllTools } from '@/utils/tools';
 import { useFavoritesContext } from '@/context/FavoritesContext';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
 
 const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
 
-const featured = tools.filter(t => t.status === 'Production').slice(0, 6);
-
 export default function FeaturedTools() {
+  const featured = getAllTools().filter(t => t.status === 'Production').slice(0, 6);
   const [active, setActive] = useState(featured[0]?.id);
   const { isFavorite, toggleFavorite } = useFavoritesContext();
   const { trackOpen } = useRecentToolsContext();

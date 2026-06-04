@@ -1,8 +1,8 @@
 import AdminGate, { useAdmin } from '@/components/ui/AdminGate';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { LogOut, BarChart3, Layers, Clock, Tag, Settings2, Trash2, Link as LinkIcon } from 'lucide-react';
-import tools from '@/data/tools.json';
+import { LogOut, BarChart3, Layers, Tag, Trash2, Link as LinkIcon } from 'lucide-react';
+import { getAllTools } from '@/utils/tools';
 
 const ACCENT_PRESETS = [
   { name:'Indigo',  hex:'#6366f1' },{ name:'Violet', hex:'#8b5cf6' },
@@ -10,25 +10,27 @@ const ACCENT_PRESETS = [
   { name:'Amber',   hex:'#f59e0b' },{ name:'Rose',    hex:'#f43f5e' },
 ];
 
+const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
+
 function applyAccent(hex) {
-  const root = document.documentElement;
-  root.style.setProperty('--os-accent', hex);
-  root.style.setProperty('--os-glow', hex+'33');
+  document.documentElement.style.setProperty('--os-accent', hex);
+  document.documentElement.style.setProperty('--os-glow', hex+'33');
   localStorage.setItem('os-accent', hex);
 }
-const storedAccent = localStorage.getItem('os-accent');
-if (storedAccent) applyAccent(storedAccent);
-
-const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
 
 function AdminContent() {
   const { lock } = useAdmin();
   const [customTools] = useState(() => { try { return JSON.parse(localStorage.getItem('custom-tools')||'[]'); } catch { return []; } });
   const [imported]    = useState(() => { try { return JSON.parse(localStorage.getItem('imported-tools')||'[]'); } catch { return []; } });
 
-  const allTools = [...tools, ...customTools];
+  const allTools = getAllTools();
   const catBreakdown = Object.entries(allTools.reduce((a,t) => { a[t.category]=(a[t.category]||0)+1; return a; }, {})).sort((a,b) => b[1]-a[1]);
   const statusBreakdown = ['Production','Beta','Alpha','Archived'].map(s => ({ s, n: allTools.filter(t => t.status===s).length }));
+
+  useEffect(() => {
+    const storedAccent = localStorage.getItem('os-accent');
+    if (storedAccent) applyAccent(storedAccent);
+  }, []);
 
   function Card({ title, children }) {
     return (
@@ -124,7 +126,8 @@ function AdminContent() {
         <Card title="APPEARANCE — ACCENT COLOUR">
           <div className="flex items-center gap-3 flex-wrap mb-3">
             {ACCENT_PRESETS.map(a => {
-              const cur = getComputedStyle(document.documentElement).getPropertyValue('--os-accent').trim();
+              const cur = document.documentElement.style.getPropertyValue('--os-accent').trim() ||
+                getComputedStyle(document.documentElement).getPropertyValue('--os-accent').trim();
               const active = cur.replace(/\s/g,'')===a.hex;
               return (
                 <button key={a.name} onClick={() => applyAccent(a.hex)} title={a.name}
@@ -164,9 +167,8 @@ function AdminContent() {
           {[
             ['Version', '2.0.0'],
             ['Stack', 'React · Vite · Tailwind · Framer Motion'],
-            ['Deployment', 'Netlify'],
+            ['Deployment', 'Cloudflare Pages'],
             ['Total Tools', allTools.length],
-            ['Admin PIN', '9999 (change in AdminGate.jsx)'],
           ].map(([k,v]) => (
             <div key={k} className="flex items-center justify-between py-2" style={{ borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
               <span className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>{k}</span>

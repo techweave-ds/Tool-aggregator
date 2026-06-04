@@ -1,16 +1,15 @@
 import { motion } from 'framer-motion';
-import tools from '@/data/tools.json';
+import { getAllTools } from '@/utils/tools';
 import { getIcon } from '@/utils/icons';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
 
-const recent = [...tools]
-  .sort((a,b) => (b.changelog?.[0]?.date||'').localeCompare(a.changelog?.[0]?.date||''))
-  .slice(0,6);
-
 export default function RecentUpdates() {
+  const recent = [...getAllTools()]
+    .sort((a,b) => (b.changelog?.[0]?.date||'').localeCompare(a.changelog?.[0]?.date||''))
+    .slice(0,6);
   return (
     <section className="py-24 px-6" style={{ background: 'var(--os-surface)' }}>
       <div className="max-w-6xl mx-auto">

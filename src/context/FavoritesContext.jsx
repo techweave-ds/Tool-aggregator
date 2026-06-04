@@ -4,11 +4,11 @@ import { useFavorites } from '@/hooks/useFavorites';
 const FavoritesContext = createContext(null);
 
 export function FavoritesProvider({ children }) {
-  const { favorites, favoriteIds, toggleFavorite, isFavorite } = useFavorites();
+  const { favorites, toggleFavorite, isFavorite } = useFavorites();
 
   const value = useMemo(
-    () => ({ favorites, favoriteIds, toggleFavorite, isFavorite }),
-    [favorites, favoriteIds, toggleFavorite, isFavorite]
+    () => ({ favorites, toggleFavorite, isFavorite }),
+    [favorites, toggleFavorite, isFavorite]
   );
 
   return (

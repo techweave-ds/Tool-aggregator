@@ -5,6 +5,7 @@ import ToolsPage from '@/pages/ToolsPage';
 import ToolDetailPage from '@/pages/ToolDetailPage';
 import ImportPage from '@/pages/ImportPage';
 import AdminPage from '@/pages/AdminPage';
+import NotFoundPage from '@/pages/NotFoundPage';
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
       { path: 'tool/:id', element: <ToolDetailPage /> },
       { path: 'import', element: <ImportPage /> },
       { path: 'admin', element: <AdminPage /> },
+      { path: '*', element: <NotFoundPage /> },
     ]
   }
 ]);

@@ -13,8 +13,9 @@ export default function AddToolModal({ open, onClose, onAdd }) {
   function submit(e) {
     e.preventDefault();
     if (!f.name.trim()) return;
+    const id = f.name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'') || `tool-${Date.now()}`;
     onAdd({
-      ...f, id: f.name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,''),
+      ...f, id,
       tags: f.tags.split(',').map(t=>t.trim()).filter(Boolean),
       github:'',docs:'',demo:'',image:'',route:'',
       changelog:[{version:f.version,date:new Date().toISOString().slice(0,10),changes:['Added manually']}],
@@ -54,7 +55,7 @@ export default function AddToolModal({ open, onClose, onAdd }) {
                 </div>
               ))}
               <div className="grid grid-cols-2 gap-3">
-                {[['CATEGORY','category',CATS],['STATUS','status',STATUSES],['TYPE','type',['external','internal']]].slice(0,2).map(([label,key,opts]) => (
+                {[['CATEGORY','category',CATS],['STATUS','status',STATUSES]].map(([label,key,opts]) => (
                   <div key={key}>
                     <label className="block text-[10px] font-mono mb-1.5" style={{ color:'var(--os-text3)' }}>{label}</label>
                     <select value={f[key]} onChange={e => u(key,e.target.value)}

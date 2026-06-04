@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Search, X, LayoutGrid, List, SlidersHorizontal, Plus } from 'lucide-react';
+import { Search, X, LayoutGrid, List, Pin, Heart, Plus } from 'lucide-react';
 import { getIcon } from '@/utils/icons';
-import tools from '@/data/tools.json';
+import { getAllTools } from '@/utils/tools';
 import { useFavoritesContext } from '@/context/FavoritesContext';
 import { usePinnedContext } from '@/context/PinnedContext';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
@@ -57,14 +57,16 @@ function ToolCard({ tool, index }) {
           </div>
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button onClick={e => { e.stopPropagation(); togglePin(tool.id); }}
-              className="w-6 h-6 rounded-lg flex items-center justify-center transition-all text-xs"
-              style={{ background: pin ? c+'25' : 'rgba(255,255,255,0.06)', color: pin ? c : 'var(--os-text3)', fontSize: 11 }}>
-              📌
+              className="w-6 h-6 rounded-lg flex items-center justify-center transition-all"
+              style={{ background: pin ? c+'25' : 'rgba(255,255,255,0.06)', color: pin ? c : 'var(--os-text3)' }}
+              aria-label={pin ? 'Unpin tool' : 'Pin tool'}>
+              <Pin size={11} fill={pin ? 'currentColor' : 'none'} />
             </button>
             <button onClick={e => { e.stopPropagation(); toggleFavorite(tool.id); }}
-              className="w-6 h-6 rounded-lg flex items-center justify-center transition-all text-xs"
-              style={{ background: fav ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.06)', color: fav ? '#ef4444' : 'var(--os-text3)', fontSize: 11 }}>
-              ♥
+              className="w-6 h-6 rounded-lg flex items-center justify-center transition-all"
+              style={{ background: fav ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.06)', color: fav ? '#ef4444' : 'var(--os-text3)' }}
+              aria-label={fav ? 'Remove from favorites' : 'Add to favorites'}>
+              <Heart size={11} fill={fav ? 'currentColor' : 'none'} />
             </button>
           </div>
         </div>
@@ -74,7 +76,7 @@ function ToolCard({ tool, index }) {
         </p>
 
         <div className="flex flex-wrap gap-1 mb-3">
-          {tool.tags.slice(0,3).map(tag => (
+          {(tool.tags || []).slice(0,3).map(tag => (
             <span key={tag} className="text-[9px] font-mono px-1.5 py-0.5 rounded"
               style={{ background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.08)', color:'var(--os-text3)' }}>
               {tag}
@@ -84,7 +86,7 @@ function ToolCard({ tool, index }) {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <div className={`w-1.5 h-1.5 rounded-full ${tool.status==='Production'?'dot-prod':tool.status==='Beta'?'dot-beta':'dot-alpha'}`} />
+            <div className={`w-1.5 h-1.5 rounded-full ${tool.status==='Production'?'dot-prod':tool.status==='Beta'?'dot-beta':tool.status==='Archived'?'bg-[#6b7280]':'dot-alpha'}`} />
             <span className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>
               {tool.status === 'Production' ? `v${tool.version}` : tool.status}
             </span>
@@ -129,7 +131,7 @@ function ToolRow({ tool, index }) {
         <p className="text-xs truncate" style={{ color:'var(--os-text3)' }}>{tool.description}</p>
       </div>
       <div className="hidden md:flex items-center gap-1">
-        {tool.tags.slice(0,2).map(t => (
+          {(tool.tags || []).slice(0,2).map(t => (
           <span key={t} className="text-[9px] font-mono px-1.5 py-0.5 rounded"
             style={{ background:'rgba(255,255,255,0.05)', color:'var(--os-text3)' }}>{t}</span>
         ))}
@@ -138,11 +140,17 @@ function ToolRow({ tool, index }) {
         style={{ background:c+'15', color:c }}>{tool.category}</span>
       <div className="flex items-center gap-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
         <button onClick={e => { e.stopPropagation(); togglePin(tool.id); }}
-          className="w-6 h-6 rounded-lg flex items-center justify-center text-xs"
-          style={{ background:'rgba(255,255,255,0.06)', color:'var(--os-text3)' }}>📌</button>
+          className="w-6 h-6 rounded-lg flex items-center justify-center"
+          style={{ background:'rgba(255,255,255,0.06)', color:'var(--os-text3)' }}
+          aria-label={isPinned(tool.id) ? 'Unpin tool' : 'Pin tool'}>
+          <Pin size={11} fill={isPinned(tool.id) ? 'currentColor' : 'none'} />
+        </button>
         <button onClick={e => { e.stopPropagation(); toggleFavorite(tool.id); }}
-          className="w-6 h-6 rounded-lg flex items-center justify-center text-xs"
-          style={{ background: fav ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.06)', color: fav ? '#ef4444' : 'var(--os-text3)' }}>♥</button>
+          className="w-6 h-6 rounded-lg flex items-center justify-center"
+          style={{ background: fav ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.06)', color: fav ? '#ef4444' : 'var(--os-text3)' }}
+          aria-label={fav ? 'Remove from favorites' : 'Add to favorites'}>
+          <Heart size={11} fill={fav ? 'currentColor' : 'none'} />
+        </button>
         <button onClick={e => { e.stopPropagation(); trackOpen(tool.id); if(tool.url) window.open(tool.url,'_blank'); else navigate(`/tool/${tool.id}`); }}
           className="w-6 h-6 rounded-lg flex items-center justify-center text-xs"
           style={{ background:'var(--os-accent)', color:'#fff' }}>↗</button>
@@ -160,14 +168,14 @@ export default function ToolsPage() {
   const [addOpen, setAddOpen] = useState(false);
   const [customTools, setCustomTools] = useState(() => { try { return JSON.parse(localStorage.getItem('custom-tools') || '[]'); } catch { return []; } });
 
-  const allTools = [...tools, ...customTools];
+  const allTools = getAllTools();
 
   const filtered = useMemo(() => allTools.filter(t => {
     const catOk    = cat === 'All' || t.category === cat;
     const statusOk = status === 'All' || t.status === status;
-    const qOk      = !q || t.name.toLowerCase().includes(q.toLowerCase()) || t.tags.some(tag => tag.toLowerCase().includes(q.toLowerCase()));
+    const qOk      = !q || t.name.toLowerCase().includes(q.toLowerCase()) || (t.tags || []).some(tag => tag.toLowerCase().includes(q.toLowerCase()));
     return catOk && statusOk && qOk;
-  }), [cat, status, q, customTools]);
+  }), [cat, status, q, allTools]);
 
   return (
     <div className="pt-24 pb-16 px-6 min-h-screen">

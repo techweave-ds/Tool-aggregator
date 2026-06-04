@@ -79,9 +79,8 @@ npx gh-pages -d dist
 
 ## 🔑 Admin Access
 
-Default PIN: **9999**
-
-To change: edit `ADMIN_PIN` in `src/components/ui/AdminGate.jsx`
+Set `VITE_ADMIN_PIN` as an environment variable in your Cloudflare Pages dashboard (Settings → Environment variables).
+Default PIN: **9999** (change for production).
 
 Access admin at: `yoursite.com/admin`
 

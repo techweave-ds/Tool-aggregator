@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useCallback } from 'react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const ActivityContext = createContext(null);
@@ -26,5 +26,7 @@ export function ActivityProvider({ children }) {
 }
 
 export function useActivityContext() {
-  return useContext(ActivityContext);
+  const ctx = useContext(ActivityContext);
+  if (!ctx) throw new Error('useActivityContext must be used within ActivityProvider');
+  return ctx;
 }

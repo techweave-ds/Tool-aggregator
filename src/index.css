@@ -146,9 +146,13 @@ body {
 .badge-alpha { background:rgba(99,102,241,0.1); color:#818cf8; border:1px solid rgba(99,102,241,0.25); }
 .badge-arch  { background:rgba(71,85,105,0.2);  color:#94a3b8; border:1px solid rgba(71,85,105,0.3); }
 
+/* Status indicator dots */
+.dot-prod { background: #22c55e; }
+.dot-beta { background: #f59e0b; }
+.dot-alpha { background: #818cf8; }
+
 /* Marquee ticker */
 .ticker-wrap { overflow: hidden; }
-.ticker-inner { display:flex; width:max-content; animation:moveUp 25s linear infinite; }
 
 /* Input */
 input, textarea, select {

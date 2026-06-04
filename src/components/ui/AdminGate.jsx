@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 
-const ADMIN_PIN = '9999'; // change this
+const ADMIN_PIN = import.meta.env.VITE_ADMIN_PIN || '9999';
 const KEY = 'toolos-admin';
 
 export function useAdmin() {
@@ -70,7 +70,7 @@ export default function AdminGate({ children, title='Admin Area' }) {
             <ShieldCheck size={14}/> Unlock
           </button>
           <p className="text-[10px] text-center font-mono" style={{ color:'var(--os-text3)' }}>
-            Session only · Locks on tab close · Default PIN: 9999
+            Session only · Locks on tab close
           </p>
         </form>
       </motion.div>

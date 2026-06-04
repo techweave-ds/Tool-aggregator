@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Command, X, ExternalLink, Zap, Menu } from 'lucide-react';
-import tools from '@/data/tools.json';
+import { getAllTools } from '@/utils/tools';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
 
 const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
@@ -33,9 +33,10 @@ export default function Navbar({ transparent }) {
     return () => window.removeEventListener('keydown', h);
   }, []);
 
-  const results = query.length > 1 ? tools.filter(t =>
+  const allTools = getAllTools();
+  const results = query.length > 1 ? allTools.filter(t =>
     t.name.toLowerCase().includes(query.toLowerCase()) ||
-    t.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+    (t.tags || []).some(tag => tag.toLowerCase().includes(query.toLowerCase()))
   ).slice(0, 8) : [];
 
   useEffect(() => { setIdx(0); }, [results.length]);
@@ -85,15 +86,16 @@ export default function Navbar({ transparent }) {
         <div className="flex-1" />
 
         {/* Search pill */}
-        <button
-          onClick={() => { setCmdOpen(true); setTimeout(() => inputRef.current?.focus(), 50); }}
-          className="hidden md:flex items-center gap-3 px-4 py-2 rounded-xl text-sm transition-all mr-3"
-          style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--os-text3)' }}
-        >
-          <Search size={14} />
-          <span>Search tools…</span>
-          <div className="flex gap-0.5 ml-3"><kbd>⌘</kbd><kbd>K</kbd></div>
-        </button>
+          <button
+            onClick={() => { setCmdOpen(true); setTimeout(() => inputRef.current?.focus(), 50); }}
+            className="hidden md:flex items-center gap-3 px-4 py-2 rounded-xl text-sm transition-all mr-3"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--os-text3)' }}
+            aria-label="Search tools"
+          >
+            <Search size={14} />
+            <span>Search tools…</span>
+            <div className="flex gap-0.5 ml-3"><kbd>⌘</kbd><kbd>K</kbd></div>
+          </button>
 
         {/* Import / Admin — hidden in mobile */}
         <div className="hidden md:flex items-center gap-2">
@@ -109,7 +111,9 @@ export default function Navbar({ transparent }) {
 
         {/* Mobile burger */}
         <button onClick={() => setMobileOpen(p => !p)} className="md:hidden"
-          style={{ color: 'var(--os-text2)' }}>
+          style={{ color: 'var(--os-text2)' }}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileOpen}>
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
@@ -166,6 +170,7 @@ export default function Navbar({ transparent }) {
                   placeholder="Search tools, categories, tags…"
                   className="flex-1 bg-transparent text-sm outline-none"
                   style={{ color: 'var(--os-text)', caretColor: 'var(--os-accent)', border: 'none' }}
+                  aria-label="Search tools"
                 />
                 {query && <button onClick={() => setQuery('')} style={{ color: 'var(--os-text3)' }}><X size={14} /></button>}
               </div>
@@ -181,7 +186,7 @@ export default function Navbar({ transparent }) {
                       <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: CAT_COLORS[tool.category] || 'var(--os-accent)' }} />
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium" style={{ color: 'var(--os-text)' }}>{tool.name}</p>
-                        <p className="text-xs truncate" style={{ color: 'var(--os-text3)' }}>{tool.category} · {tool.description.slice(0,60)}…</p>
+                        <p className="text-xs truncate" style={{ color: 'var(--os-text3)' }}>{tool.category} · {tool.description?.slice(0,60) || ''}…</p>
                       </div>
                       <div className="flex items-center gap-1.5 shrink-0">
                         <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${tool.status === 'Production' ? 'badge-prod' : tool.status === 'Beta' ? 'badge-beta' : 'badge-alpha'}`}>
