@@ -97,17 +97,7 @@ export default function Navbar({ transparent }) {
             <div className="flex gap-0.5 ml-3"><kbd>⌘</kbd><kbd>K</kbd></div>
           </button>
 
-        {/* Import / Admin — hidden in mobile */}
-        <div className="hidden md:flex items-center gap-2">
-          <Link to="/import"
-            className="px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all"
-            style={{ color: 'var(--os-text2)', border: '1px solid rgba(255,255,255,0.08)' }}
-          >Import</Link>
-          <Link to="/admin"
-            className="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all"
-            style={{ background: 'var(--os-accent)', color: '#fff' }}
-          >Admin</Link>
-        </div>
+
 
         {/* Mobile burger */}
         <button onClick={() => setMobileOpen(p => !p)} className="md:hidden"
@@ -126,7 +116,7 @@ export default function Navbar({ transparent }) {
             className="fixed top-16 left-0 right-0 z-40 p-4 md:hidden"
             style={{ background: 'rgba(5,8,22,0.97)', borderBottom: '1px solid rgba(99,102,241,0.1)' }}
           >
-            {[['/', 'Home'], ['/tools', 'Tools'], ['/import', 'Import'], ['/admin', 'Admin']].map(([to, label]) => (
+            {[['/', 'Home'], ['/tools', 'Tools']].map(([to, label]) => (
               <Link key={to} to={to} onClick={() => setMobileOpen(false)}
                 className="block py-3 text-sm font-medium border-b"
                 style={{ color: 'var(--os-text2)', borderColor: 'rgba(255,255,255,0.06)' }}>
@@ -208,6 +198,7 @@ export default function Navbar({ transparent }) {
                     {[
                       ['View all tools', '/tools'],
                       ['Import tools', '/import'],
+                      ['Admin panel', '/admin'],
                     ].map(([label, to]) => (
                       <button key={to} onMouseDown={() => { navigate(to); setCmdOpen(false); }}
                         className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm text-left transition-all"
