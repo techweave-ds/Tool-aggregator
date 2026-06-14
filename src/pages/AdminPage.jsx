@@ -51,7 +51,7 @@ function AdminContent() {
               <span className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>ADMIN PANEL</span>
             </div>
             <h1 className="font-display font-bold text-3xl" style={{ color:'var(--os-text)' }}>Admin</h1>
-            <p className="text-sm mt-0.5" style={{ color:'var(--os-text2)' }}>ToolOS control centre</p>
+            <p className="text-sm mt-0.5" style={{ color:'var(--os-text2)' }}>WeaveStack control centre</p>
           </div>
           <button onClick={lock} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono"
             style={{ border:'1px solid rgba(255,255,255,0.1)', color:'var(--os-text3)' }}>
@@ -167,7 +167,7 @@ function AdminContent() {
           {[
             ['Version', '2.0.0'],
             ['Stack', 'React · Vite · Tailwind · Framer Motion'],
-            ['Deployment', 'Cloudflare Pages'],
+            ['Deployment', 'Cloudflare Pages via GitHub'],
             ['Total Tools', allTools.length],
           ].map(([k,v]) => (
             <div key={k} className="flex items-center justify-between py-2" style={{ borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
@@ -182,5 +182,5 @@ function AdminContent() {
 }
 
 export default function AdminPage() {
-  return <AdminGate title="ToolOS Admin"><AdminContent/></AdminGate>;
+  return <AdminGate title="WeaveStack Admin"><AdminContent/></AdminGate>;
 }

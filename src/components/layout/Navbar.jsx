@@ -66,7 +66,7 @@ export default function Navbar({ transparent }) {
             <Zap size={15} fill="white" color="white" />
           </div>
           <span className="font-display font-bold text-base tracking-tight" style={{ color: 'var(--os-text)' }}>
-            Tool<span style={{ color: 'var(--os-accent)' }}>OS</span>
+            Weave<span style={{ color: 'var(--os-accent)' }}>Stack</span>
           </span>
         </Link>
 

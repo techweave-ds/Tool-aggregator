@@ -14,11 +14,11 @@ export default function FooterSection() {
                 <Zap size={14} fill="white" color="white" />
               </div>
               <span className="font-display font-bold text-base" style={{ color: 'var(--os-text)' }}>
-                Tool<span style={{ color: 'var(--os-accent)' }}>OS</span>
+                Weave<span style={{ color: 'var(--os-accent)' }}>Stack</span>
               </span>
             </Link>
             <p className="text-sm max-w-xs leading-relaxed" style={{ color: 'var(--os-text3)' }}>
-              A personal AI operating system for tools, automations, and AI projects. Built for builders.
+              A curated hub of tools, automations, and AI micro-apps. Built for builders.
             </p>
             <div className="flex items-center gap-2 mt-4">
               <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--os-green)' }} />
@@ -51,7 +51,7 @@ export default function FooterSection() {
         <div className="flex items-center justify-between pt-8 flex-wrap gap-4"
           style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <p className="text-xs font-mono" style={{ color: 'var(--os-text3)' }}>
-            © 2025 ToolOS · Built with React, Vite, Tailwind
+            © 2025 WeaveStack · Built with React, Vite, Tailwind
           </p>
           <div className="flex items-center gap-4">
             <a href="https://github.com" target="_blank" rel="noopener noreferrer"

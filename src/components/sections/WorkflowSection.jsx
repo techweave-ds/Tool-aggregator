@@ -29,7 +29,7 @@ export default function WorkflowSection() {
             Tools that work <span className="text-gradient">together</span>
           </h2>
           <p className="text-base max-w-xl mx-auto" style={{ color: 'var(--os-text2)' }}>
-            Every tool in ToolOS is designed to compose with others — building end-to-end pipelines without writing a single line of glue code.
+            Every tool in WeaveStack is designed to compose with others — building end-to-end pipelines without writing a single line of glue code.
           </p>
         </motion.div>
 

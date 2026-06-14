@@ -262,7 +262,7 @@ function ImportContent() {
                   className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold disabled:opacity-50 transition-all"
                   style={{ background: done?'#22c55e':'var(--os-accent)', color:'#fff' }}>
                   {importing ? <Loader2 size={14} className="animate-spin"/> : done ? <CheckCircle2 size={14}/> : <Plus size={14}/>}
-                  {importing?'Importing…':done?'Imported!':'Import to ToolOS'}
+                  {importing?'Importing…':done?'Imported!':'Import to WeaveStack'}
                 </button>
               </div>
             </motion.div>

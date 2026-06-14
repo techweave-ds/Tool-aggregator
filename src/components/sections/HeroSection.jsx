@@ -89,7 +89,7 @@ export default function HeroSection() {
           style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}
         >
           <Sparkles size={13} style={{ color: 'var(--os-accent)' }} />
-          <span className="text-xs font-mono font-medium" style={{ color: 'var(--os-accent)' }}>AI Operating System · v2.0</span>
+          <span className="text-xs font-mono font-medium" style={{ color: 'var(--os-accent)' }}>Tool Aggregation Hub · v2.0</span>
           <div className="w-1.5 h-1.5 rounded-full animate-pulse-glow" style={{ background: 'var(--os-green)' }} />
         </motion.div>
 
@@ -113,7 +113,7 @@ export default function HeroSection() {
           className="text-lg mb-10 mx-auto max-w-2xl leading-relaxed"
           style={{ color: 'var(--os-text2)' }}
         >
-          A curated operating system of powerful AI tools, automation systems, and productivity utilities — all in one workspace.
+          A curated hub of powerful AI tools, automation systems, productivity utilities, and deployed micro-apps — all in one workspace.
         </motion.p>
 
         {/* Search bar */}

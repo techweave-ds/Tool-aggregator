@@ -1,4 +1,4 @@
-# ToolOS — Deployment Guide
+# WeaveStack — Deployment Guide
 
 ## ✅ Cloudflare Pages (Recommended)
 
@@ -7,7 +7,7 @@
 1. Build the project: `npm run build`
 2. Go to → **dash.cloudflare.com → Pages → Create a project → Upload assets**
 3. Drag the entire `/dist` folder
-4. Done! Live in ~10 seconds at `https://toolos.pages.dev`
+4. Done! Live in ~10 seconds at `https://weavestack.pages.dev`
 
 ### Method 2: CLI Deploy (One command)
 

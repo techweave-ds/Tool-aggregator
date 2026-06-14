@@ -417,6 +417,215 @@
     ]
   },
   {
+    "id": "pageforge",
+    "name": "PageForge",
+    "description": "Image normalization tool for coloring book pages. Batch resize, pad, crop, and convert images for print-ready output.",
+    "category": "Utilities",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "Image",
+    "tags": ["image", "resizer", "batch", "print", "normalizer"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://imageresizer-1zq.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "Batch processing", "Multiple fit methods"] }
+    ]
+  },
+  {
+    "id": "3dforge-hub",
+    "name": "3DForge Hub",
+    "description": "Curated hub of 50+ free and paid 3D design tools. Browse, compare, and discover 3D modeling, CAD, rendering, and animation software.",
+    "category": "Development",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "Box",
+    "tags": ["3d", "modeling", "cad", "rendering", "design"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://3d-tools-aggregator.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "50+ tools catalogued", "Category filtering"] }
+    ]
+  },
+  {
+    "id": "supportweave",
+    "name": "SupportWeave",
+    "description": "AI-powered email support automation platform. Automate classification, prioritisation, response generation, and ticket creation using AWS serverless architecture.",
+    "category": "Automations",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "Mail",
+    "tags": ["email", "support", "automation", "ai", "aws"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://email-support-bot.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "Email ingestion", "AI classification", "Jira integration"] }
+    ]
+  },
+  {
+    "id": "knowledgos",
+    "name": "KnowledgOS",
+    "description": "Enterprise knowledge operating system. Upload documents and get a source-backed AI assistant with citations, confidence scoring, and full audit trails.",
+    "category": "AI",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "BookOpen",
+    "tags": ["knowledge", "ai", "rag", "documents", "enterprise"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://ecomm-bot-deployment.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "Document upload", "Source-backed answers", "Confidence scoring"] }
+    ]
+  },
+  {
+    "id": "qr-studio-pro",
+    "name": "QR Studio Pro",
+    "description": "Advanced QR code generator supporting URL, text, WiFi, vCard, and batch generation. Custom colors, logos, and multiple output formats.",
+    "category": "Utilities",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "QrCode",
+    "tags": ["qr", "generator", "batch", "customization", "utility"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://qr-code-gen-ape.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "Custom colors & logos", "Batch generation", "SVG/PNG/JPG export"] }
+    ]
+  },
+  {
+    "id": "profitcalci",
+    "name": "ProfitCalci",
+    "description": "E-commerce profit calculator for India. Compare Amazon, Flipkart, Meesho, and D2C selling costs with real fee structures, shipping optimization, and break-even analysis.",
+    "category": "Utilities",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "Calculator",
+    "tags": ["ecommerce", "calculator", "profit", "india", "shipping"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://ecom-pricing-calci.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "Multi-platform comparison", "Shipping optimizer", "Fee breakdown"] }
+    ]
+  },
+  {
+    "id": "3d-print-pro",
+    "name": "3D Print Pro",
+    "description": "3D printing quotation and job management system. Calculate material, energy, labor, and overhead costs with automatic profit margin and GST calculations.",
+    "category": "Utilities",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "Box",
+    "tags": ["3d-printing", "quotation", "calculator", "job-management"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://3d-cost-calci.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "Cost calculation engine", "PDF quote export", "Material library"] }
+    ]
+  },
+  {
+    "id": "nutriplan-ai",
+    "name": "NutriPlan AI",
+    "description": "AI-powered personalized nutrition planner. Get custom meal plans, calorie targets, grocery lists, and progress tracking tailored to your body and lifestyle.",
+    "category": "AI",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "Leaf",
+    "tags": ["nutrition", "meal-plan", "health", "ai", "wellness"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://nutriplan.daedra123.workers.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "Smart assessment", "Personalized meal plans", "Progress tracking"] }
+    ]
+  },
+  {
+    "id": "commitkit",
+    "name": "CommitKit",
+    "description": "Git & GitHub developer platform. Search 1,000+ git errors, generate commands from plain English, build folder-based workflows, all client-side and free.",
+    "category": "Development",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "GitBranch",
+    "tags": ["git", "github", "developer-tools", "commands", "errors"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://commit-kit.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "Git error search", "Natural language commands", "Workflow builder"] }
+    ]
+  },
+  {
+    "id": "adprompt",
+    "name": "AdPrompt",
+    "description": "AdSense approval prompt generator. Fill in your site details and generate AdSense-ready page prompts for any AI to create compliant website content.",
+    "category": "Utilities",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "FileText",
+    "tags": ["adsense", "prompts", "seo", "content", "ai"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://adsense-prompt-gen.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "AdSense factor prompts", "Custom site fields", "One-click copy"] }
+    ]
+  },
+  {
+    "id": "leadlaunch",
+    "name": "LeadLaunch",
+    "description": "Lead generation and launch platform. Capture, qualify, and manage leads with automated follow-ups and analytics.",
+    "category": "Automations",
+    "version": "1.0.0",
+    "status": "Production",
+    "icon": "Zap",
+    "tags": ["leads", "generation", "automation", "crm", "marketing"],
+    "github": "",
+    "docs": "",
+    "demo": "",
+    "image": "",
+    "type": "external",
+    "url": "https://leadreader.pages.dev/",
+    "changelog": [
+      { "version": "1.0.0", "date": "2026-05-01", "changes": ["Initial release", "Lead capture", "Qualification pipeline", "Analytics"] }
+    ]
+  },
+  {
     "id": "old-project-alpha",
     "name": "Project Alpha (Archived)",
     "description": "Archived project - initial prototype of the automated trading system. No longer actively maintained.",

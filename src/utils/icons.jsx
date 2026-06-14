@@ -21,6 +21,15 @@ import {
   Lock,
   Palette,
   Calendar,
+  Image,
+  Mail,
+  BookOpen,
+  Leaf,
+  GitBranch,
+  Box,
+  FileText,
+  Zap,
+  RefreshCw,
 } from 'lucide-react';
 
 const iconMap = {
@@ -46,6 +55,15 @@ const iconMap = {
   Lock: Lock,
   Palette: Palette,
   Calendar: Calendar,
+  Image: Image,
+  Mail: Mail,
+  BookOpen: BookOpen,
+  Leaf: Leaf,
+  GitBranch: GitBranch,
+  Box: Box,
+  FileText: FileText,
+  Zap: Zap,
+  RefreshCw: RefreshCw,
 };
 
 export function getIcon(name) {
