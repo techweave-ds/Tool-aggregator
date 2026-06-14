@@ -188,3 +188,21 @@ kbd {
   padding: 2px 6px;
   color: var(--os-text2);
 }
+
+/* Scroll margin for anchor targets */
+[id] {
+  scroll-margin-top: 64px;
+}
+
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Selection styling for workshop modules */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

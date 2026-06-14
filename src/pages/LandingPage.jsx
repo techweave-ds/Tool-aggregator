@@ -1,50 +1,57 @@
-import { useState, useEffect } from 'react';
-import HeroSection from '@/components/sections/HeroSection';
-import StatsSection from '@/components/sections/StatsSection';
-import CategoryGrid from '@/components/sections/CategoryGrid';
-import FeaturedTools from '@/components/sections/FeaturedTools';
-import WorkflowSection from '@/components/sections/WorkflowSection';
-import RecentUpdates from '@/components/sections/RecentUpdates';
-import AnalyticsSection from '@/components/sections/AnalyticsSection';
-import DiscoveryCarousels from '@/components/sections/DiscoveryCarousels';
+import { useState, useCallback, useRef } from 'react';
+import WorkshopHero from '@/components/workshop/WorkshopHero';
+import WorkflowStory from '@/components/workshop/WorkflowStory';
+import StackReveal from '@/components/workshop/StackReveal';
+import BuildPaths from '@/components/workshop/BuildPaths';
+import FeaturedSystems from '@/components/workshop/FeaturedSystems';
+import DiscoveryCta from '@/components/workshop/DiscoveryCta';
 import FooterSection from '@/components/sections/FooterSection';
-import StackBuilder from '@/components/ui/StackBuilder';
-import { Sparkles } from 'lucide-react';
-import useDiscoveryStore from '@/stores/discoveryStore';
+import SYSTEMS from '@/data/systems';
 
 export default function LandingPage() {
-  const [stackOpen, setStackOpen] = useState(false);
-  const { discoveryScore } = useDiscoveryStore();
+  const [selectedId, setSelectedId] = useState(null);
+  const [showStack, setShowStack] = useState(false);
+  const workflowRef = useRef(null);
+  const stackRef = useRef(null);
+
+  const selected = selectedId ? SYSTEMS.find(s => s.id === selectedId) : null;
+
+  const handleSelect = useCallback((id) => {
+    setSelectedId(id);
+    setShowStack(false);
+    setTimeout(() => {
+      workflowRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }, []);
+
+  const handleRevealStack = useCallback(() => {
+    setShowStack(true);
+    setTimeout(() => {
+      stackRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }, []);
 
   return (
     <main>
-      <HeroSection />
-      <StatsSection />
-      <CategoryGrid />
+      <div id="workshop-top" />
+      <WorkshopHero onSelect={handleSelect} selectedId={selectedId} />
 
-      {/* Stack Builder CTA */}
-      <section className="py-16 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <button onClick={() => setStackOpen(true)}
-            className="inline-flex items-center gap-3 px-6 py-3.5 rounded-xl text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
-            style={{ background: 'linear-gradient(135deg, var(--os-accent), var(--os-violet))', color: '#fff', boxShadow: '0 4px 24px rgba(99,102,241,0.35)' }}>
-            <Sparkles size={16} />
-            What are you trying to build?
-          </button>
-          <p className="text-xs font-mono mt-3" style={{ color: 'var(--os-text3)' }}>
-            AI-powered tool stack recommendations · {discoveryScore > 0 ? `Discovery score: ${discoveryScore}` : 'No signup required'}
-          </p>
+      {selected && (
+        <div ref={workflowRef}>
+          <WorkflowStory system={selected} onRevealStack={handleRevealStack} />
         </div>
-      </section>
+      )}
 
-      <FeaturedTools />
-      <AnalyticsSection />
-      <DiscoveryCarousels />
-      <WorkflowSection />
-      <RecentUpdates />
+      {selected && showStack && (
+        <div ref={stackRef}>
+          <StackReveal system={selected} />
+        </div>
+      )}
+
+      <BuildPaths onSelectSystem={handleSelect} selectedId={selectedId} />
+      <FeaturedSystems onSelectSystem={handleSelect} />
+      <DiscoveryCta />
       <FooterSection />
-
-      <StackBuilder open={stackOpen} onClose={() => setStackOpen(false)} />
     </main>
   );
 }
