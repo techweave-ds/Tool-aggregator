@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Command, X, ExternalLink, Zap, Menu } from 'lucide-react';
+import { Search, Command, X, ExternalLink, Zap, Menu, Sparkles, Layers } from 'lucide-react';
 import { getAllTools } from '@/utils/tools';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
+import StackBuilder from '@/components/ui/StackBuilder';
 
 const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
 
@@ -13,6 +14,7 @@ export default function Navbar({ transparent }) {
   const [query, setQuery] = useState('');
   const [idx, setIdx] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [stackOpen, setStackOpen] = useState(false);
   const inputRef = useRef(null);
   const loc = useLocation();
   const navigate = useNavigate();
@@ -85,6 +87,16 @@ export default function Navbar({ transparent }) {
 
         <div className="flex-1" />
 
+        {/* Stack Builder */}
+        <button
+          onClick={() => setStackOpen(true)}
+          className="hidden md:flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium transition-all mr-2"
+          style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: 'var(--os-accent)' }}
+        >
+          <Sparkles size={13} />
+          <span>Build Stack</span>
+        </button>
+
         {/* Search pill */}
           <button
             onClick={() => { setCmdOpen(true); setTimeout(() => inputRef.current?.focus(), 50); }}
@@ -123,6 +135,11 @@ export default function Navbar({ transparent }) {
                 {label}
               </Link>
             ))}
+            <button onClick={() => { setMobileOpen(false); setStackOpen(true); }}
+              className="block py-3 text-sm font-medium border-b w-full text-left"
+              style={{ color: 'var(--os-accent)', borderColor: 'rgba(255,255,255,0.06)' }}>
+              <span className="flex items-center gap-2"><Sparkles size={14} /> Build Stack</span>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -220,6 +237,8 @@ export default function Navbar({ transparent }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <StackBuilder open={stackOpen} onClose={() => setStackOpen(false)} />
     </>
   );
 }

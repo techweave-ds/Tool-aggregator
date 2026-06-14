@@ -1,26 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Zap, Search } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap, Search, Layers, Wand2 } from 'lucide-react';
 import { getAllTools } from '@/utils/tools';
-
-// Floating orbs
-function Orb({ style }) {
-  return (
-    <div className="absolute rounded-full pointer-events-none" style={{
-      ...style,
-      filter: 'blur(80px)',
-      mixBlendMode: 'screen',
-    }} />
-  );
-}
-
-// Animated grid dot
-function GridPattern() {
-  return (
-    <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" />
-  );
-}
+import EcosystemHero from '@/components/ui/EcosystemHero';
+import StackBuilder from '@/components/ui/StackBuilder';
 
 // Ticker of tool names
 function ToolTicker() {
@@ -43,13 +27,15 @@ function ToolTicker() {
 
 export default function HeroSection() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const [stackOpen, setStackOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [suggestions] = useState(['Generate QR code', 'Analyze architecture', 'Email automation', 'Trading signals', 'AI workflows']);
   const [suggIdx, setSuggIdx] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const h = (e) => setMousePos({ x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight });
+    const h = (e) => { const p = { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight }; setMousePos(p); mouseRef.current = p; };
     window.addEventListener('mousemove', h);
     return () => window.removeEventListener('mousemove', h);
   }, []);
@@ -68,16 +54,9 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
 
-      {/* Background layers */}
-      <GridPattern />
-      <Orb style={{ width: 600, height: 600, top: '-10%', left: '-15%', background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)' }} />
-      <Orb style={{ width: 500, height: 500, bottom: '-10%', right: '-10%', background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)' }} />
-      <Orb style={{ width: 300, height: 300, top: '30%', right: '20%', background: 'radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%)' }} />
-
-      {/* Mouse-follow gradient */}
-      <div className="absolute inset-0 pointer-events-none transition-all duration-700" style={{
-        background: `radial-gradient(600px circle at ${mousePos.x * 100}% ${mousePos.y * 100}%, rgba(99,102,241,0.06), transparent 50%)`,
-      }} />
+      {/* Interactive ecosystem background */}
+      <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
+      <EcosystemHero mousePos={mouseRef} />
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
@@ -89,7 +68,7 @@ export default function HeroSection() {
           style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}
         >
           <Sparkles size={13} style={{ color: 'var(--os-accent)' }} />
-          <span className="text-xs font-mono font-medium" style={{ color: 'var(--os-accent)' }}>Tool Aggregation Hub · v2.0</span>
+          <span className="text-xs font-mono font-medium" style={{ color: 'var(--os-accent)' }}>Discovery-First Tool Ecosystem · v3.0</span>
           <div className="w-1.5 h-1.5 rounded-full animate-pulse-glow" style={{ background: 'var(--os-green)' }} />
         </motion.div>
 
@@ -113,7 +92,7 @@ export default function HeroSection() {
           className="text-lg mb-10 mx-auto max-w-2xl leading-relaxed"
           style={{ color: 'var(--os-text2)' }}
         >
-          A curated hub of powerful AI tools, automation systems, productivity utilities, and deployed micro-apps — all in one workspace.
+          Discover, combine, and build with intelligent tools. WeaveStack helps you find the right tools, understand how they work together, and build complete workflows.
         </motion.p>
 
         {/* Search bar */}
@@ -146,18 +125,18 @@ export default function HeroSection() {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
           className="flex items-center justify-center gap-4 flex-wrap mb-16"
         >
-          <Link to="/tools"
+          <button onClick={() => setStackOpen(true)}
             className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
             style={{ background: 'linear-gradient(135deg, var(--os-accent), var(--os-violet))', color: '#fff', boxShadow: '0 4px 24px rgba(99,102,241,0.35)' }}>
-            <Zap size={15} fill="white" />
-            Explore Tools
-          </Link>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+            <Wand2 size={15} />
+            Build a Stack
+          </button>
+          <Link to="/tools"
             className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-all hover:scale-[1.02]"
             style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--os-text2)' }}>
-            View on GitHub
-            <ArrowRight size={14} />
-          </a>
+            <Zap size={15} />
+            Explore Tools
+          </Link>
         </motion.div>
 
         {/* Stats row */}
@@ -188,6 +167,7 @@ export default function HeroSection() {
         <style>{`@keyframes moveScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }`}</style>
         <ToolTicker />
       </motion.div>
+      <StackBuilder open={stackOpen} onClose={() => setStackOpen(false)} />
     </section>
   );
 }

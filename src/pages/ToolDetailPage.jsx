@@ -1,11 +1,14 @@
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, Star, Pin, Tag } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Star, Pin, Tag, GitBranch } from 'lucide-react';
 import { getIcon } from '@/utils/icons';
 import { getAllTools } from '@/utils/tools';
 import { useFavoritesContext } from '@/context/FavoritesContext';
 import { usePinnedContext } from '@/context/PinnedContext';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
+import useDiscoveryStore from '@/stores/discoveryStore';
+import ToolRelationships from '@/components/ui/ToolRelationships';
 
 const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
 
@@ -16,6 +19,9 @@ export default function ToolDetailPage() {
   const { isFavorite, toggleFavorite } = useFavoritesContext();
   const { isPinned, togglePin } = usePinnedContext();
   const { trackOpen } = useRecentToolsContext();
+  const { trackView } = useDiscoveryStore();
+
+  useEffect(() => { if (tool) trackView(tool.id); }, [tool?.id]);
 
   if (!tool) return (
     <div className="pt-32 flex flex-col items-center gap-4">
@@ -88,6 +94,11 @@ export default function ToolDetailPage() {
                 ))}
               </div>
             </div>
+          </div>
+
+          {/* Relationships */}
+          <div className="mb-6 p-5 rounded-2xl" style={{ background:'var(--os-card)', border:'1px solid rgba(255,255,255,0.06)' }}>
+            <ToolRelationships toolId={tool.id} />
           </div>
 
           {/* Links + Changelog */}

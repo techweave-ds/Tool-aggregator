@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Search, X, LayoutGrid, List, Pin, Heart, Plus } from 'lucide-react';
+import { Search, X, LayoutGrid, List, Pin, Heart, Plus, Orbit } from 'lucide-react';
 import { getIcon } from '@/utils/icons';
 import { getAllTools } from '@/utils/tools';
 import { useFavoritesContext } from '@/context/FavoritesContext';
@@ -9,6 +9,8 @@ import { usePinnedContext } from '@/context/PinnedContext';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import AddToolModal from '@/components/ui/AddToolModal';
+import ToolConstellation from '@/components/ui/ToolConstellation';
+import SmartSearch from '@/components/ui/SmartSearch';
 
 const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
 const CATS = ['All','Trading','AI','Development','Utilities','Restaurant','Automations','Archive'];
@@ -241,9 +243,9 @@ export default function ToolsPage() {
             })}
           </div>
 
-          <div className="flex rounded-xl overflow-hidden ml-auto shrink-0"
+          <div className="flex rounded-xl overflow-hidden shrink-0"
             style={{ border:'1px solid rgba(255,255,255,0.08)' }}>
-            {[['grid', LayoutGrid], ['list', List]].map(([id, Icon]) => (
+            {[['grid', LayoutGrid], ['list', List], ['constellation', Orbit]].map(([id, Icon]) => (
               <button key={id} onClick={() => setView(id)}
                 className="px-3 py-2 transition-colors"
                 style={{ background: view===id ? 'rgba(99,102,241,0.12)' : 'transparent', color: view===id ? 'var(--os-accent)' : 'var(--os-text3)' }}>
@@ -267,6 +269,13 @@ export default function ToolsPage() {
         ) : view === 'grid' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {filtered.map((t,i) => <ToolCard key={t.id} tool={t} index={i} />)}
+          </div>
+        ) : view === 'constellation' ? (
+          <div>
+            <p className="text-xs font-mono mb-4" style={{ color: 'var(--os-text3)' }}>
+              Explore the tool ecosystem — drag nodes, zoom, and click to discover relationships
+            </p>
+            <ToolConstellation onClose={undefined} />
           </div>
         ) : (
           <div className="space-y-2">
