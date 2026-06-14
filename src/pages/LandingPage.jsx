@@ -16,20 +16,29 @@ export default function LandingPage() {
 
   const selected = selectedId ? SYSTEMS.find(s => s.id === selectedId) : null;
 
+  const scrollTo = useCallback((el) => {
+    if (!el) return;
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, []);
+
   const handleSelect = useCallback((id) => {
     setSelectedId(id);
     setShowStack(false);
-    setTimeout(() => {
-      workflowRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
-  }, []);
+    requestAnimationFrame(() => {
+      if (id) {
+        scrollTo(workflowRef.current);
+      }
+    });
+  }, [scrollTo]);
 
   const handleRevealStack = useCallback(() => {
     setShowStack(true);
-    setTimeout(() => {
-      stackRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
-  }, []);
+    requestAnimationFrame(() => {
+      scrollTo(stackRef.current);
+    });
+  }, [scrollTo]);
 
   return (
     <main>
@@ -37,13 +46,13 @@ export default function LandingPage() {
       <WorkshopHero onSelect={handleSelect} selectedId={selectedId} />
 
       {selected && (
-        <div ref={workflowRef}>
+        <div ref={workflowRef} tabIndex={-1}>
           <WorkflowStory system={selected} onRevealStack={handleRevealStack} />
         </div>
       )}
 
       {selected && showStack && (
-        <div ref={stackRef}>
+        <div ref={stackRef} tabIndex={-1}>
           <StackReveal system={selected} />
         </div>
       )}
