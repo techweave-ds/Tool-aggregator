@@ -3,262 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>WeaveStack — Tool Aggregation Hub</title>
+<title>WeaveStack v3 — Discovery-First Tool Ecosystem</title>
 <style>
 @import"https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&f[]=satoshi@700,500,400&display=swap";
 @import"https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap";
-*,*:before,*:after{box-sizing:border-box;margin:0;padding:0}:root{--os-bg:#050816;--os-surface:#0a0f1e;--os-card:#0d1424;--os-card2:#111827;--os-border:rgba(99,102,241,.12);--os-border2:rgba(255,255,255,.06);--os-text:#f1f5f9;--os-text2:#94a3b8;--os-text3:#475569;--os-accent:#6366f1;--os-violet:#8b5cf6;--os-cyan:#06b6d4;--os-green:#22c55e;--os-amber:#f59e0b;--os-red:#ef4444}html{scroll-behavior:smooth;background:var(--os-bg)}body{font-family:Satoshi,sans-serif;background:var(--os-bg);color:var(--os-text);-webkit-font-smoothing:antialiased;overflow-x:hidden}::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--os-accent);border-radius:2px}::selection{background:var(--os-accent);color:#fff}.font-display{font-family:Cabinet Grotesk,sans-serif}.font-mono{font-family:JetBrains Mono,monospace}.grid-bg{background-image:linear-gradient(rgba(99,102,241,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.04) 1px,transparent 1px);background-size:64px 64px}.text-gradient{background:linear-gradient(135deg,#fff 0%,var(--os-accent) 50%,var(--os-violet) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.text-gradient-cyan{background:linear-gradient(135deg,var(--os-cyan) 0%,var(--os-accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.glass{background:#0d1424b3;backdrop-filter:blur(20px);border:1px solid var(--os-border2)}.badge-prod{background:#22c55e1a;color:#22c55e;border:1px solid rgba(34,197,94,.25)}.badge-beta{background:#f59e0b1a;color:#f59e0b;border:1px solid rgba(245,158,11,.25)}.badge-alpha{background:#6366f11a;color:#818cf8;border:1px solid rgba(99,102,241,.25)}.dot-prod{background:#22c55e}.dot-beta{background:#f59e0b}.dot-alpha{background:#818cf8}
-.section-label{font-size:12px;font-family:JetBrains Mono,monospace;letter-spacing:.1em;margin-bottom:12px;color:var(--os-accent)}
-.section-title{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);color:var(--os-text)}
-.navbar{position:fixed;top:0;left:0;right:0;z-index:50;background:#0a0f1ee6;backdrop-filter:blur(32px);border-bottom:1px solid var(--os-border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:10px;font-family:Cabinet Grotesk,sans-serif;font-weight:800;font-size:22px;color:var(--os-text);letter-spacing:-.02em}
-.nav-links{display:flex;gap:32px;font-size:14px;font-weight:500}
-.nav-links a{color:var(--os-text2);text-decoration:none;transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--os-text)}
-.nav-links a.active{color:var(--os-accent)}
+*,*:before,*:after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#050816;--surface:#0a0f1e;--card:#0d1424;--card2:#111827;--border:rgba(99,102,241,.12);--border2:rgba(255,255,255,.06);--text:#f1f5f9;--text2:#94a3b8;--text3:#475569;--accent:#6366f1;--violet:#8b5cf6;--cyan:#06b6d4;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--orange:#f97316;--blue:#3b82f6;--gray:#6b7280}
+html{scroll-behavior:smooth;background:var(--bg)}body{font-family:Satoshi,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}::selection{background:var(--accent);color:#fff}
+.font-display{font-family:Cabinet Grotesk,sans-serif}.font-mono{font-family:JetBrains Mono,monospace}
+.glass{background:#0d1424b3;backdrop-filter:blur(20px);border:1px solid var(--border2)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;font-size:10px;font-family:JetBrains Mono,monospace}.badge-prod{background:#22c55e1a;color:#22c55e;border:1px solid rgba(34,197,94,.25)}.badge-beta{background:#f59e0b1a;color:#f59e0b;border:1px solid rgba(245,158,11,.25)}
+.section-label{font-size:12px;font-family:JetBrains Mono,monospace;letter-spacing:.1em;margin-bottom:12px;color:var(--accent)}.section-title{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);color:var(--text)}.text-gradient{background:linear-gradient(135deg,#fff 0%,var(--accent) 50%,var(--violet) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:50;background:#0a0f1ee6;backdrop-filter:blur(32px);border-bottom:1px solid var(--border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:Cabinet Grotesk,sans-serif;font-weight:800;font-size:22px;color:var(--text);letter-spacing:-.02em}
+.nav-links{display:flex;gap:24px;align-items:center}.nav-links a{font-size:14px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s}.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.btn-stack{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;color:#fff;background:linear-gradient(135deg,var(--accent),var(--violet));box-shadow:0 4px 16px rgba(99,102,241,.3);transition:transform .2s,box-shadow .2s;text-decoration:none}.btn-stack:hover{transform:scale(1.02);box-shadow:0 6px 24px rgba(99,102,241,.4)}
+.section{padding:96px 24px;max-width:80rem;margin:0 auto}.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px}
+/* Hero */
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding-top:64px}
+#heroCanvas{position:absolute;inset:0;pointer-events:none;z-index:1}
 .hero-content{position:relative;z-index:10;max-width:64rem;margin:0 auto;padding:0 24px;text-align:center}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:9999px;margin-bottom:32px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2)}
-.hero-badge span{font-size:12px;font-family:JetBrains Mono,monospace;font-weight:500;color:var(--os-accent)}
-.hero-h1{font-family:Cabinet Grotesk,sans-serif;font-weight:800;font-size:clamp(44px,7vw,88px);letter-spacing:-.03em;line-height:1;margin-bottom:24px}
-.hero-h1 .c1{color:var(--os-text)}
-.hero-h1 .c2{background:linear-gradient(135deg,#fff 0%,var(--os-accent) 50%,var(--os-violet) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-h1 .c3{color:var(--os-text)}
-.hero-h1 .c4{background:linear-gradient(135deg,var(--os-cyan) 0%,var(--os-accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:18px;color:var(--os-text2);margin-bottom:40px;max-width:42rem;margin-left:auto;margin-right:auto;line-height:1.625}
-.search-bar{display:flex;align-items:center;max-width:36rem;margin:0 auto 32px;background:rgba(13,20,36,.8);border:1px solid rgba(99,102,241,.25);border-radius:14px;backdrop-filter:blur(20px);overflow:hidden}
-.search-bar input{flex:1;padding:16px;background:transparent;border:none;outline:none;color:var(--os-text);font-size:14px;min-width:0}
-.search-bar input::placeholder{color:var(--os-text3)}
-.search-bar button{padding:10px 20px;margin:3px;background:var(--os-accent);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px}
-.cta-row{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:64px}
-.cta-primary{display:flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--os-accent),var(--os-violet));box-shadow:0 4px 24px rgba(99,102,241,.35);transition:transform .2s}
-.cta-primary:hover{transform:scale(1.02)}
-.cta-secondary{display:flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:500;text-decoration:none;color:var(--os-text2);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);transition:transform .2s}
-.cta-secondary:hover{transform:scale(1.02)}
-.stats-row{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap}
-.stat-item{text-align:center}
-.stat-val{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:24px;color:var(--os-text)}
-.stat-label{font-size:12px;font-family:JetBrains Mono,monospace;color:var(--os-text3)}
-.section{max-width:72rem;margin:0 auto;padding:96px 24px}
-.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px}
-.section-header-right a{display:none;align-items:center;gap:6px;font-size:14px;color:var(--os-accent);text-decoration:none}
-@media(min-width:768px){.section-header-right a{display:flex}}
-.cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media(min-width:768px){.cat-grid{grid-template-columns:repeat(4,1fr)}}
-.cat-card{display:flex;flex-direction:column;padding:20px;border-radius:16px;text-decoration:none;transition:all .3s;min-height:160px}
-.cat-card:hover{transform:translateY(-4px)}
-.cat-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:auto}
-.cat-card-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
-.cat-card-count{font-size:12px;font-family:JetBrains Mono,monospace;padding:2px 8px;border-radius:9999px}
-.cat-card-title{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:16px;margin-bottom:4px}
-.cat-card-desc{font-size:12px;line-height:1.5;color:var(--os-text3)}
-.cat-card-more{display:flex;align-items:center;gap:4px;margin-top:12px;font-size:12px;font-weight:500;opacity:0;transition:opacity .3s}
-.cat-card:hover .cat-card-more{opacity:1}
-.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(99,102,241,.1);border-radius:20px;overflow:hidden;border:1px solid rgba(99,102,241,.1)}
-@media(min-width:1024px){.stats-grid{grid-template-columns:repeat(4,1fr)}}
-.stats-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;background:var(--os-card)}
-.stats-cell-num{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:clamp(28px,4vw,48px);margin-bottom:8px}
-.stats-cell-label{font-size:14px;font-family:JetBrains Mono,monospace;color:var(--os-text3)}
-.featured-grid{display:grid;grid-template-columns:1fr;gap:16px}
-@media(min-width:1024px){.featured-grid{grid-template-columns:2fr 3fr}}
-.featured-list{display:flex;flex-direction:column;gap:8px}
-.featured-item{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;text-align:left;width:100%;cursor:pointer;border:1px solid transparent;transition:all .3s;background:rgba(255,255,255,.02);font-family:inherit;font-size:inherit;color:inherit}
-.featured-item.active{background:rgba(99,102,241,.07);border-color:rgba(99,102,241,.25)}
-.featured-item-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.featured-item-text{flex:1;min-width:0;text-align:left}
-.featured-item-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--os-text)}
-.featured-item-cat{font-size:12px;color:var(--os-text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.featured-item-dot{width:6px;height:6px;border-radius:9999px;flex-shrink:0}
-.featured-detail{border-radius:16px;overflow:hidden;display:flex;flex-direction:column;background:var(--os-card);border:1px solid rgba(255,255,255,.07);min-height:320px}
-.featured-detail-header{position:relative;height:192px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.featured-detail-icon{width:80px;height:80px;border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
-.featured-detail-body{padding:20px;display:flex;flex-direction:column;flex:1}
-.featured-detail-name{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:20px;margin-bottom:8px}
-.featured-detail-desc{font-size:14px;line-height:1.625;color:var(--os-text2);margin-bottom:16px;flex:1}
-.featured-detail-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.featured-detail-tag{font-size:10px;font-family:JetBrains Mono,monospace;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--os-text3)}
-.featured-detail-actions{display:flex;gap:8px}
-.featured-detail-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;border:none;color:#fff;transition:opacity .2s}
-.featured-detail-btn:hover{opacity:.9}
-.featured-detail-btn2{padding:10px 16px;border-radius:12px;font-size:14px;font-weight:500;cursor:pointer;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--os-text2);transition:opacity .2s}
-.featured-detail-btn2:hover{opacity:.8}
-.workflow-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
-@media(min-width:768px){.workflow-row{flex-direction:row}}
-.workflow-step{display:flex;flex-direction:column;align-items:center;padding:24px;border-radius:16px;cursor:pointer;transition:all .3s;width:176px;border:1px solid rgba(255,255,255,.06)}
-.workflow-step.active{background:rgba(99,102,241,.07);border-color:rgba(99,102,241,.31)}
-.workflow-step-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.workflow-step-title{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:14px;text-align:center;margin-bottom:4px}
-.workflow-step-desc{font-size:10px;font-family:JetBrains Mono,monospace;text-align:center;color:var(--os-text3)}
-.workflow-step-id{font-size:9px;font-family:JetBrains Mono,monospace;margin-top:8px;color:var(--os-text3)}
-.workflow-connector{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex-shrink:0;opacity:.2}
-.workflow-connector.active{opacity:1}
-.tool-grid{display:grid;grid-template-columns:1fr;gap:16px}
-@media(min-width:640px){.tool-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1280px){.tool-grid{grid-template-columns:repeat(3,1fr)}}
-.tool-card{position:relative;display:flex;flex-direction:column;border-radius:16px;overflow:hidden;cursor:pointer;transition:all .3s;background:var(--os-card);border:1px solid rgba(255,255,255,.06);text-decoration:none;color:inherit}
-.tool-card:hover{transform:translateY(-2px)}
-.tool-accent{height:1px;width:100%;transition:all .3s;background:linear-gradient(90deg,var(--os-accent) 50%,transparent 100%)}
-.tool-card:hover .tool-accent{height:2px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:9999px;margin-bottom:24px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2)}.hero-badge span{font-size:12px;font-family:JetBrains Mono,monospace;font-weight:500;color:var(--accent)}.hero-badge .dot{width:6px;height:6px;border-radius:9999px;background:var(--green);animation:pulse 3s ease-in-out infinite}
+.hero-h1{font-family:Cabinet Grotesk,sans-serif;font-weight:800;font-size:clamp(40px,6vw,76px);letter-spacing:-.03em;line-height:1;margin-bottom:24px}.hero-sub{font-size:18px;color:var(--text2);margin-bottom:40px;max-width:42rem;margin-left:auto;margin-right:auto;line-height:1.625}
+.hero-stats{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+.stat-item{text-align:center}.stat-val{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:clamp(20px,3vw,32px)}.stat-label{font-size:11px;font-family:JetBrains Mono,monospace;color:var(--text3)}
+/* Stack Builder */
+.stack-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stack-layout{display:grid;grid-template-columns:1fr;gap:48px}@media(min-width:1024px){.stack-layout{grid-template-columns:1fr 1fr}}
+.stack-presets{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.preset-btn{display:flex;align-items:center;gap:10px;padding:14px;border-radius:12px;cursor:pointer;transition:all .3s;font-family:inherit;font-size:14px;text-align:left;border:1px solid var(--border2);background:var(--card);color:var(--text)}.preset-btn:hover,.preset-btn.active{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.3);transform:translateY(-1px)}.preset-btn-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}.preset-btn-text{flex:1}.preset-btn-name{font-weight:600;font-size:13px;margin-bottom:2px}.preset-btn-desc{font-size:10px;color:var(--text3)}
+.stack-query{display:flex;gap:8px;margin-bottom:24px}
+.stack-query input{flex:1;padding:14px;border-radius:12px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}.stack-query input:focus{border-color:var(--accent)}.stack-query input::placeholder{color:var(--text3)}
+.stack-query button{padding:14px 24px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--violet));color:#fff;border:none;font-weight:600;cursor:pointer;font-size:14px;transition:transform .2s}.stack-query button:hover{transform:scale(1.02)}
+.stack-result{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:24px;margin-top:16px;min-height:120px}
+.stack-result-title{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:18px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.stack-tools{display:flex;flex-direction:column;gap:8px}
+.stack-tool-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--border2)}
+.stack-tool-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}.stack-tool-name{font-size:13px;font-weight:600}.stack-tool-reason{font-size:11px;color:var(--text3);margin-top:2px}
+.stack-why{font-size:12px;color:var(--text2);line-height:1.6;margin-top:16px;padding:12px;border-radius:10px;background:rgba(99,102,241,.05);border-left:2px solid var(--accent)}
+/* Search */
+.search-section{background:var(--bg);border-bottom:1px solid var(--border)}
+.search-demo{max-width:36rem;margin:0 auto;position:relative}
+.search-bar{display:flex;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s}.search-bar:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.search-bar input{flex:1;padding:16px;background:transparent;border:none;outline:none;color:var(--text);font-size:14px;font-family:inherit}.search-bar input::placeholder{color:var(--text3)}.search-bar button{padding:10px 20px;margin:3px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
+.search-results{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;z-index:20;display:none}.search-results.show{display:block}
+.search-result-item{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background .2s;border-bottom:1px solid var(--border2)}.search-result-item:last-child{border-bottom:none}.search-result-item:hover,.search-result-item.active{background:rgba(99,102,241,.06)}
+.search-result-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}.search-result-text{flex:1}.search-result-name{font-size:13px;font-weight:600}.search-result-cat{font-size:10px;color:var(--text3)}.search-result-score{font-size:10px;font-family:JetBrains Mono,monospace;color:var(--text3)}
+/* Constellation */
+.constellation-section{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden}
+.constellation-wrap{position:relative;width:100%;height:500px;background:var(--bg);border-radius:20px;border:1px solid var(--border);overflow:hidden}
+#constellation{width:100%;height:100%}
+.constellation-legend{position:absolute;bottom:16px;left:16px;display:flex;gap:12px;flex-wrap:wrap;z-index:5}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:10px;font-family:JetBrains Mono,monospace;color:var(--text3);background:rgba(13,20,36,.8);backdrop-filter:blur(12px);padding:4px 10px;border-radius:9999px;border:1px solid var(--border)}.legend-dot{width:8px;height:8px;border-radius:9999px}
+/* Feature Cards */
+.features-grid{display:grid;grid-template-columns:1fr;gap:16px}@media(min-width:640px){.features-grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1024px){.features-grid{grid-template-columns:repeat(4,1fr)}}
+.feature-card{padding:24px;border-radius:16px;background:var(--card);border:1px solid var(--border2);transition:all .3s;position:relative;overflow:hidden}.feature-card:hover{transform:translateY(-3px);border-color:rgba(99,102,241,.2);box-shadow:0 12px 48px rgba(99,102,241,.08)}
+.feature-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
+.feature-name{font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:16px;margin-bottom:8px}.feature-desc{font-size:13px;line-height:1.6;color:var(--text2)}
+/* Tool Grid */
+.tool-grid{display:grid;grid-template-columns:1fr;gap:16px}@media(min-width:640px){.tool-grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1280px){.tool-grid{grid-template-columns:repeat(3,1fr)}}
+.tool-card{position:relative;display:flex;flex-direction:column;border-radius:16px;overflow:hidden;cursor:pointer;transition:all .3s;background:var(--card);border:1px solid var(--border2)}.tool-card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.2)}
+.tool-accent{height:1px;width:100%;transition:all .3s}.tool-card:hover .tool-accent{height:2px}
 .tool-body{padding:16px;display:flex;flex-direction:column;flex:1}
 .tool-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
 .tool-icon-text{display:flex;align-items:center;gap:12px}
-.tool-icon-box{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.tool-icon-box svg{width:17px;height:17px}
-.tool-name-row{display:flex;align-items:center;gap:6px}
-.tool-name{font-size:14px;font-weight:700;color:var(--os-text)}
-.tool-new-badge{font-size:8px;font-family:JetBrains Mono,monospace;font-weight:700;padding:2px 6px;border-radius:4px}
-.tool-category{font-size:10px;font-family:JetBrains Mono,monospace;margin-top:2px;color:var(--os-text3)}
-.tool-desc{font-size:12px;line-height:1.5;margin-bottom:12px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--os-text2)}
+.tool-icon-box{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.tool-name-row{display:flex;align-items:center;gap:6px}.tool-name{font-size:14px;font-weight:700;color:var(--text)}.tool-new-badge{font-size:8px;font-family:JetBrains Mono,monospace;font-weight:700;padding:2px 6px;border-radius:4px}
+.tool-category{font-size:10px;font-family:JetBrains Mono,monospace;margin-top:2px;color:var(--text3)}
+.tool-desc{font-size:12px;line-height:1.5;margin-bottom:12px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--text2)}
 .tool-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
-.tool-tag{font-size:9px;font-family:JetBrains Mono,monospace;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--os-text3)}
-.tool-footer{display:flex;align-items:center;justify-content:space-between}
-.tool-status{display:flex;align-items:center;gap:6px}
-.tool-status-dot{width:6px;height:6px;border-radius:9999px}
-.tool-status-text{font-size:10px;font-family:JetBrains Mono,monospace;color:var(--os-text3)}
-.tool-launch{font-size:12px;font-weight:500;padding:4px 10px;border-radius:10px;cursor:pointer;border:none;transition:all .2s}
-.tool-launch:hover{opacity:.9}
-.recent-grid{display:grid;grid-template-columns:1fr;gap:16px}
-@media(min-width:768px){.recent-grid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1024px){.recent-grid{grid-template-columns:repeat(3,1fr)}}
-.recent-card{display:flex;align-items:flex-start;gap:16px;padding:16px;border-radius:16px;transition:all .2s;text-decoration:none;color:inherit;background:var(--os-card);border:1px solid rgba(255,255,255,.06)}
-.recent-card:hover{border-color:rgba(99,102,241,.25);transform:translateY(-2px)}
-.recent-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.recent-content{flex:1;min-width:0}
-.recent-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
-.recent-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--os-text)}
-.recent-ver{font-size:9px;font-family:JetBrains Mono,monospace;padding:2px 6px;border-radius:4px;flex-shrink:0}
-.recent-desc{font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px;color:var(--os-text3)}
-.recent-date{font-size:10px;font-family:JetBrains Mono,monospace;color:var(--os-text3)}
-.footer{border-top:1px solid rgba(99,102,241,.1);padding:64px 24px}
-.footer-grid{max-width:72rem;margin:0 auto;display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px}
+.tool-tag{font-size:9px;font-family:JetBrains Mono,monospace;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--text3)}
+.tool-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.tool-status{display:flex;align-items:center;gap:6px}.tool-status-dot{width:6px;height:6px;border-radius:9999px}.tool-status-text{font-size:10px;font-family:JetBrains Mono,monospace;color:var(--text3)}
+.tool-launch{font-size:12px;font-weight:500;padding:4px 10px;border-radius:10px;cursor:pointer;border:none;transition:all .2s}.tool-launch:hover{opacity:.9}
+/* Footer */
+.footer{border-top:1px solid var(--border);padding:64px 24px}
+.footer-grid{max-width:80rem;margin:0 auto;display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px}
 @media(min-width:768px){.footer-grid{grid-template-columns:repeat(4,1fr)}}
-.footer-brand{grid-column:span 1}
-@media(min-width:768px){.footer-brand{grid-column:span 2}}
+.footer-brand{grid-column:span 1}@media(min-width:768px){.footer-brand{grid-column:span 2}}
 .footer-col-title{font-size:14px;font-weight:700;font-family:Cabinet Grotesk,sans-serif;margin-bottom:16px}
-.footer-col-links{display:flex;flex-direction:column;gap:10px}
-.footer-col-links a{font-size:13px;color:var(--os-text2);text-decoration:none;transition:color .2s}
-.footer-col-links a:hover{color:var(--os-text)}
-.footer-bottom{max-width:72rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:1px solid rgba(255,255,255,.06);font-size:13px;color:var(--os-text3)}
-.cv-wrap{width:100%;overflow:hidden;padding:8px 0}
-.cv-inner{display:flex;gap:24px;animation:moveScroll 30s linear infinite;width:max-content}
-.cv-item{font-size:12px;font-family:JetBrains Mono,monospace;white-space:nowrap;flex-shrink:0;padding:4px 12px;border-radius:9999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:var(--os-text3)}
-@keyframes moveScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-svg{display:inline-block;vertical-align:middle}
-.ml-1{margin-left:4px}.ml-auto{margin-left:auto}
+.footer-col-links{display:flex;flex-direction:column;gap:10px}.footer-col-links a{font-size:13px;color:var(--text2);text-decoration:none;transition:color .2s}.footer-col-links a:hover{color:var(--text)}
+.footer-bottom{max-width:80rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:1px solid var(--border2);font-size:13px;color:var(--text3)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px rgba(99,102,241,.3)}50%{box-shadow:0 0 24px rgba(99,102,241,.6)}}
 </style>
 </head>
 <body>
 
-<!-- Navbar -->
+<!-- Nav -->
 <nav class="navbar">
   <div class="nav-logo">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--os-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
     WeaveStack
   </div>
   <div class="nav-links">
     <a href="#" class="active">Home</a>
-    <a href="#">Tools</a>
+    <a href="#tools">Tools</a>
+    <a href="https://github.com/techweave-ds/Tool-aggregator" target="_blank" style="display:flex;align-items:center;gap:4px">GitHub
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+    </a>
+    <a href="#" class="btn-stack" onclick="event.preventDefault();document.getElementById('stackBuilder').scrollIntoView({behavior:'smooth'})">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
+      Build Stack
+    </a>
   </div>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
+  <canvas id="heroCanvas"></canvas>
   <div class="hero-content">
     <div class="hero-badge">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--os-accent)" stroke-width="2"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
-      <span>Tool Aggregation Hub · v2.0</span>
-      <div style="width:6px;height:6px;border-radius:9999px;background:var(--os-green);animation:pulse-glow 3s ease-in-out infinite"></div>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+      <span>Discovery-First Tool Ecosystem · v3.0</span>
+      <div class="dot"></div>
     </div>
     <div class="hero-h1">
-      <div class="c1">Build Faster.</div>
-      <div class="c2">Automate Smarter.</div>
-      <div class="c3">Create <span class="c4">Anything.</span></div>
+      <div>Discover. Assemble. <span class="text-gradient">Build.</span></div>
     </div>
     <div class="hero-sub">
-      A curated hub of powerful AI tools, automation systems, productivity utilities, and deployed micro-apps — all in one workspace.
+      WeaveStack is a curated ecosystem of 33+ AI tools, trading systems, automation pipelines, and developer utilities — with intelligent stack recommendations, live analytics, and an interactive constellation view.
     </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:48px">
+      <a href="#stackBuilder" class="btn-stack" style="padding:14px 28px;font-size:15px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+        Build a Stack
+      </a>
+      <a href="#constellation" class="btn-stack" style="background:rgba(255,255,255,.05);border:1px solid var(--border);box-shadow:none;color:var(--text2);font-weight:500">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="5" cy="19" r="2"/><path d="M12 15l7 4M12 15l-7 4M12 9V3M19 5l-7 4M5 5l7 4"/></svg>
+        Explore Constellation
+      </a>
+    </div>
+    <div class="hero-stats" id="heroStats"></div>
+  </div>
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.04) 1px,transparent 1px);background-size:64px 64px;opacity:.4;pointer-events:none;z-index:2"></div>
+  <div style="position:absolute;width:600px;height:600px;top:-10%;left:-10%;border-radius:9999px;filter:blur(80px);mix-blend-mode:screen;background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 70%);pointer-events:none;z-index:1"></div>
+  <div style="position:absolute;width:500px;height:500px;bottom:-10%;right:-10%;border-radius:9999px;filter:blur(80px);mix-blend-mode:screen;background:radial-gradient(circle,rgba(139,92,246,.10) 0%,transparent 70%);pointer-events:none;z-index:1"></div>
+</section>
+
+<!-- Features -->
+<section class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">01 / PLATFORM</div>
+      <div class="section-title">Everything you need,<br><span class="text-gradient">intelligently connected</span></div>
+    </div>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(99,102,241,.12)">🧩</div>
+      <div class="feature-name">AI Stack Builder</div>
+      <div class="feature-desc">Describe what you're building — get a curated stack of tools with reasoning. 6 presets or free-form queries.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(139,92,246,.12)">🔍</div>
+      <div class="feature-name">Smart Search</div>
+      <div class="feature-desc">Fuzzy matching, category aliases, natural language queries. Find tools by what they do, not just their name.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(6,182,212,.12)">🌌</div>
+      <div class="feature-name">Tool Constellation</div>
+      <div class="feature-desc">Interactive force-directed graph showing all tools with relationship edges. Drag, zoom, and discover connections.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(34,197,94,.12)">📊</div>
+      <div class="feature-name">Analytics & Insights</div>
+      <div class="feature-desc">Category distribution, growth trends, status breakdown, and personal discovery scoring across the ecosystem.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Stack Builder -->
+<section id="stackBuilder" class="section stack-section">
+  <div style="max-width:80rem;margin:0 auto;padding:0 24px">
+    <div class="section-header">
+      <div>
+        <div class="section-label">02 / AI STACK BUILDER</div>
+        <div class="section-title">Tell us what you're building.<br><span class="text-gradient">We'll recommend the stack.</span></div>
+      </div>
+    </div>
+    <div class="stack-layout">
+      <div>
+        <div style="font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:16px;margin-bottom:16px">Choose a template</div>
+        <div class="stack-presets" id="presetGrid"></div>
+        <div style="font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:16px;margin:24px 0 12px">Or describe your project</div>
+        <div class="stack-query">
+          <input id="stackQuery" type="text" placeholder="e.g. I want to build an AI customer support chatbot..." onkeydown="if(event.key==='Enter')generateStack()">
+          <button onclick="generateStack()">Generate</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:16px;margin-bottom:16px">Your Stack</div>
+        <div class="stack-result" id="stackResult">
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:160px;color:var(--text3);text-align:center;gap:12px">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
+            <span style="font-size:14px">Select a preset or describe your project</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Search -->
+<section class="section search-section">
+  <div style="text-align:center;margin-bottom:48px">
+    <div class="section-label">03 / SMART SEARCH</div>
+    <div class="section-title">Find tools by <span class="text-gradient">what they do</span></div>
+    <div style="font-size:15px;color:var(--text2);margin-top:12px;max-width:32rem;margin-left:auto;margin-right:auto">Try "crypto bot", "customer support", "data viz", or "something for charting"</div>
+  </div>
+  <div class="search-demo">
     <div class="search-bar">
-      <input type="text" placeholder="Search tools..." style="padding:16px 20px">
-      <button>Search <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <input id="searchInput" type="text" placeholder='Search tools, categories, or describe what you need...' oninput="handleSearch(this.value)" onkeydown="handleSearchKey(event)">
+      <button onclick="handleSearch(document.getElementById('searchInput').value)">Search</button>
     </div>
-    <div class="cta-row">
-      <a href="#" class="cta-primary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        Explore Tools
-      </a>
-      <a href="#" class="cta-secondary">
-        View on GitHub
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-    <div class="stats-row" id="heroStats"></div>
-  </div>
-  <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(99,102,241,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.04) 1px,transparent 1px);background-size:64px 64px;opacity:.4"></div>
-  <div style="position:absolute;width:600px;height:600px;top:-10%;left:-15%;border-radius:9999px;pointer-events:none;filter:blur(80px);mix-blend-mode:screen;background:radial-gradient(circle,rgba(99,102,241,.15) 0%,transparent 70%)"></div>
-  <div style="position:absolute;width:500px;height:500px;bottom:-10%;right:-10%;border-radius:9999px;pointer-events:none;filter:blur(80px);mix-blend-mode:screen;background:radial-gradient(circle,rgba(139,92,246,.12) 0%,transparent 70%)"></div>
-  <div style="position:absolute;width:300px;height:300px;top:30%;right:20%;border-radius:9999px;pointer-events:none;filter:blur(80px);mix-blend-mode:screen;background:radial-gradient(circle,rgba(6,182,212,.08) 0%,transparent 70%)"></div>
-  <div style="position:absolute;bottom:32px;left:0;right:0;mask-image:linear-gradient(90deg,transparent,black 10%,black 90%,transparent);padding-bottom:32px">
-    <div class="cv-wrap"><div class="cv-inner" id="ticker"></div></div>
+    <div class="search-results" id="searchResults"></div>
   </div>
 </section>
 
-<!-- Categories -->
-<section class="section">
+<!-- Constellation -->
+<section id="constellation" class="section constellation-section">
+  <div style="max-width:80rem;margin:0 auto;padding:0 24px">
+    <div class="section-header">
+      <div>
+        <div class="section-label">04 / TOOL CONSTELLATION</div>
+        <div class="section-title">See the <span class="text-gradient">ecosystem</span></div>
+      </div>
+      <div style="font-size:13px;color:var(--text3);font-family:JetBrains Mono,monospace">Drag nodes · Scroll to zoom · Click to inspect</div>
+    </div>
+    <div class="constellation-wrap">
+      <div id="constellation"></div>
+      <div class="constellation-legend" id="legend"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Analytics -->
+<section class="section" style="background:var(--bg)">
+  <div style="max-width:80rem;margin:0 auto;padding:0 24px">
+    <div class="section-header">
+      <div>
+        <div class="section-label">05 / ANALYTICS</div>
+        <div class="section-title">Data-driven <span class="text-gradient">insights</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr;gap:24px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px" id="anaStats"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:24px" id="anaPie"></div>
+        <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:24px" id="anaBar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tools -->
+<section id="tools" class="section" style="background:var(--surface)">
   <div class="section-header">
     <div>
-      <div class="section-label">02 / CATEGORIES</div>
-      <div class="section-title">Everything you need,<br><span class="text-gradient">organised by purpose</span></div>
-    </div>
-    <div class="section-header-right"><a href="#">All tools <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
-  </div>
-  <div class="cat-grid" id="catGrid"></div>
-</section>
-
-<!-- Stats -->
-<section class="section" style="padding-top:80px;padding-bottom:80px">
-  <div class="stats-grid" id="statsGrid"></div>
-</section>
-
-<!-- Featured -->
-<section class="section" style="background:var(--os-surface)">
-  <div class="section-header">
-    <div>
-      <div class="section-label">03 / FEATURED</div>
-      <div class="section-title">Hand-picked, <span class="text-gradient">production-ready</span></div>
-    </div>
-    <div class="section-header-right"><a href="#">All tools <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
-  </div>
-  <div class="featured-grid" id="featuredGrid"></div>
-</section>
-
-<!-- Workflow -->
-<section class="section" style="text-align:center">
-  <div style="max-width:48rem;margin:0 auto 64px">
-    <div class="section-label" style="text-align:center">04 / WORKFLOW</div>
-    <div class="section-title" style="text-align:center;margin-bottom:16px">Tools that work <span class="text-gradient">together</span></div>
-    <div style="font-size:16px;color:var(--os-text2);max-width:36rem;margin:0 auto">Every tool in WeaveStack is designed to compose with others — building end-to-end pipelines without writing a single line of glue code.</div>
-  </div>
-  <div class="workflow-row" id="workflowRow"></div>
-</section>
-
-<!-- Recent Updates -->
-<section class="section" style="background:var(--os-surface)">
-  <div class="section-header">
-    <div>
-      <div class="section-label">05 / UPDATES</div>
-      <div class="section-title">Recent <span class="text-gradient">releases</span></div>
-    </div>
-    <div class="section-header-right"><a href="#">All tools <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
-  </div>
-  <div class="recent-grid" id="recentGrid"></div>
-</section>
-
-<!-- All Tools -->
-<section class="section">
-  <div class="section-header">
-    <div>
-      <div class="section-label">ALL TOOLS</div>
+      <div class="section-label">06 / ALL TOOLS</div>
       <div class="section-title">Browse the <span class="text-gradient">collection</span></div>
+      <div style="font-size:14px;color:var(--text3);margin-top:8px" id="toolCount"></div>
     </div>
   </div>
   <div class="tool-grid" id="toolGrid"></div>
@@ -269,257 +275,425 @@ svg{display:inline-block;vertical-align:middle}
   <div class="footer-grid">
     <div class="footer-brand">
       <div style="display:flex;align-items:center;gap:10px;font-family:Cabinet Grotesk,sans-serif;font-weight:800;font-size:22px;margin-bottom:16px">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--os-accent)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         WeaveStack
       </div>
-      <div style="font-size:14px;color:var(--os-text2);line-height:1.625">A curated hub of tools, automations, and micro-apps — all in one workspace.</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.625">A discovery-first tool ecosystem with intelligent stack recommendations, interactive visualizations, and personal analytics.</div>
     </div>
-    <div>
-      <div class="footer-col-title">Platform</div>
-      <div class="footer-col-links">
-        <a href="#">Tools</a>
-        <a href="#">Categories</a>
-        <a href="#">Updates</a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-col-title">Resources</div>
-      <div class="footer-col-links">
-        <a href="#">Documentation</a>
-        <a href="#">GitHub</a>
-        <a href="#">Support</a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-col-title">Company</div>
-      <div class="footer-col-links">
-        <a href="#">About</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
-    </div>
+    <div><div class="footer-col-title">Platform</div><div class="footer-col-links"><a href="#">Tools</a><a href="#">Stack Builder</a><a href="#">Constellation</a></div></div>
+    <div><div class="footer-col-title">Resources</div><div class="footer-col-links"><a href="#">Documentation</a><a href="https://github.com/techweave-ds/Tool-aggregator" target="_blank">GitHub</a><a href="#">Support</a></div></div>
+    <div><div class="footer-col-title">Company</div><div class="footer-col-links"><a href="#">About</a><a href="#">Privacy</a><a href="#">Terms</a></div></div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 WeaveStack. All rights reserved.</span>
-    <span>Built with purpose</span>
+    <span>&copy; 2026 WeaveStack. All rights reserved.</span>
+    <span>Discovery-First Tool Ecosystem · v3.0</span>
   </div>
 </footer>
 
 <script>
-// Tools data
-var tools = [{"id":"crypto-alert-bot","name":"Crypto Alert Bot","description":"Telegram bot that monitors cryptocurrency prices and sends real-time alerts based on custom price thresholds and technical indicators.","category":"Trading","version":"2.1.0","status":"Production","icon":"bitcoin","tags":["crypto","telegram","alerts","trading","automation"],"type":"external","url":"https://t.me/cryptoalertbot","changelog":[{"version":"2.1.0","date":"2026-04-15","changes":["Added RSI indicator support","Multi-currency watchlist","Performance improvements"]},{"version":"2.0.0","date":"2026-01-10","changes":["Complete rewrite with Telegram API v7","New alert builder UI","Backtesting engine"]},{"version":"1.0.0","date":"2025-08-01","changes":["Initial release","Basic price alerts","Telegram integration"]}]},{"id":"orb-scanner","name":"ORB Scanner","description":"Opening Range Breakout scanner for futures and forex markets. Identifies high-probability breakout setups in real-time.","category":"Trading","version":"1.3.0","status":"Production","icon":"scan","tags":["trading","scanner","breakout","futures","forex"],"type":"internal","changelog":[{"version":"1.3.0","date":"2026-03-20","changes":["Added ES / NQ futures support","Custom range parameters","Export to CSV"]},{"version":"1.2.0","date":"2025-12-05","changes":["Real-time data via WebSocket","Multi-timeframe analysis"]},{"version":"1.0.0","date":"2025-09-15","changes":["Initial release"]}]},{"id":"position-size-calculator","name":"Position Size Calculator","description":"Professional risk management tool that calculates optimal position sizes based on account balance, risk percentage, and stop loss distance.","category":"Trading","version":"1.2.0","status":"Production","icon":"calculator","tags":["trading","risk-management","calculator","forex","futures"],"type":"internal","changelog":[{"version":"1.2.0","date":"2026-02-10","changes":["Added pip value calculator","Multi-currency support"]},{"version":"1.1.0","date":"2025-11-01","changes":["Crypto lot size support","UI refresh"]},{"version":"1.0.0","date":"2025-08-20","changes":["Initial release"]}]},{"id":"trading-journal","name":"Trading Journal","description":"Automated trading journal with performance analytics, trade tagging, and equity curve visualization. Import from major brokers.","category":"Trading","version":"0.9.0","status":"Beta","icon":"trending","tags":["trading","journal","analytics","performance"],"type":"external","url":"https://trading-journal.example.com","changelog":[{"version":"0.9.0","date":"2026-04-01","changes":["Beta release","Interactive equity curve","Trade tagging system"]},{"version":"0.8.0","date":"2026-02-20","changes":["Broker CSV import","Basic statistics dashboard"]}]},{"id":"rag-playground","name":"RAG Playground","description":"Interactive playground for experimenting with Retrieval-Augmented Generation. Test different chunking strategies, embedding models, and vector databases.","category":"AI","version":"1.0.0","status":"Production","icon":"brain","tags":["ai","rag","llm","embeddings","vector-db"],"type":"external","url":"https://rag-playground.example.com","changelog":[{"version":"1.0.0","date":"2026-04-10","changes":["Initial production release","Multi-model support","Chunking strategy comparison"]}]},{"id":"prompt-generator","name":"Prompt Generator","description":"AI-powered prompt engineering tool that generates optimized prompts for ChatGPT, Claude, Gemini, and other LLMs.","category":"AI","version":"2.0.0","status":"Production","icon":"sparkles","tags":["ai","prompts","llm","chatgpt","claude"],"type":"internal","changelog":[{"version":"2.0.0","date":"2026-03-15","changes":["Major UI overhaul","Template library","Multi-model output"]},{"version":"1.0.0","date":"2025-10-01","changes":["Initial release"]}]},{"id":"ai-chat-dashboard","name":"AI Chat Dashboard","description":"Unified interface for interacting with multiple AI models. Compare responses from GPT-4, Claude, Gemini, and local models side by side.","category":"AI","version":"1.5.0","status":"Beta","icon":"chat","tags":["ai","chat","llm","comparison","multi-model"],"type":"external","url":"https://ai-chat.example.com","changelog":[{"version":"1.5.0","date":"2026-04-20","changes":["Added local model support via Ollama","Conversation branching"]},{"version":"1.0.0","date":"2026-01-15","changes":["Initial beta release"]}]},{"id":"image-gen-studio","name":"Image Gen Studio","description":"AI image generation studio with support for Stable Diffusion, DALL·E, and Midjourney. Includes prompt builder, gallery, and batch processing.","category":"AI","version":"0.8.0","status":"Alpha","icon":"sparkles","tags":["ai","image-generation","stable-diffusion","dalle"],"type":"external","url":"https://image-gen.example.com","changelog":[{"version":"0.8.0","date":"2026-04-25","changes":["Alpha release","SDXL support","Basic gallery"]}]},{"id":"qr-generator","name":"QR Generator","description":"Generate QR codes for URLs, text, WiFi credentials, vCards, and more. Customizable colors, logos, and sizes.","category":"Utilities","version":"1.2.0","status":"Production","icon":"qr","tags":["qr","generator","utility","barcode"],"type":"internal","changelog":[{"version":"1.2.0","date":"2026-03-01","changes":["Added WiFi QR codes","Logo overlay support"]},{"version":"1.0.0","date":"2025-11-15","changes":["Initial release"]}]},{"id":"json-formatter","name":"JSON Formatter","description":"Online JSON formatter, validator, and editor. Supports minification, beautification, tree view, and schema validation.","category":"Utilities","version":"1.1.0","status":"Production","icon":"code","tags":["json","formatter","validator","developer-tools"],"type":"internal","changelog":[{"version":"1.1.0","date":"2026-02-15","changes":["Tree view mode","Schema validation"]},{"version":"1.0.0","date":"2025-12-01","changes":["Initial release"]}]},{"id":"password-manager","name":"Password Manager","description":"Local-first password manager with encrypted storage, password generator, and secure sharing capabilities.","category":"Utilities","version":"1.0.0","status":"Production","icon":"lock","tags":["security","password","encryption","utility"],"type":"external","url":"https://pass-manager.example.com","changelog":[{"version":"1.0.0","date":"2026-04-01","changes":["Initial release"]}]},{"id":"color-palette","name":"Color Palette Generator","description":"Generate harmonious color palettes using various color theory schemes. Export to CSS, Tailwind, Figma, and Adobe formats.","category":"Utilities","version":"1.3.0","status":"Production","icon":"palette","tags":["colors","design","palette","css","tailwind"],"type":"internal","changelog":[{"version":"1.3.0","date":"2026-03-20","changes":["Tailwind CSS export","Accessibility check"]},{"version":"1.0.0","date":"2025-11-20","changes":["Initial release"]}]},{"id":"pageforge","name":"PageForge","description":"Image normalization tool for coloring book pages. Batch resize, pad, crop, and convert images for print-ready output.","category":"Utilities","version":"1.0.0","status":"Production","icon":"image","tags":["image","resizer","batch","print","normalizer"],"type":"external","url":"https://imageresizer-1zq.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","Batch processing","Multiple fit methods"]}]},{"id":"3dforge-hub","name":"3DForge Hub","description":"Curated hub of 50+ free and paid 3D design tools. Browse, compare, and discover 3D modeling, CAD, rendering, and animation software.","category":"Development","version":"1.0.0","status":"Production","icon":"box","tags":["3d","modeling","cad","rendering","design"],"type":"external","url":"https://3d-tools-aggregator.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","50+ tools catalogued","Category filtering"]}]},{"id":"supportweave","name":"SupportWeave","description":"AI-powered email support automation platform. Automate classification, prioritisation, response generation, and ticket creation.","category":"Automations","version":"1.0.0","status":"Production","icon":"mail","tags":["email","support","automation","ai","aws"],"type":"external","url":"https://email-support-bot.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","Email ingestion","AI classification","Jira integration"]}]},{"id":"knowledgos","name":"KnowledgOS","description":"Enterprise knowledge operating system. Upload documents and get a source-backed AI assistant with citations, confidence scoring, and full audit trails.","category":"AI","version":"1.0.0","status":"Production","icon":"book","tags":["knowledge","ai","rag","documents","enterprise"],"type":"external","url":"https://ecomm-bot-deployment.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","Document upload","Source-backed answers","Confidence scoring"]}]},{"id":"qr-studio-pro","name":"QR Studio Pro","description":"Advanced QR code generator supporting URL, text, WiFi, vCard, and batch generation. Custom colors, logos, and multiple output formats.","category":"Utilities","version":"1.0.0","status":"Production","icon":"qr","tags":["qr","generator","batch","customization","utility"],"type":"external","url":"https://qr-code-gen-ape.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","Custom colors & logos","Batch generation","SVG/PNG/JPG export"]}]},{"id":"profitcalci","name":"ProfitCalci","description":"E-commerce profit calculator for India. Compare Amazon, Flipkart, Meesho, and D2C selling costs with real fee structures.","category":"Utilities","version":"1.0.0","status":"Production","icon":"calculator","tags":["ecommerce","calculator","profit","india","shipping"],"type":"external","url":"https://ecom-pricing-calci.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","Multi-platform comparison","Shipping optimizer","Fee breakdown"]}]},{"id":"3d-print-pro","name":"3D Print Pro","description":"3D printing quotation and job management system. Calculate material, energy, labor, and overhead costs with profit margin and GST.","category":"Utilities","version":"1.0.0","status":"Production","icon":"box","tags":["3d-printing","quotation","calculator","job-management"],"type":"external","url":"https://3d-cost-calci.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","Cost calculation engine","PDF quote export","Material library"]}]},{"id":"nutriplan-ai","name":"NutriPlan AI","description":"AI-powered personalized nutrition planner. Get custom meal plans, calorie targets, grocery lists, and progress tracking.","category":"AI","version":"1.0.0","status":"Production","icon":"leaf","tags":["nutrition","meal-plan","health","ai","wellness"],"type":"external","url":"https://nutriplan.daedra123.workers.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","Smart assessment","Personalized meal plans","Progress tracking"]}]},{"id":"commitkit","name":"CommitKit","description":"Git & GitHub developer platform. Search 1,000+ git errors, generate commands from plain English, build folder-based workflows.","category":"Development","version":"1.0.0","status":"Production","icon":"git","tags":["git","github","developer-tools","commands","errors"],"type":"external","url":"https://commit-kit.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","Git error search","Natural language commands","Workflow builder"]}]},{"id":"adprompt","name":"AdPrompt","description":"AdSense approval prompt generator. Fill in your site details and generate AdSense-ready page prompts for any AI.","category":"Utilities","version":"1.0.0","status":"Production","icon":"file","tags":["adsense","prompts","seo","content","ai"],"type":"external","url":"https://adsense-prompt-gen.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","AdSense factor prompts","Custom site fields","One-click copy"]}]},{"id":"leadlaunch","name":"LeadLaunch","description":"Lead generation and launch platform. Capture, qualify, and manage leads with automated follow-ups and analytics.","category":"Automations","version":"1.0.0","status":"Production","icon":"zap","tags":["leads","generation","automation","crm","marketing"],"type":"external","url":"https://leadreader.pages.dev/","changelog":[{"version":"1.0.0","date":"2026-05-01","changes":["Initial release","Lead capture","Qualification pipeline","Analytics"]}]},{"id":"qr-ordering-system","name":"QR Ordering System","description":"Full restaurant QR menu and ordering system. Customers scan QR codes to view menus, customize orders, and pay online.","category":"Restaurant","version":"2.0.0","status":"Production","icon":"utensils","tags":["restaurant","qr-menu","ordering","food","payments"],"type":"external","url":"https://qr-ordering.example.com","changelog":[{"version":"2.0.0","date":"2026-04-20","changes":["Multi-language support","Order tracking","Kitchen display system"]},{"version":"1.0.0","date":"2026-01-10","changes":["Initial release","QR menu","Basic ordering"]}]},{"id":"reservation-system","name":"Reservation System","description":"Online table reservation system with real-time availability, waitlist management, and automated SMS/email confirmations.","category":"Restaurant","version":"1.1.0","status":"Beta","icon":"calendar","tags":["restaurant","reservations","booking","scheduling"],"type":"external","url":"https://reservations.example.com","changelog":[{"version":"1.1.0","date":"2026-04-05","changes":["Waitlist management","Email confirmations"]},{"version":"1.0.0","date":"2026-02-01","changes":["Initial beta release"]}]},{"id":"menu-builder","name":"Menu Builder","description":"Visual menu builder for restaurants. Drag and drop interface to create digital menus with photos, descriptions, and pricing.","category":"Restaurant","version":"1.0.0","status":"Production","icon":"file","tags":["restaurant","menu","digital-menu","builder"],"type":"internal","changelog":[{"version":"1.0.0","date":"2026-03-10","changes":["Initial release"]}]},{"id":"ci-cd-pipeline","name":"CI/CD Pipeline Dashboard","description":"Monitor and manage GitHub Actions, GitLab CI, and Jenkins pipelines from a single dashboard with real-time status updates.","category":"Development","version":"1.2.0","status":"Production","icon":"code","tags":["devops","ci-cd","github-actions","pipeline"],"type":"external","url":"https://ci-dashboard.example.com","changelog":[{"version":"1.2.0","date":"2026-04-10","changes":["Jenkins integration","Pipeline analytics"]},{"version":"1.0.0","date":"2026-01-20","changes":["Initial release"]}]},{"id":"api-tester","name":"API Tester","description":"Full-featured API testing client with request builder, response viewer, collections, environments, and automated testing.","category":"Development","version":"1.1.0","status":"Beta","icon":"globe","tags":["api","testing","rest","graphql","developer-tools"],"type":"external","url":"https://api-tester.example.com","changelog":[{"version":"1.1.0","date":"2026-04-15","changes":["GraphQL support","Environment variables"]},{"version":"1.0.0","date":"2026-02-10","changes":["Initial beta release"]}]},{"id":"code-snippet-manager","name":"Code Snippet Manager","description":"Organize and search your code snippets with syntax highlighting, tagging, and instant sharing via GitHub Gist integration.","category":"Development","version":"1.0.0","status":"Production","icon":"code","tags":["snippets","code","developer-tools","productivity"],"type":"internal","changelog":[{"version":"1.0.0","date":"2026-04-01","changes":["Initial release"]}]},{"id":"deployment-bot","name":"Deployment Bot","description":"Automated deployment bot that monitors GitHub branches and deploys to staging/production environments with rollback capabilities.","category":"Automations","version":"1.3.0","status":"Production","icon":"bot","tags":["automation","deployment","devops","github"],"type":"external","url":"https://deploy-bot.example.com","changelog":[{"version":"1.3.0","date":"2026-04-18","changes":["Slack notifications","Auto-rollback on failure"]},{"version":"1.0.0","date":"2026-01-05","changes":["Initial release"]}]},{"id":"social-scheduler","name":"Social Media Scheduler","description":"Schedule and publish content across Twitter, LinkedIn, and Instagram. Includes AI-powered content suggestions and analytics.","category":"Automations","version":"1.1.0","status":"Production","icon":"calendar","tags":["social-media","scheduler","automation","marketing"],"type":"external","url":"https://social-scheduler.example.com","changelog":[{"version":"1.1.0","date":"2026-03-25","changes":["AI content suggestions","Post analytics"]},{"version":"1.0.0","date":"2026-02-01","changes":["Initial release"]}]},{"id":"backup-automator","name":"Backup Automator","description":"Automated backup system for databases, files, and server configurations. Supports S3, Google Drive, and local storage destinations.","category":"Automations","version":"1.0.0","status":"Production","icon":"refresh","tags":["backup","automation","database","devops"],"type":"external","url":"https://backup-automator.example.com","changelog":[{"version":"1.0.0","date":"2026-04-05","changes":["Initial release"]}]},{"id":"old-project-alpha","name":"Project Alpha (Archived)","description":"Archived project - initial prototype of the automated trading system. No longer actively maintained.","category":"Archive","version":"0.5.0","status":"Archived","icon":"archive","tags":["archive","trading","prototype","legacy"],"type":"external","url":"","changelog":[{"version":"0.5.0","date":"2024-12-01","changes":["Final archived version"]}]}];
+// ====== DATA ======
+var TOOLS = [
+  {"id":"crypto-alert-bot","name":"Crypto Alert Bot","description":"Telegram bot that monitors cryptocurrency prices and sends real-time alerts based on custom price thresholds and technical indicators.","category":"Trading","version":"2.1.0","status":"Production","icon":"🪙","tags":["crypto","telegram","alerts","trading","automation"]},
+  {"id":"orb-scanner","name":"ORB Scanner","description":"Opening Range Breakout scanner for futures and forex markets. Identifies high-probability breakout setups in real-time.","category":"Trading","version":"1.3.0","status":"Production","icon":"🔍","tags":["trading","scanner","breakout","futures","forex"]},
+  {"id":"position-size-calculator","name":"Position Size Calculator","description":"Professional risk management tool that calculates optimal position sizes based on account balance, risk percentage, and stop loss distance.","category":"Trading","version":"1.2.0","status":"Production","icon":"🧮","tags":["trading","risk-management","calculator","forex","futures"]},
+  {"id":"trading-journal","name":"Trading Journal","description":"Comprehensive trade logging and performance analytics with visual equity curves, win-rate tracking, and trade replay.","category":"Trading","version":"1.0.0","status":"Production","icon":"📓","tags":["trading","journal","analytics","tracking"]},
+  {"id":"rag-playground","name":"RAG Playground","description":"Interactive playground for experimenting with Retrieval-Augmented Generation configurations. Test chunking strategies, embedding models, and retrieval parameters.","category":"AI","version":"2.0.0","status":"Production","icon":"🧠","tags":["rag","llm","embeddings","playground","ai"]},
+  {"id":"prompt-generator","name":"Prompt Generator","description":"AI-powered prompt engineering assistant that generates, optimizes, and tests prompts across multiple LLM providers.","category":"AI","version":"1.5.0","status":"Production","icon":"✨","tags":["prompts","llm","optimization","testing","ai"]},
+  {"id":"ai-chat-dashboard","name":"AI Chat Dashboard","description":"Multi-model chat interface with conversation branching, token tracking, and response comparison across GPT, Claude, and Gemini.","category":"AI","version":"2.0.0","status":"Production","icon":"💬","tags":["chat","llm","multi-model","dashboard","ai"]},
+  {"id":"image-gen-studio","name":"Image Gen Studio","description":"Unified interface for AI image generation supporting DALL-E, Stable Diffusion, and Midjourney with prompt management and gallery.","category":"AI","version":"1.3.0","status":"Production","icon":"🎨","tags":["image","generation","ai","gallery","prompts"]},
+  {"id":"knowledgos","name":"Knowledgos","description":"Knowledge base management system with vector search, document ingestion, and RAG-powered Q&A for enterprise knowledge bases.","category":"AI","version":"2.1.0","status":"Production","icon":"📚","tags":["knowledge-base","rag","search","document","ai"]},
+  {"id":"supportweave","name":"SupportWeave","description":"AI-powered customer support automation that integrates with helpdesk platforms, auto-responds to tickets, and surfaces knowledge base articles.","category":"AI","version":"1.2.0","status":"Production","icon":"🎫","tags":["support","customer-service","automation","ticketing","ai"]},
+  {"id":"leadlaunch","name":"LeadLaunch","description":"Automated lead generation and outreach system with email campaigns, LinkedIn automation, and CRM integration.","category":"AI","version":"1.0.0","status":"Production","icon":"🎯","tags":["leads","outreach","crm","email","automation"]},
+  {"id":"social-scheduler","name":"Social Scheduler","description":"Multi-platform content scheduling tool with AI-powered caption generation, optimal posting time analysis, and engagement tracking.","category":"AI","version":"1.0.0","status":"Beta","icon":"📅","tags":["social-media","scheduling","content","ai","analytics"]},
+  {"id":"url-to-markdown","name":"URL to Markdown","description":"Convert any web page to clean Markdown with automatic metadata extraction, code block preservation, and batch processing.","category":"Utilities","version":"2.0.0","status":"Production","icon":"🔗","tags":["markdown","converter","url","web","scraping"]},
+  {"id":"qr-generator","name":"QR Generator","description":"Create beautiful custom QR codes with logo overlays, color schemes, and multiple output formats including SVG and PNG.","category":"Utilities","version":"1.3.0","status":"Production","icon":"📱","tags":["qr","generator","design","svg","png"]},
+  {"id":"barcode-generator","name":"Barcode Generator","description":"Generate EAN-13, UPC-A, Code-128, QR codes, and DataMatrix barcodes with batch processing and label printing support.","category":"Utilities","version":"1.1.0","status":"Production","icon":"📊","tags":["barcode","generator","ean","upc","label"]},
+  {"id":"encode-decode","name":"Encode / Decode","description":"Universal encoding/decoding tool supporting Base64, URL encoding, HTML entities, JWT tokens, and hex/binary conversions.","category":"Utilities","version":"1.2.0","status":"Production","icon":"🔐","tags":["encoding","decoding","base64","jwt","hex"]},
+  {"id":"color-palette","name":"Color Palette Generator","description":"Generate harmonious color palettes from images, hex codes, or keywords. Export to CSS, Tailwind, SCSS, and Figma.","category":"Utilities","version":"1.1.0","status":"Production","icon":"🎨","tags":["color","palette","design","css","tailwind"]},
+  {"id":"text-utilities","name":"Text Utilities","description":"Collection of text processing tools including diff checker, regex tester, case converter, slug generator, and text statistics.","category":"Utilities","version":"1.0.0","status":"Production","icon":"📝","tags":["text","diff","regex","converter","utilities"]},
+  {"id":"markdown-editor","name":"Markdown Editor","description":"Full-featured markdown editor with live preview, GFM support, syntax highlighting, and export to HTML/PDF.","category":"Development","version":"2.0.0","status":"Production","icon":"📝","tags":["markdown","editor","preview","export","writing"]},
+  {"id":"json-formatter","name":"JSON Formatter","description":"JSON validation, formatting, minification, tree view, path queries, and schema generation from sample data.","category":"Development","version":"1.4.0","status":"Production","icon":"📋","tags":["json","formatter","validator","schema","development"]},
+  {"id":"regex-tester","name":"Regex Tester","description":"Real-time regular expression tester with match highlighting, replacement preview, and syntax reference for multiple flavors.","category":"Development","version":"1.2.0","status":"Production","icon":"🔤","tags":["regex","tester","development","debugging"]},
+  {"id":"html-playground","name":"HTML Playground","description":"Browser-based HTML/CSS/JS sandbox with live preview, console output, and shareable code snippets.","category":"Development","version":"1.3.0","status":"Production","icon":"🌐","tags":["html","css","javascript","sandbox","preview"]},
+  {"id":"diff-checker","name":"Diff Checker","description":"Side-by-side file comparison with line-level diff highlighting, character-level changes, and export to unified/context format.","category":"Development","version":"1.1.0","status":"Production","icon":"📑","tags":["diff","comparison","code-review","development"]},
+  {"id":"base64-tool","name":"Base64 Tool","description":"Encode and decode Base64 with support for images, files, and text. Includes data URI generation and batch processing.","category":"Development","version":"1.0.0","status":"Production","icon":"🔢","tags":["base64","encode","decode","images","development"]},
+  {"id":"vscode-shortcuts","name":"VS Code Shortcuts","description":"Interactive VS Code keyboard shortcuts reference with search, category filtering, and practice mode for muscle memory training.","category":"Development","version":"1.0.0","status":"Production","icon":"⌨️","tags":["vscode","shortcuts","keyboard","reference","productivity"]},
+  {"id":"cron-gen","name":"Cron Generator","description":"Visual cron expression builder with syntax explanation, next-run prediction, and presets for common schedules.","category":"Development","version":"1.0.0","status":"Beta","icon":"⏰","tags":["cron","scheduler","automation","development"]},
+  {"id":"api-status","name":"API Status Dashboard","description":"Real-time monitoring dashboard for API endpoints with uptime tracking, response time history, and webhook alerts on downtime.","category":"Development","version":"1.0.0","status":"Beta","icon":"📡","tags":["api","monitoring","uptime","dashboard","status"]},
+  {"id":"resume-builder","name":"Resume Builder","description":"ATS-friendly resume builder with multiple templates, AI-powered content suggestions, and export to PDF with proper formatting.","category":"Utilities","version":"1.0.0","status":"Beta","icon":"📄","tags":["resume","builder","ats","pdf","career"]},
+  {"id":"menu-manager","name":"Menu Manager","description":"Digital menu management system for restaurants with QR menu access, real-time updates, dietary filters, and multi-language support.","category":"Restaurant","version":"2.0.0","status":"Production","icon":"🍽️","tags":["restaurant","menu","qr","digital","ordering"]},
+  {"id":"order-flow","name":"OrderFlow","description":"Real-time order management system for restaurants with POS integration, kitchen display, and customer notification workflows.","category":"Restaurant","version":"1.2.0","status":"Production","icon":"📋","tags":["restaurant","orders","pos","kitchen","real-time"]},
+  {"id":"inventory-pro","name":"Inventory Pro","description":"Restaurant inventory management with stock tracking, supplier management, expiration alerts, and cost analytics.","category":"Restaurant","version":"1.1.0","status":"Production","icon":"📦","tags":["restaurant","inventory","stock","suppliers","analytics"]},
+  {"id":"analytics-dashboard","name":"Analytics Dashboard","description":"Cross-platform analytics aggregator combining GA4, Mixpanel, and custom event tracking into a unified dashboard with custom reports.","category":"Automations","version":"1.0.0","status":"Production","icon":"📈","tags":["analytics","dashboard","reporting","ga4","mixpanel"]},
+  {"id":"data-pipeline","name":"Data Pipeline","description":"Visual ETL pipeline builder with drag-and-drop transforms, scheduled runs, and connections to databases, APIs, and cloud storage.","category":"Automations","version":"1.0.0","status":"Beta","icon":"🔀","tags":["etl","pipeline","data","automation","integration"]},
+  {"id":"workflow-builder","name":"Workflow Builder","description":"Visual automation workflow builder with triggers, conditions, actions, and 50+ integrations across popular business tools.","category":"Automations","version":"1.0.0","status":"Beta","icon":"⚡","tags":["workflow","automation","triggers","integrations","no-code"]}
+];
 
-var ICONS = {
-  bitcoin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.29 4.26m5.908 1.042.348-1.97M7.48 20.364l3.126-17.727"/></svg>',
-  scan:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 012-2h2M3 17v2a2 2 0 002 2h2M17 3h2a2 2 0 012 2v2M17 21h2a2 2 0 002-2v-2"/></svg>',
-  calculator:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h8M8 18h4"/></svg>',
-  trending:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
-  brain:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 014 4v1a4 4 0 004 4 4 4 0 01-4 4v1a4 4 0 01-8 0v-1a4 4 0 01-4-4 4 4 0 014-4V6a4 4 0 014-4z"/><path d="M12 2v20M8 12h8"/></svg>',
-  sparkles:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"/><path d="M18 14l1 2.5L21 18l-2.5 1L18 21l-1-2.5L14 18l2.5-1z"/></svg>',
-  qr:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><path d="M3 14h7v7H3z"/></svg>',
-  code:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
-  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>',
-  palette:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5v-1c0-.9.5-1.5 1.5-1.5h2c2.5 0 4.5-2 4.5-4.5C20 6.5 16.5 2 12 2z"/></svg>',
-  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',
-  image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>',
-  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>',
-  book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>',
-  leaf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 019.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>',
-  git:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6v7a4 4 0 01-4 4h-4"/><polyline points="15 9 18 6 21 9"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/></svg>',
-  box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
-  file:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
-  zap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
-  refresh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>',
-  bot:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/></svg>',
-  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>',
-  utensils:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>',
-  calendar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-  archive:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="5" rx="1"/><path d="M4 8v11a2 2 0 002 2h12a2 2 0 002-2V8"/><path d="M10 12h4"/></svg>',
-  wrench:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>',
-  default:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>'
-};
+var RELS = { _count:33 };
+(function(){var r=RELS;r['crypto-alert-bot']={c:['orb-scanner','position-size-calculator','trading-journal'],a:['orb-scanner'],w:['position-size-calculator','trading-journal']};
+r['orb-scanner']={c:['crypto-alert-bot','position-size-calculator'],a:['crypto-alert-bot'],w:['crypto-alert-bot','position-size-calculator']};
+r['position-size-calculator']={c:['crypto-alert-bot','orb-scanner','trading-journal'],a:[],w:['crypto-alert-bot','orb-scanner','trading-journal']};
+r['trading-journal']={c:['crypto-alert-bot','position-size-calculator'],a:[],w:['crypto-alert-bot','orb-scanner']};
+r['rag-playground']={c:['knowledgos','prompt-generator'],a:['knowledgos'],w:['prompt-generator','knowledgos']};
+r['prompt-generator']={c:['rag-playground','ai-chat-dashboard'],a:['ai-chat-dashboard'],w:['rag-playground','ai-chat-dashboard']};
+r['ai-chat-dashboard']={c:['prompt-generator','knowledgos'],a:['prompt-generator'],w:['prompt-generator','knowledgos']};
+r['image-gen-studio']={c:['prompt-generator'],a:[],w:['prompt-generator']};
+r['knowledgos']={c:['rag-playground','supportweave','leadlaunch'],a:['rag-playground'],w:['rag-playground','supportweave']};
+r['supportweave']={c:['knowledgos','leadlaunch','social-scheduler'],a:[],w:['leadlaunch','knowledgos']};
+r['leadlaunch']={c:['knowledgos','supportweave'],a:[],w:['supportweave','knowledgos']};
+r['social-scheduler']={c:['supportweave'],a:[],w:['supportweave']};
+r['menu-manager']={c:['order-flow','inventory-pro'],a:[],w:['order-flow','inventory-pro']};
+r['order-flow']={c:['menu-manager','inventory-pro'],a:[],w:['menu-manager','inventory-pro']};
+r['inventory-pro']={c:['menu-manager','order-flow'],a:[],w:['menu-manager','order-flow']};
+r['analytics-dashboard']={c:['data-pipeline','workflow-builder'],a:[],w:['data-pipeline','workflow-builder']};
+r['data-pipeline']={c:['analytics-dashboard','workflow-builder'],a:['workflow-builder'],w:['analytics-dashboard','workflow-builder']};
+r['workflow-builder']={c:['analytics-dashboard','data-pipeline'],a:['data-pipeline'],w:['analytics-dashboard','data-pipeline']};
+})();
 
 var CAT_COLORS = {Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280'};
+var CATS = Object.keys(CAT_COLORS).filter(function(k){return TOOLS.some(function(t){return t.category===k})});
+function catColor(c){return CAT_COLORS[c]||'#6366f1'}
+function toolById(id){return TOOLS.find(function(t){return t.id===id})}
 
-function getIcon(name) { return ICONS[name] || ICONS.default; }
-function getColor(cat) { return CAT_COLORS[cat] || '#6366f1'; }
-function fmtNum(n) { if(n>=1000000)return (n/1000000).toFixed(1)+'M'; if(n>=1000)return (n/1000).toFixed(0)+'K'; return n; }
+// ====== HERO CANVAS ======
+(function(){
+  var c = document.getElementById('heroCanvas');
+  var ctx = c.getContext('2d');
+  var W,H;
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  var nodes=[];
+  var cidx=['#6366f1','#8b5cf6','#22c55e','#06b6d4','#f59e0b','#f97316','#3b82f6'];
+  for(var i=0;i<35;i++){nodes.push({x:Math.random()*W,y:Math.random()*H,r:2+Math.random()*4,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,col:cidx[i%cidx.length],pulse:Math.random()*Math.PI*2})}
+  var mx=-1,my=-1;
+  document.querySelector('.hero').addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY});
+  document.querySelector('.hero').addEventListener('mouseleave',function(){mx=-1;my=-1});
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i];
+      n.x+=n.vx;n.y+=n.vy;n.pulse+=.02;
+      if(mx>0&&my>0){var dx=n.x-mx,dy=n.y-my,dist=Math.sqrt(dx*dx+dy*dy);if(dist<200&&dist>0){var f=20/(dist+1);n.x+=dx/dist*f;n.y+=dy/dist*f}}
+      if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;
+      var rad=n.r+Math.sin(n.pulse)*1.5;
+      ctx.beginPath();ctx.arc(n.x,n.y,rad,0,Math.PI*2);
+      ctx.fillStyle=n.col;ctx.globalAlpha=.4+Math.sin(n.pulse)*.2;ctx.fill();
+    }
+    for(var i=0;i<nodes.length;i++){
+      for(var j=i+1;j<nodes.length;j++){
+        var a=nodes[i],b=nodes[j];
+        var dx=a.x-b.x,dy=a.y-b.y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<180){
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle='rgba(99,102,241,'+((1-dist/180)*.12)+')';ctx.lineWidth=.5;ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
-// Hero stats
+// ====== HERO STATS ======
 document.getElementById('heroStats').innerHTML = [
-  [tools.length+'+','Tools'],
-  [new Set(tools.map(t=>t.category)).size+'','Categories'],
-  [tools.filter(t=>t.status==='Production').length+'','Production'],
-  ['99.9%','Uptime']
-].map(([v,l])=>'<div class="stat-item"><div class="stat-val">'+v+'</div><div class="stat-label">'+l+'</div></div>').join('');
+  [TOOLS.length,'Tools'],
+  [CATS.length,'Categories'],
+  [TOOLS.filter(function(t){return t.status==='Production'}).length,'Production'],
+  [TOOLS.filter(function(t){return t.status==='Beta'}).length,'In Beta'],
+  ['v3.0','Latest']
+].map(function(v){return '<div class="stat-item"><div class="stat-val" style="color:var(--accent)">'+v[0]+'</div><div class="stat-label">'+v[1]+'</div></div>'}).join('');
 
-// Ticker
-var names = tools.map(t=>t.name);
-document.getElementById('ticker').innerHTML = names.concat(names).map(n=>
-  '<div class="cv-item">'+n+'</div>'
-).join('');
-
-// Category Grid
-var catData = [
-  {key:'AI',label:'AI / LLM',icon:'brain',color:'#8b5cf6',desc:'Language models, prompts, and intelligent automation',span:false},
-  {key:'Trading',label:'Trading',icon:'trending',color:'#f59e0b',desc:'Signals, scanners, and market analysis tools',span:false},
-  {key:'Development',label:'Development',icon:'code',color:'#3b82f6',desc:'Debugging, code tools and dev utilities',span:false},
-  {key:'Automations',label:'Automations',icon:'bot',color:'#06b6d4',desc:'Workflows, bots, and scheduled pipelines',span:true},
-  {key:'Utilities',label:'Utilities',icon:'wrench',color:'#22c55e',desc:'Everyday productivity and conversion tools',span:false},
-  {key:'Restaurant',label:'Restaurant',icon:'utensils',color:'#f97316',desc:'Menu, orders, and kitchen management',span:false},
-  {key:'Archive',label:'Archive',icon:'archive',color:'#6b7280',desc:'Legacy and reference tools',span:false}
+// ====== STACK BUILDER ======
+var PRESETS = [
+  {name:'AI Chat Application',desc:'LLM-powered conversational app',icon:'💬',keywords:['chat','ai','llm','conversation','bot','assistant','customer support']},
+  {name:'Trading Dashboard',desc:'Real-time market analysis platform',icon:'📈',keywords:['trading','market','crypto','stocks','forex','analysis','scanner']},
+  {name:'Automation Pipeline',desc:'Scheduled data processing workflows',icon:'⚡',keywords:['automation','pipeline','workflow','etl','data','schedule','integration']},
+  {name:'Full-Stack Web App',desc:'Modern web application with APIs',icon:'🌐',keywords:['web','app','full-stack','frontend','backend','api','development']},
+  {name:'Restaurant System',desc:'Complete restaurant management',icon:'🍽️',keywords:['restaurant','menu','orders','inventory','management','pos','kitchen']},
+  {name:'Developer Toolkit',desc:'Essential utilities for coders',icon:'🛠️',keywords:['developer','code','debug','tool','utility','testing','deploy']}
 ];
-var counts = tools.reduce(function(a,t){a[t.category]=(a[t.category]||0)+1;return a},{});
-var catGrid = document.getElementById('catGrid');
-catData.forEach(function(cat){
-  var count = counts[cat.key]||0;
-  var div = document.createElement('div');
-  if(cat.span) div.style.gridColumn='span 2';
-  div.innerHTML = '<a href="#" class="cat-card" style="background:'+cat.color+'14;border:1px solid '+cat.color+'22">'+
-    '<div class="cat-card-header">'+
-      '<div class="cat-card-icon" style="background:'+cat.color+'18">'+getIcon(cat.icon)+'</div>'+
-      '<span class="cat-card-count" style="background:'+cat.color+'15;color:'+cat.color+'">'+count+'</span>'+
-    '</div>'+
-    '<div style="margin-top:auto">'+
-      '<div class="cat-card-title" style="color:var(--os-text)">'+cat.label+'</div>'+
-      '<div class="cat-card-desc">'+cat.desc+'</div>'+
-    '</div>'+
-    '<div class="cat-card-more" style="color:'+cat.color+'">Explore <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>'+
-  '</a>';
-  catGrid.appendChild(div);
-});
-
-// Stats
-var statsData = [
-  {val:250000,suffix:'+',label:'Tasks Processed',color:'#6366f1'},
-  {val:45,suffix:'+',label:'Tools Available',color:'#8b5cf6'},
-  {val:99.9,suffix:'%',label:'Uptime SLA',color:'#06b6d4'},
-  {val:1200000,suffix:'+',label:'Executions',color:'#22c55e'}
-];
-document.getElementById('statsGrid').innerHTML = statsData.map(function(s){
-  return '<div class="stats-cell"><div class="stats-cell-num" style="color:'+s.color+'">'+fmtNum(s.val)+s.suffix+'</div><div class="stats-cell-label">'+s.label+'</div></div>';
+var presetGrid = document.getElementById('presetGrid');
+presetGrid.innerHTML = PRESETS.map(function(p,i){
+  return '<button class="preset-btn" onclick="selectPreset('+i+')">'+
+    '<div class="preset-btn-icon" style="background:'+catColor('AI')+'15">'+p.icon+'</div>'+
+    '<div class="preset-btn-text"><div class="preset-btn-name">'+p.name+'</div><div class="preset-btn-desc">'+p.desc+'</div></div>'+
+  '</button>';
 }).join('');
+function selectPreset(i){
+  document.querySelectorAll('.preset-btn').forEach(function(b,j){b.className='preset-btn'+(j===i?' active':'')});
+  var p=PRESETS[i];
+  document.getElementById('stackQuery').value=p.name;
+  generateStackFor(p.keywords);
+}
+function generateStack(){
+  var q=document.getElementById('stackQuery').value.trim();
+  if(!q)return;
+  var words=q.toLowerCase().split(/\s+/);
+  generateStackFor(words);
+}
+function generateStackFor(keywords){
+  if(!Array.isArray(keywords))keywords=[keywords];
+  var kwl=keywords.map(function(k){return k.toLowerCase()});
+  var scored=TOOLS.map(function(t){
+    var score=0;
+    var text=(t.name+' '+t.description+' '+t.category+' '+(t.tags||[]).join(' ')).toLowerCase();
+    kwl.forEach(function(kw){
+      if(text.indexOf(kw)>=0)score+=1;
+      if(t.name.toLowerCase().indexOf(kw)>=0)score+=3;
+      if((t.tags||[]).some(function(tg){return tg.toLowerCase().indexOf(kw)>=0}))score+=2;
+    });
+    if(t.status==='Production')score+=.5;
+    return {tool:t,score:score};
+  }).filter(function(s){return s.score>0}).sort(function(a,b){return b.score-a.score}).slice(0,6);
+  var result=document.getElementById('stackResult');
+  if(scored.length===0){
+    result.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:160px;color:var(--text3);text-align:center;gap:8px"><span style="font-size:32px">🔍</span><span style="font-size:14px">No matching tools found. Try different keywords.</span></div>';
+    return;
+  }
+  var topTool=scored[0].tool;
+  var rels=RELS[topTool.id];
+  var related=[];
+  if(rels&&rels.c){rels.c.forEach(function(id){var t=toolById(id);if(t&&!related.some(function(r){return r.id===id}))related.push(t)})}
+  if(rels&&rels.w){rels.w.forEach(function(id){var t=toolById(id);if(t&&!related.some(function(r){return r.id===id}))related.push(t)})}
+  if(related.length>3)related=related.slice(0,3);
+  var allRecs=scored.slice(0,4).map(function(s){return s.tool});
+  var merged=allRecs.slice();
+  related.forEach(function(t){if(!merged.some(function(m){return m.id===t.id}))merged.push(t)});
+  if(merged.length>6)merged=merged.slice(0,6);
+  result.innerHTML='<div class="stack-result-title">Recommended Stack <span style="font-size:12px;font-weight:400;color:var(--text3)">('+merged.length+' tools)</span></div>'+
+    '<div class="stack-tools">'+merged.map(function(t){
+      var c=catColor(t.category);
+      var reason='';
+      if(scored.some(function(s){return s.tool.id===t.id}))reason='Matches your requirements';
+      else if(rels&&rels.c&&rels.c.indexOf(t.id)>=0)reason='Complements '+topTool.name;
+      else if(rels&&rels.w&&rels.w.indexOf(t.id)>=0)reason='Works in the same pipeline';
+      else reason='Recommended for this stack';
+      return '<div class="stack-tool-item"><div class="stack-tool-icon" style="background:'+c+'18">'+t.icon+'</div>'+
+        '<div style="flex:1"><div class="stack-tool-name">'+t.name+'</div><div class="stack-tool-reason">'+reason+'</div></div>'+
+        '<span class="badge '+(t.status==='Production'?'badge-prod':'badge-beta')+'">'+(t.status==='Production'?'v'+t.version:'Beta')+'</span></div>';
+    }).join('')+'</div>'+
+    '<div class="stack-why">💡 <strong>Why this stack:</strong> These tools are selected based on relevance to your project description, tool relationships (complements and workflow connections), and production readiness.</div>';
+}
+// Load default preset
+setTimeout(function(){selectPreset(0)},500);
 
-// Featured
-var featured = tools.filter(function(t){return t.status==='Production'}).slice(0,6);
-var featGrid = document.getElementById('featuredGrid');
-featGrid.innerHTML = 
-'<div class="featured-list" id="featList"></div>'+
-'<div class="featured-detail" id="featDetail"></div>';
-var featList = document.getElementById('featList');
-var featDetail = document.getElementById('featDetail');
-var activeIdx = 0;
-
-function renderFeatured(idx){
-  featList.innerHTML = featured.map(function(t,i){
-    var c = getColor(t.category);
-    var active = i===idx;
-    return '<button class="featured-item'+(active?' active':'')+'" onclick="selectFeat('+i+')" style="'+(active?'background:'+c+'12;border-color:'+c+'40':'')+'">'+
-      '<div class="featured-item-icon" style="background:'+c+'18">'+getIcon(t.icon)+'</div>'+
-      '<div class="featured-item-text"><div class="featured-item-name">'+t.name+'</div><div class="featured-item-cat">'+t.category+'</div></div>'+
-      (active?'<div class="featured-item-dot" style="background:'+c+'"></div>':'')+
-    '</button>';
-  }).join('');
-  var t = featured[idx];
-  if(!t) return;
-  var c = getColor(t.category);
-  featDetail.innerHTML = ''+
-    '<div class="featured-detail-header" style="background:radial-gradient(ellipse at 50% 0%,'+c+'22 0%,transparent 70%),var(--os-card2)">'+
-      '<div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.04) 1px,transparent 1px);background-size:64px 64px;opacity:.3"></div>'+
-      '<div class="featured-detail-icon" style="background:'+c+'20;border:1px solid '+c+'35;box-shadow:0 8px 32px '+c+'25;width:80px;height:80px">'+getIcon(t.icon)+'</div>'+
-      '<div style="position:absolute;bottom:16px"><span class="'+(t.status==='Production'?'badge-prod':t.status==='Beta'?'badge-beta':'badge-alpha')+'">'+t.status+' · v'+t.version+'</span></div>'+
-    '</div>'+
-    '<div class="featured-detail-body">'+
-      '<div class="featured-detail-name" style="color:var(--os-text)">'+t.name+'</div>'+
-      '<div class="featured-detail-desc">'+t.description+'</div>'+
-      '<div class="featured-detail-tags">'+(t.tags||[]).slice(0,4).map(function(tag){
-        return '<span class="featured-detail-tag">'+tag+'</span>';
-      }).join('')+'</div>'+
-      '<div class="featured-detail-actions">'+
-        '<button class="featured-detail-btn" style="background:linear-gradient(135deg,'+c+','+c+'bb)">Launch Tool</button>'+
-        '<button class="featured-detail-btn2">Details</button>'+
-      '</div>'+
+// ====== SMART SEARCH ======
+function handleSearch(q){
+  var results=document.getElementById('searchResults');
+  if(!q||q.trim().length<1){results.classList.remove('show');return}
+  var term=q.toLowerCase().trim();
+  var words=term.split(/\s+/);
+  var aliases={ai:['llm','machine learning','neural','gpt','claude','gemini'],crypto:['bitcoin','ethereum','blockchain','coin','token'],trading:['stock','forex','market','scanner','signal'],chat:['conversation','bot','messaging'],image:['picture','photo','generate','dalle','midjourney'],code:['development','programming','software','dev'],cron:['schedule','scheduler','time'],restaurant:['food','menu','kitchen','dining'],barcode:['qr','upc','ean'],utility:['tool','helper','converter'],support:['ticket','helpdesk','customer service'],analytics:['dashboard','report','chart','metrics']};
+  var scored=TOOLS.map(function(t){
+    var score=0;var text=(t.name+' '+t.description+' '+t.category+' '+(t.tags||[]).join(' ')).toLowerCase();
+    words.forEach(function(w){
+      if(text.indexOf(w)>=0)score+=1;
+      if(t.name.toLowerCase().indexOf(w)>=0)score+=4;
+      if((t.tags||[]).some(function(tg){return tg.toLowerCase().indexOf(w)>=0}))score+=2;
+      if(t.category.toLowerCase().indexOf(w)>=0)score+=3;
+      Object.keys(aliases).forEach(function(k){if(aliases[k].indexOf(w)>=0&&text.indexOf(k)>=0)score+=1.5});
+    });
+    return {tool:t,score:score};
+  }).filter(function(s){return s.score>0}).sort(function(a,b){return b.score-a.score}).slice(0,6);
+  if(scored.length===0){
+    results.innerHTML='<div style="padding:24px;text-align:center;color:var(--text3);font-size:14px">No results for "'+q+'"</div>';
+    results.classList.add('show');return;
+  }
+  results.innerHTML=scored.map(function(s,i){
+    var t=s.tool,c=catColor(t.category);
+    return '<div class="search-result-item" onclick="searchSelect(\''+t.id+'\')" '+(i===0?'id="searchFirst"':'')+'>'+
+      '<div class="search-result-icon" style="background:'+c+'18">'+t.icon+'</div>'+
+      '<div class="search-result-text"><div class="search-result-name">'+t.name+'</div><div class="search-result-cat" style="color:'+c+'">'+t.category+'</div></div>'+
+      '<div class="search-result-score">'+(s.score*10).toFixed(0)+'% match</div>'+
     '</div>';
+  }).join('');
+  results.classList.add('show');
 }
-function selectFeat(i){activeIdx=i;renderFeatured(i);}
-renderFeatured(0);
-
-// Workflow
-var steps = [
-  {id:'input',icon:'zap',label:'User Query',desc:'Input enters the system',color:'#6366f1'},
-  {id:'ai',icon:'brain',label:'AI Processing',desc:'LLM classifies and routes intelligently',color:'#8b5cf6'},
-  {id:'automation',icon:'bot',label:'Automation',desc:'Workflows trigger and execute in parallel',color:'#06b6d4'},
-  {id:'output',icon:'sparkles',label:'Output Delivered',desc:'Result returned with full audit trail',color:'#22c55e'}
-];
-var wfRow = document.getElementById('workflowRow');
-wfRow.innerHTML = steps.map(function(s,i){
-  return '<div style="display:flex;flex-direction:column;align-items:center">'+
-    '<div class="workflow-step" id="wfStep'+i+'">'+
-      '<div class="workflow-step-icon" style="background:'+s.color+'18">'+getIcon(s.icon)+'</div>'+
-      '<div class="workflow-step-title">'+s.label+'</div>'+
-      '<div class="workflow-step-desc">'+s.desc+'</div>'+
-      '<div class="workflow-step-id" style="color:'+s.color+'80">0'+(i+1)+'</div>'+
-    '</div>'+
-    (i<steps.length-1?'<div class="workflow-connector" id="wfConn'+i+'" style="opacity:.2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="'+steps[i].color+'" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>':'')+
-  '</div>';
-}).join('');
-var wfActive = 0;
-setInterval(function(){
-  document.querySelectorAll('.workflow-step').forEach(function(el,i){
-    var s = steps[i];
-    el.className='workflow-step'+(i===wfActive?' active':'');
-    el.style.background=i===wfActive?s.color+'12':'';
-    el.style.borderColor=i===wfActive?s.color+'50':'';
-  });
-  document.querySelectorAll('.workflow-connector').forEach(function(el,i){
-    el.style.opacity=i<wfActive?'1':'.2';
-  });
-  wfActive = (wfActive+1)%steps.length;
-},1800);
-
-// Recent Updates
-var recent = [].concat(tools).sort(function(a,b){
-  var da = a.changelog&&a.changelog[0]?a.changelog[0].date:'';
-  var db = b.changelog&&b.changelog[0]?b.changelog[0].date:'';
-  return db.localeCompare(da);
-}).slice(0,6);
-document.getElementById('recentGrid').innerHTML = recent.map(function(t){
-  var c = getColor(t.category);
-  var change = t.changelog&&t.changelog[0];
-  return '<a href="#" class="recent-card">'+
-    '<div class="recent-icon" style="background:'+c+'18">'+getIcon(t.icon)+'</div>'+
-    '<div class="recent-content">'+
-      '<div class="recent-header"><span class="recent-name">'+t.name+'</span><span class="recent-ver" style="background:'+c+'15;color:'+c+'">v'+(change?change.version:t.version)+'</span></div>'+
-      '<div class="recent-desc">'+(change&&change.changes?change.changes[0]:t.description)+'</div>'+
-      (change&&change.date?'<div class="recent-date">Updated '+change.date+'</div>':'')+
-    '</div>'+
-  '</a>';
-}).join('');
-
-// All Tools Grid
-function isNew(tool){
-  if(!tool.changelog||!tool.changelog[0]||!tool.changelog[0].date) return false;
-  return (Date.now()-new Date(tool.changelog[0].date).getTime()) < 30*24*60*60*1000;
+function handleSearchKey(e){
+  var r=document.getElementById('searchResults');
+  if(!r.classList.contains('show'))return;
+  var items=r.querySelectorAll('.search-result-item');
+  var idx=Array.prototype.indexOf.call(items,r.querySelector('.active'));
+  if(e.key==='ArrowDown'){e.preventDefault();idx=Math.min(idx+1,items.length-1)}else if(e.key==='ArrowUp'){e.preventDefault();idx=Math.max(idx-1,0)}else if(e.key==='Enter'){e.preventDefault();if(items[idx])items[idx].click();return}else return;
+  items.forEach(function(el,i){el.className='search-result-item'+(i===idx?' active':'')});
+  if(idx===0&&document.getElementById('searchFirst'))document.getElementById('searchFirst').scrollIntoView({block:'nearest'});
 }
-document.getElementById('toolGrid').innerHTML = tools.map(function(t,i){
-  var c = getColor(t.category);
-  var n = isNew(t);
-  return '<a href="#" class="tool-card" onmouseenter="this.style.borderColor=\''+c+'40\';this.style.boxShadow=\'0 16px 48px '+c+'15\'" onmouseleave="this.style.borderColor=\'rgba(255,255,255,0.06)\';this.style.boxShadow=\'none\'">'+
+function searchSelect(id){document.getElementById('searchResults').classList.remove('show');document.getElementById('searchInput').value=toolById(id).name}
+document.addEventListener('click',function(e){if(!e.target.closest('.search-demo'))document.getElementById('searchResults').classList.remove('show')});
+
+// ====== CONSTELLATION ======
+(function(){
+  var wrap=document.querySelector('.constellation-wrap');
+  var container=document.getElementById('constellation');
+  var W=container.clientWidth||800,H=container.clientHeight||500;
+  var svgNS='http://www.w3.org/2000/svg';
+  var svg=document.createElementNS(svgNS,'svg');
+  svg.setAttribute('width','100%');svg.setAttribute('height','100%');
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  container.appendChild(svg);
+  var defs=document.createElementNS(svgNS,'defs');
+  defs.innerHTML='<filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  svg.appendChild(defs);
+  var g=document.createElementNS(svgNS,'g');
+  svg.appendChild(g);
+  var nodes=[],links=[];
+  TOOLS.forEach(function(t,i){
+    var angle=(i/TOOLS.length)*Math.PI*2;
+    var radius=150+Math.sin(i*2.7)*60+Math.cos(i*1.3)*50;
+    nodes.push({id:t.id,name:t.name,icon:t.icon,cat:t.category,x:W/2+Math.cos(angle)*radius,y:H/2+Math.sin(angle)*radius,r:8+Math.random()*4,fx:null,fy:null});
+  });
+  var linkSet={};
+  Object.keys(RELS).forEach(function(id){
+    if(id==='_count')return;
+    var r=RELS[id];
+    if(r.c)r.c.forEach(function(tid){var k=[id,tid].sort().join('|');if(!linkSet[k]){linkSet[k]=true;links.push({source:id,target:tid,type:'complement'})}});
+    if(r.w)r.w.forEach(function(tid){var k=[id,tid].sort().join('|');if(!linkSet[k]){linkSet[k]=true;links.push({source:id,target:tid,type:'workflow'})}});
+    if(r.a)r.a.forEach(function(tid){var k=[id,tid].sort().join('|');if(!linkSet[k]){linkSet[k]=true;links.push({source:id,target:tid,type:'alternative'})}});
+  });
+  function getNode(id){return nodes.find(function(n){return n.id===id})}
+  var linkEls=links.map(function(l){
+    var s=getNode(l.source),t=getNode(l.target);if(!s||!t)return null;
+    var el=document.createElementNS(svgNS,'line');
+    el.setAttribute('x1',s.x);el.setAttribute('y1',s.y);el.setAttribute('x2',t.x);el.setAttribute('y2',t.y);
+    var alpha=l.type==='complement'?'.2':l.type==='workflow'?'.35':'.1';
+    el.setAttribute('stroke','rgba(99,102,241,'+alpha+')');el.setAttribute('stroke-width',l.type==='workflow'?'1.5':'.8');
+    if(l.type==='workflow')el.setAttribute('stroke-dasharray','4,3');
+    g.appendChild(el);return el;
+  });
+  var nodeEls=nodes.map(function(n){
+    var grp=document.createElementNS(svgNS,'g');
+    grp.setAttribute('transform','translate('+n.x+','+n.y+')');
+    grp.style.cursor='pointer';
+    var circle=document.createElementNS(svgNS,'circle');
+    circle.setAttribute('r',n.r);circle.setAttribute('fill',catColor(n.cat));circle.setAttribute('opacity','.6');
+    circle.setAttribute('filter','url(#glow)');
+    grp.appendChild(circle);
+    var text=document.createElementNS(svgNS,'text');
+    text.setAttribute('x','0');text.setAttribute('y',n.r+14);
+    text.setAttribute('text-anchor','middle');text.setAttribute('fill','#94a3b8');
+    text.setAttribute('font-size','9');text.setAttribute('font-family','JetBrains Mono,monospace');
+    text.textContent=n.name.length>12?n.name.slice(0,12)+'…':n.name;
+    grp.appendChild(text);
+    grp.addEventListener('click',function(){var t=toolById(n.id);if(t)alert(t.name+': '+t.description)});
+    grp.addEventListener('mouseenter',function(){circle.setAttribute('opacity','1');circle.setAttribute('r',n.r+3)});
+    grp.addEventListener('mouseleave',function(){circle.setAttribute('opacity','.6');circle.setAttribute('r',n.r)});
+    g.appendChild(grp);
+    return {el:grp,circle:circle,data:n};
+  });
+  // simple force simulation
+  var simTimer=setInterval(function(){
+    var changed=false;
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i];if(n.fx!==null)continue;
+      var fx=0,fy=0;
+      for(var j=0;j<nodes.length;j++){if(i===j)continue;var o=nodes[j];var dx=n.x-o.x,dy=n.y-o.y;var dist=Math.sqrt(dx*dx+dy*dy)||1;var force=300/(dist*dist);fx+=dx/dist*force*(dist<250?-1:1);fy+=dy/dist*force*(dist<250?-1:1)}
+      links.forEach(function(l){
+        var a=getNode(l.source),b=getNode(l.target);
+        if(!a||!b)return;
+        var dx=b.x-a.x,dy=b.y-a.y,dist=Math.sqrt(dx*dx+dy*dy)||1;
+        var targetDist=l.type==='alternative'?200:100;
+        var force=(dist-targetDist)*.001;
+        if(a===n){fx+=dx/dist*force;fy+=dy/dist*force}
+        if(b===n){fx-=dx/dist*force;fy-=dy/dist*force}
+      });
+      // center gravity
+      fx+=(W/2-n.x)*.001;fy+=(H/2-n.y)*.001;
+      n.vx=(n.vx||0)*.85+fx;n.vy=(n.vy||0)*.85+fy;
+      n.x+=n.vx;n.y+=n.vy;
+      if(Math.abs(n.vx)>.1||Math.abs(n.vy)>.1)changed=true;
+    }
+    if(!changed){clearInterval(simTimer);return}
+    // update positions
+    linkEls.forEach(function(el,i){if(!el)return;var l=links[i];var s=getNode(l.source),t=getNode(l.target);if(s&&t){el.setAttribute('x1',s.x);el.setAttribute('y1',s.y);el.setAttribute('x2',t.x);el.setAttribute('y2',t.y)}});
+    nodeEls.forEach(function(ne){ne.el.setAttribute('transform','translate('+ne.data.x+','+ne.data.y+')')});
+  },30);
+  // zoom
+  var scale=1,tx=0,ty=0;
+  svg.addEventListener('wheel',function(e){
+    e.preventDefault();var rect=container.getBoundingClientRect();var mx=e.clientX-rect.left,my=e.clientY-rect.top;
+    var dz=e.deltaY>0?.9:1.1;var ns=scale*dz;if(ns<.3||ns>3)return;
+    tx=mx-(mx-tx)/scale*ns;ty=my-(my-ty)/scale*ns;scale=ns;
+    g.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')');
+  },{passive:false});
+  var dragging=false,startX,startY,startTX,startTY;
+  svg.addEventListener('mousedown',function(e){if(e.target===svg||e.target===g){dragging=true;startX=e.clientX;startY=e.clientY;startTX=tx;startTY=ty}});
+  window.addEventListener('mousemove',function(e){if(!dragging)return;tx=startTX+(e.clientX-startX);ty=startTY+(e.clientY-startY);g.setAttribute('transform','translate('+tx+','+ty+') scale('+scale+')')});
+  window.addEventListener('mouseup',function(){dragging=false});
+  // legend
+  var legend=document.getElementById('legend');
+  var catMap={};CATS.forEach(function(c){catMap[c]=true});
+  legend.innerHTML=CATS.map(function(c){return '<div class="legend-item"><div class="legend-dot" style="background:'+catColor(c)+'"></div>'+c+'</div>'}).join('');
+})();
+
+// ====== ANALYTICS ======
+(function(){
+  var catCounts={};TOOLS.forEach(function(t){catCounts[t.category]=(catCounts[t.category]||0)+1});
+  var statusCounts={};TOOLS.forEach(function(t){statusCounts[t.status]=(statusCounts[t.status]||0)+1});
+  var statsData=[
+    {label:'Total Tools',val:TOOLS.length,color:'#6366f1'},
+    {label:'Categories',val:CATS.length,color:'#8b5cf6'},
+    {label:'Production',val:statusCounts['Production']||0,color:'#22c55e'},
+    {label:'In Beta',val:statusCounts['Beta']||0,color:'#f59e0b'}
+  ];
+  document.getElementById('anaStats').innerHTML=statsData.map(function(s){
+    return '<div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:20px;text-align:center"><div style="font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:clamp(24px,3vw,40px);color:'+s.color+'">'+s.val+'</div><div style="font-size:12px;font-family:JetBrains Mono,monospace;color:var(--text3);margin-top:4px">'+s.label+'</div></div>';
+  }).join('');
+  // Pie chart
+  var pieEl=document.getElementById('anaPie');
+  pieEl.innerHTML='<div style="font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:16px;margin-bottom:16px">Category Distribution</div><canvas id="pieCanvas" width="200" height="200"></canvas><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center" id="pieLabels"></div>';
+  var pCanvas=document.getElementById('pieCanvas');
+  var pCtx=pCanvas.getContext('2d');
+  var pieData= CATS.map(function(c){return {cat:c,count:catCounts[c]||0,color:catColor(c)}});
+  var total=pieData.reduce(function(s,d){return s+d.count},0);
+  var startAngle=-Math.PI/2;
+  pieData.forEach(function(d){
+    if(d.count===0)return;
+    var angle=(d.count/total)*Math.PI*2;
+    pCtx.beginPath();pCtx.moveTo(100,100);
+    pCtx.arc(100,100,90,startAngle,startAngle+angle);
+    pCtx.fillStyle=d.color+'cc';pCtx.fill();
+    startAngle+=angle;
+  });
+  document.getElementById('pieLabels').innerHTML=pieData.map(function(d){
+    return '<div style="display:flex;align-items:center;gap:4px;font-size:10px;font-family:JetBrains Mono,monospace;color:var(--text3)"><div style="width:8px;height:8px;border-radius:2px;background:'+d.color+'"></div>'+d.cat+' ('+d.count+')</div>';
+  }).join('');
+  // Bar chart
+  var barEl=document.getElementById('anaBar');
+  barEl.innerHTML='<div style="font-family:Cabinet Grotesk,sans-serif;font-weight:700;font-size:16px;margin-bottom:16px">Status Breakdown</div><canvas id="barCanvas" width="300" height="200"></canvas>';
+  var bCanvas=document.getElementById('barCanvas');
+  var bCtx=bCanvas.getContext('2d');
+  var barData=[{label:'Production',val:statusCounts['Production']||0,color:'#22c55e'},{label:'Beta',val:statusCounts['Beta']||0,color:'#f59e0b'}];
+  var maxVal=Math.max(barData[0].val,barData[1].val,1);
+  var bw=60,gap=40;
+  barData.forEach(function(d,i){
+    var x=i*(bw+gap)+25,y=180-(d.val/maxVal)*160;
+    bCtx.fillStyle=d.color+'cc';
+    bCtx.fillRect(x,y,bw,180-y);
+    bCtx.fillStyle=d.color;bCtx.font='10px JetBrains Mono';bCtx.textAlign='center';
+    bCtx.fillText(d.label,x+bw/2,195);
+    bCtx.fillStyle='#94a3b8';bCtx.font='bold 14px JetBrains Mono';
+    bCtx.fillText(d.val,x+bw/2,y-6);
+  });
+})();
+
+// ====== TOOLS GRID ======
+document.getElementById('toolCount').textContent=TOOLS.length+' tools across '+CATS.length+' categories';
+document.getElementById('toolGrid').innerHTML=TOOLS.map(function(t,i){
+  var c=catColor(t.category);
+  var isNew=t.changelog&&t.changelog[0]&&t.changelog[0].date&&(Date.now()-new Date(t.changelog[0].date).getTime())<30*24*60*60*1000;
+  return '<a href="#" class="tool-card" onclick="event.preventDefault()">'+
     '<div class="tool-accent" style="background:linear-gradient(90deg,'+c+'80,'+c+'20,transparent)"></div>'+
     '<div class="tool-body">'+
       '<div class="tool-header">'+
-        '<div class="tool-icon-text">'+
-          '<div class="tool-icon-box" style="background:'+c+'18">'+getIcon(t.icon).replace(/stroke="currentColor"/g,'style="color:'+c+'"')+'</div>'+
-          '<div><div class="tool-name-row"><span class="tool-name">'+t.name+'</span>'+(n?'<span class="tool-new-badge" style="background:'+c+'25;color:'+c+'">NEW</span>':'')+'</div><div class="tool-category" style="color:'+c+'99">'+t.category+'</div></div>'+
-        '</div>'+
+        '<div class="tool-icon-text"><div class="tool-icon-box" style="background:'+c+'18">'+t.icon+'</div>'+
+        '<div><div class="tool-name-row"><span class="tool-name">'+t.name+'</span>'+(isNew?'<span class="tool-new-badge" style="background:'+c+'25;color:'+c+'">NEW</span>':'')+'</div><div class="tool-category" style="color:'+c+'99">'+t.category+'</div></div></div>'+
       '</div>'+
       '<div class="tool-desc">'+t.description+'</div>'+
-      '<div class="tool-tags">'+(t.tags||[]).slice(0,3).map(function(tag){
-        return '<span class="tool-tag">'+tag+'</span>';
-      }).join('')+'</div>'+
+      '<div class="tool-tags">'+(t.tags||[]).slice(0,4).map(function(tag){return '<span class="tool-tag">'+tag+'</span>'}).join('')+'</div>'+
       '<div class="tool-footer">'+
-        '<div class="tool-status"><div class="tool-status-dot '+(t.status==='Production'?'dot-prod':t.status==='Beta'?'dot-beta':t.status==='Archived'?'dot-prod':'dot-alpha')+'" style="'+(t.status==='Archived'?'background:#6b7280':'')+'"></div><span class="tool-status-text">'+(t.status==='Production'?'v'+t.version:t.status)+'</span></div>'+
-        '<button class="tool-launch" style="background:'+c+'18;color:'+c+';border:1px solid '+c+'30" onclick="event.preventDefault()">'+(t.type==='internal'?'Launch':'Open')+' ↗</button>'+
+        '<div class="tool-status"><div class="tool-status-dot" style="background:'+(t.status==='Production'?'#22c55e':t.status==='Beta'?'#f59e0b':'#6366f1')+'"></div><span class="tool-status-text">'+(t.status==='Production'?'v'+t.version:t.status)+'</span></div>'+
+        '<button class="tool-launch" style="background:'+c+'18;color:'+c+';border:1px solid '+c+'30">'+(t.type==='internal'?''+t.name:'Open')+' ↗</button>'+
       '</div>'+
     '</div>'+
   '</a>';
