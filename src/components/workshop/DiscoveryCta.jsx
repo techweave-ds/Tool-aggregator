@@ -18,41 +18,39 @@ export default function DiscoveryCta() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const t = setInterval(() => setSuggIdx(i => (i + 1) % SUGGESTIONS.length), 2800);
+    const t = setInterval(() => setSuggIdx(i => (i + 1) % SUGGESTIONS.length), 3000);
     return () => clearInterval(t);
   }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (query.trim()) {
-      navigate(`/tools?q=${encodeURIComponent(query)}`);
-    }
+    if (query.trim()) navigate(`/tools?q=${encodeURIComponent(query)}`);
   }
 
   return (
-    <section className="relative py-32 md:py-48 overflow-hidden" style={{ background: 'var(--os-bg)' }}>
-      <div className="absolute inset-0 grid-bg opacity-[0.06] pointer-events-none" />
+    <section className="relative py-36 md:py-48 overflow-hidden" style={{ background: 'var(--bg)' }}>
+      <div className="absolute inset-0 grid-bg opacity-[0.04] pointer-events-none" />
       <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 50% 60% at 50% 50%, rgba(99,102,241,0.04) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(99,102,241,0.03) 0%, transparent 70%)',
       }} />
 
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
         <motion.p
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 6 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-mono text-xs font-medium mb-6"
-          style={{ color: 'var(--os-text3)', letterSpacing: '0.15em' }}
+          className="font-mono text-[11px] font-medium tracking-[0.2em] mb-6"
+          style={{ color: 'var(--text3)' }}
         >
           START BUILDING
         </motion.p>
         <motion.h2
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="font-display font-bold leading-[1.05] mb-8"
-          style={{ fontSize: 'clamp(32px, 5vw, 60px)', letterSpacing: '-0.03em', color: 'var(--os-text)' }}
+          transition={{ delay: 0.08 }}
+          className="font-display leading-[1.05] mb-10"
+          style={{ fontSize: 'clamp(32px, 4.5vw, 56px)', letterSpacing: '-0.035em' }}
         >
           Tell us what<br />
           <span className="text-gradient">you want to build.</span>
@@ -63,12 +61,12 @@ export default function DiscoveryCta() {
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mx-auto flex items-center gap-0 rounded-xl overflow-hidden"
+          transition={{ delay: 0.15 }}
+          className="mx-auto flex items-center gap-0 rounded-[14px] overflow-hidden"
           style={{
-            maxWidth: 520,
-            background: 'var(--os-card)',
-            border: '1px solid var(--os-border)',
+            maxWidth: 540,
+            background: 'var(--surface2)',
+            border: '1px solid var(--border)',
           }}
         >
           <input
@@ -76,11 +74,11 @@ export default function DiscoveryCta() {
             onChange={e => setQuery(e.target.value)}
             placeholder={SUGGESTIONS[suggIdx]}
             className="flex-1 py-4 px-5 bg-transparent text-sm outline-none"
-            style={{ color: 'var(--os-text)', border: 'none', fontFamily: 'Satoshi, sans-serif' }}
+            style={{ color: 'var(--text)', border: 'none', fontFamily: 'Satoshi, sans-serif' }}
           />
           <button type="submit"
             className="flex items-center gap-2 px-5 py-4 text-sm font-semibold shrink-0 transition-all hover:opacity-90"
-            style={{ background: 'linear-gradient(135deg, var(--os-accent), var(--os-violet))', color: '#fff' }}
+            style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent2))', color: '#fff' }}
           >
             Start
             <ArrowRight size={14} />
@@ -91,11 +89,11 @@ export default function DiscoveryCta() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.3 }}
           className="text-xs mt-6"
-          style={{ color: 'var(--os-text3)' }}
+          style={{ color: 'var(--text3)' }}
         >
-          Describe your project in natural language. We'll find the right tools.
+          Describe your project in natural language. We'll recommend the right tools.
         </motion.p>
       </div>
     </section>
