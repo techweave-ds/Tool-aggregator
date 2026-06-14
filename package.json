@@ -12,10 +12,7 @@
     "cf:login": "wrangler login"
   },
   "dependencies": {
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.1",
     "@types/d3": "^7.4.3",
-    "@xyflow/react": "^12.11.0",
     "d3": "^7.9.0",
     "framer-motion": "^11.3.0",
     "lucide-react": "^0.436.0",
@@ -24,7 +21,6 @@
     "react-is": "^19.2.7",
     "react-router-dom": "^6.26.0",
     "recharts": "^3.8.1",
-    "three": "^0.184.0",
     "zustand": "^5.0.14"
   },
   "devDependencies": {
