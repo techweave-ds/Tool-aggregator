@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>WeaveStack — The power of intentional building</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#05060a;--surface:#080b14;--card:#0b0f1a;--text:#f0eef6;--text2:#9a94a8;--text3:#4a4560;--accent:#7c6df0;--accent2:#5b4ad6;--violet:#b89dff;--pink:#eabdf6;--white:#fffcff}
+html{background:var(--bg);font-size:16px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.font-serif{font-family:'Playfair Display',serif;font-style:italic}
+::selection{background:rgba(124,109,240,0.3);color:#fff}
+
+/* ===== PRELOADER ===== */
+.preloader{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:linear-gradient(45deg,#cebdf8,#e2dbf8);pointer-events:all}
+.preloader.revealing{-webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(var(--r,0) - 14vmax),rgba(0,0,0,0.34) calc(var(--r,0) - 8vmax),rgba(0,0,0,0.72) calc(var(--r,0) - 3vmax),#000 var(--r,0),#000 100%);mask-image:radial-gradient(circle at 50% 50%,transparent 0,transparent calc(var(--r,0) - 14vmax),rgba(0,0,0,0.34) calc(var(--r,0) - 8vmax),rgba(0,0,0,0.72) calc(var(--r,0) - 3vmax),#000 var(--r,0),#000 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.preloader-inner{text-align:center;will-change:opacity,transform}
+.preloader-inner img{width:48px;height:48px;display:block;margin:0 auto 16px}
+@keyframes loaderDots{0%,20%{opacity:0.3}50%{opacity:1}80%,100%{opacity:0.3}}
+.preloader-text{font-size:11px;letter-spacing:0.25em;color:#4a4560;font-weight:500;animation:loaderDots 1.8s ease-in-out infinite}
+
+/* ===== GLASSMORPHISM UTILITIES ===== */
+.glass{padding:8px 20px;border-radius:100px;backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08)}
+.glass-strong{backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1)}
+
+/* ===== HEADER ===== */
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:28px 36px;pointer-events:none}
+header>*{pointer-events:auto}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.logo svg{width:20px;height:20px;flex-shrink:0}
+.nav{display:flex;gap:6px;align-items:center}
+.nav a{font-size:13px;color:var(--text2);padding:6px 14px;border-radius:100px;text-decoration:none;transition:all 0.2s;font-weight:450}
+.nav a:hover{color:var(--text);background:rgba(255,255,255,0.04)}
+@media(max-width:768px){header{padding:16px 20px}.nav a{font-size:11px;padding:4px 10px}}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-glow{position:absolute;width:80vmax;height:80vmax;border-radius:50%;pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(124,109,240,0.04) 0%,rgba(186,157,255,0.02) 30%,transparent 60%)}
+.hero-content{position:relative;z-index:2;width:100%;padding:0 36px}
+.hero-secondary{max-width:900px;margin:0 auto 0 0;padding-left:clamp(20px,6.5vw,120px)}
+.hero-secondary h2{font-size:clamp(22px,2.8vw,42px);font-weight:300;color:var(--text);line-height:1.15;letter-spacing:-0.01em}
+.hero-secondary .of-word{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;margin-left:clamp(40px,6vw,100px);display:inline-block}
+.hero-primary{max-width:900px;margin:0 auto 0 0;padding-left:clamp(10px,18.6vw,320px)}
+.hero-primary h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:clamp(56px,19.5vw,280px);line-height:0.85;letter-spacing:-0.1vw;color:var(--text);margin-bottom:-0.2em;text-align:center;transform:translateX(clamp(10px,4vw,60px))}
+.hero-primary .char{background:linear-gradient(180deg,#fffcff 0 25%,#e3f0ff 65% 80%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;padding:0.1em 0.9em 0.2em 0.25em;margin-bottom:-0.37em;margin-left:-1.2em;display:inline-block}
+
+/* ===== EXPLORE BUTTON (with stars) ===== */
+.explore-btn{display:inline-flex;align-items:center;gap:16px;margin-top:clamp(24px,4vw,48px);padding:12px 28px;border-radius:100px;border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(255,255,255,0.07);color:var(--text);cursor:pointer;font-size:clamp(13px,1.1vw,16px);font-weight:500;text-decoration:none;transition:all 0.3s;position:relative}
+.explore-btn:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.25);transform:scale(1.02)}
+.explore-star{width:18px;height:18px;opacity:0.6;flex-shrink:0}
+
+/* ===== REIMAGINE-STYLE BUTTON ===== */
+.start-btn{position:fixed;z-index:10;right:clamp(20px,9vw,140px);bottom:100px;cursor:pointer;opacity:0;transition:opacity 1s ease 1.5s;text-decoration:none}
+.start-btn.visible{opacity:1}
+.start-btn-inner{position:relative;display:flex;align-items:center;gap:14px;padding:0 24px 0 28px;height:48px;border-radius:100px;background:rgba(255,255,255,0.10);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);isolation:isolate;overflow:hidden}
+.start-btn-grad1,.start-btn-grad2{position:absolute;inset:0;border-radius:100px;pointer-events:none;transition:opacity 0.3s;z-index:1}
+.start-btn-grad1{background:linear-gradient(0deg,rgba(255,255,255,0.02),rgba(255,255,255,0.02)),radial-gradient(27.8% 27.8% at 12.89% 16.15%,rgba(234,189,246,0.1) 0,transparent 100%),radial-gradient(24.84% 24.84% at 80.75% 88.98%,rgba(234,189,246,0.2) 0,transparent 100%);opacity:1}
+.start-btn-grad2{background:linear-gradient(0deg,rgba(255,255,255,0.02),rgba(255,255,255,0.02)),radial-gradient(27.8% 27.8% at 12.89% 16.15%,rgba(234,189,246,0.2) 0,transparent 100%),radial-gradient(24.84% 24.84% at 80.75% 88.98%,rgba(234,189,246,0.2) 0,transparent 100%);opacity:0;backdrop-filter:blur(6px)}
+.start-btn:hover .start-btn-grad1{opacity:0}
+.start-btn:hover .start-btn-grad2{opacity:1}
+.start-btn-bb{border-radius:100px;position:absolute;inset:0;z-index:2;padding:1px}
+.start-btn-bb::before{content:'';position:absolute;inset:0;border-radius:100px;padding:1px;background:linear-gradient(90deg,#fff 0,transparent 35%,#fff 65%,transparent);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;transition:opacity 0.4s}
+.start-btn-bb::after{content:'';position:absolute;inset:0;border-radius:100px;padding:1px;background:linear-gradient(270deg,#fff 0,transparent 35%,#fff 65%,transparent);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity 0.4s}
+.start-btn:hover .start-btn-bb::before{opacity:0}
+.start-btn:hover .start-btn-bb::after{opacity:1}
+.start-btn-icon,.start-btn-text{position:relative;z-index:3}
+.start-btn-icon img{width:22px;height:22px;display:block;image-rendering:pixelated;filter:brightness(0) invert(1)}
+.start-btn-text{font-size:14px;font-weight:500;color:var(--text);white-space:nowrap}
+.start-btn-letter{display:inline-block;transition:color 0.3s,filter 0.3s}
+.start-btn-circle{position:absolute;width:1.5rem;height:1.5rem;border-radius:50%;border:1px solid var(--accent);filter:blur(2px);opacity:0;pointer-events:none;z-index:1;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.2);transition:all 0.4s cubic-bezier(0.16,1,0.3,1)}
+.start-btn:hover .start-btn-circle{opacity:0.6;transform:translate(-50%,-50%) scale(4)}
+
+/* ===== SCROLL PROMPT ===== */
+.scroll-prompt{position:fixed;bottom:clamp(60px,8vh,100px);left:50%;z-index:20;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;pointer-events:none;opacity:0;transition:opacity 1s ease 2s}
+.scroll-prompt.visible{opacity:1}
+.scroll-prompt span{font-size:11px;letter-spacing:0.15em;color:rgba(240,238,246,0.4);font-weight:400}
+.scroll-line{width:1px;height:24px;background:linear-gradient(to bottom,rgba(240,238,246,0.3),transparent);animation:lineAnim 2s ease-in-out infinite}
+@keyframes lineAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ===== FOOTER ===== */
+footer.fixed-footer{position:fixed;bottom:0;left:0;right:0;z-index:9;display:flex;flex-direction:column;padding:clamp(20px,4vh,48px) clamp(20px,4vw,48px);pointer-events:none;min-height:100vh;justify-content:space-between}
+footer.fixed-footer>*{pointer-events:auto}
+.footer-stagger{opacity:0;transform:translateY(16px);transition:opacity 0.8s ease,transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.footer-stagger.visible{opacity:1;transform:translateY(0)}
+.footer-stagger.d1{transition-delay:0.1s}
+.footer-stagger.d2{transition-delay:0.25s}
+.footer-stagger.d3{transition-delay:0.4s}
+.footer-stagger.d4{transition-delay:0.55s}
+.footer-center{display:flex;flex-direction:column;align-items:center;gap:clamp(16px,3vh,32px)}
+.footer-center p{font-size:clamp(14px,1.5vw,22px);color:var(--text2);text-align:center;max-width:400px;line-height:1.5}
+.footer-logo-outer{position:relative;width:100%;height:clamp(60px,8vh,100px);display:flex;justify-content:center;align-items:center}
+.footer-logo-blur{position:absolute;height:100%;filter:blur(12px);opacity:0.3;left:50%;transform:translateX(-50%)}
+.footer-email{font-size:clamp(20px,3.5vw,56px);font-weight:300;color:var(--text);text-decoration:none;transition:opacity 0.2s}
+.footer-email:hover{opacity:0.6}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;width:100%}
+.footer-social{display:flex;gap:clamp(20px,3vw,40px)}
+.footer-social a{font-size:clamp(12px,1vw,16px);color:var(--text2);text-decoration:none;transition:color 0.2s}
+.footer-social a:hover{color:var(--text)}
+
+/* ===== OUTCOME SECTIONS ===== */
+.outcome-wrap{position:relative;z-index:1}
+.outcome-section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,6vh,80px) clamp(24px,4vw,48px);position:relative;border-top:1px solid rgba(255,255,255,0.03)}
+.outcome-inner{max-width:1100px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px);align-items:center}
+@media(max-width:768px){.outcome-inner{grid-template-columns:1fr}}
+.outcome-number{font-size:10px;letter-spacing:0.2em;font-weight:500;margin-bottom:12px}
+.outcome-title{font-size:clamp(24px,3vw,42px);font-weight:600;letter-spacing:-0.03em;margin-bottom:16px;line-height:1.1}
+.outcome-desc{font-size:14px;line-height:1.7;color:var(--text2);margin-bottom:28px;max-width:400px}
+.outcome-steps{display:flex;flex-direction:column;gap:4px}
+.outcome-step{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:13px;color:var(--text2);border-bottom:1px solid rgba(255,255,255,0.03)}
+.outcome-step:last-child{border-bottom:none}
+.outcome-step-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:11px;flex-shrink:0}
+.outcome-orb{position:relative;display:flex;align-items:center;justify-content:center;min-height:clamp(240px,30vw,400px)}
+.outcome-orb-core{position:absolute;width:clamp(140px,18vw,260px);height:clamp(140px,18vw,260px);border-radius:50%;opacity:0.10;filter:blur(40px)}
+.outcome-orb-ring{position:absolute;width:clamp(160px,20vw,300px);height:clamp(160px,20vw,300px);border-radius:50%;border:1px solid;opacity:0.12}
+.outcome-orb-ring2{position:absolute;width:clamp(120px,15vw,220px);height:clamp(120px,15vw,220px);border-radius:50%;border:1px solid;opacity:0.08}
+.outcome-orb-label{position:relative;z-index:1;font-size:clamp(36px,4vw,56px)}
+
+@media(max-width:768px){.outcome-orb{order:-1!important;min-height:200px}}
+
+/* ===== REVEAL ===== */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== MISC ===== */
+.noise::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px}
+</style>
+</head>
+<body class="noise">
+
+<!-- ===== PRELOADER ===== -->
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <img src="data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='24' cy='24' r='20' fill='none' stroke='%234a4560' stroke-width='2'/%3E%3Ccircle cx='24' cy='24' r='8' fill='%237c6df0' opacity='0.3'/%3E%3C/svg%3E" alt="">
+    <div class="preloader-text">WeaveStack</div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <a href="#" class="logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#7c6df0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    WeaveStack
+  </a>
+  <nav class="nav glass">
+    <a href="#">Systems</a>
+    <a href="#">Goals</a>
+    <a href="https://github.com/techweave-ds/Tool-aggregator" target="_blank">GitHub</a>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-secondary">
+      <h2>The power <span class="of-word">of</span> intentional</h2>
+    </div>
+    <div class="hero-primary">
+      <h1 id="heroWord">building</h1>
+    </div>
+    <div style="max-width:900px;padding-left:clamp(10px,6.5vw,120px)">
+      <a href="#outcomes" class="explore-btn" id="exploreBtn">
+        <svg class="explore-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 9l-5 4.5 1.5 7L12 16l-5.5 4.5L8 13.5 3 9l6.5-.5z"/></svg>
+        Explore outcomes
+        <svg class="explore-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 9l-5 4.5 1.5 7L12 16l-5.5 4.5L8 13.5 3 9l6.5-.5z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REIMAGINE-STYLE BUTTON ===== -->
+<a href="#outcomes" class="start-btn" id="startBtn">
+  <div class="start-btn-inner">
+    <div class="start-btn-grad1"></div>
+    <div class="start-btn-grad2"></div>
+    <div class="start-btn-bb"></div>
+    <div class="start-btn-circle"></div>
+    <div class="start-btn-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f0eef6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+    </div>
+    <span class="start-btn-text" id="btnText">
+      <span class="start-btn-letter">S</span><span class="start-btn-letter">t</span><span class="start-btn-letter">a</span><span class="start-btn-letter">r</span><span class="start-btn-letter">t</span>&nbsp;<span class="start-btn-letter">b</span><span class="start-btn-letter">u</span><span class="start-btn-letter">i</span><span class="start-btn-letter">l</span><span class="start-btn-letter">d</span><span class="start-btn-letter">i</span><span class="start-btn-letter">n</span><span class="start-btn-letter">g</span>
+    </span>
+  </div>
+</a>
+
+<!-- ===== SCROLL PROMPT ===== -->
+<div class="scroll-prompt" id="scrollPrompt">
+  <span>Scroll to explore</span>
+  <div class="scroll-line"></div>
+</div>
+
+<!-- ===== OUTCOMES ===== -->
+<div class="outcome-wrap" id="outcomes">
+
+  <!-- 01 Support -->
+  <section class="outcome-section">
+    <div class="outcome-inner">
+      <div>
+        <div class="outcome-number reveal" style="color:#b89dff">01 / SUPPORT</div>
+        <h2 class="outcome-title reveal delay-1">Customer Support<br>Assistant</h2>
+        <p class="outcome-desc reveal delay-2">AI-powered support that knows your docs, auto-responds, and escalates smartly.</p>
+        <div class="outcome-steps">
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#b89dff18;color:#b89dff">📨</div> Customer asks a question</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#b89dff18;color:#b89dff">🔍</div> Knowledge retrieval</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#b89dff18;color:#b89dff">🤖</div> AI response</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#b89dff18;color:#b89dff">📤</div> Escalation if needed</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#b89dff18;color:#b89dff">✅</div> Resolution</div>
+        </div>
+      </div>
+      <div class="outcome-orb reveal delay-2">
+        <div class="outcome-orb-core" style="background:#b89dff"></div>
+        <div class="outcome-orb-ring" style="border-color:#b89dff"></div>
+        <div class="outcome-orb-ring2" style="border-color:#b89dff"></div>
+        <span class="outcome-orb-label">💬</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Trading -->
+  <section class="outcome-section" style="background:var(--surface)">
+    <div class="outcome-inner">
+      <div class="outcome-orb reveal" style="order:1">
+        <div class="outcome-orb-core" style="background:#f59e0b"></div>
+        <div class="outcome-orb-ring" style="border-color:#f59e0b"></div>
+        <div class="outcome-orb-ring2" style="border-color:#f59e0b"></div>
+        <span class="outcome-orb-label">📈</span>
+      </div>
+      <div style="order:2">
+        <div class="outcome-number reveal" style="color:#f59e0b">02 / TRADING</div>
+        <h2 class="outcome-title reveal delay-1">Trading System</h2>
+        <p class="outcome-desc reveal delay-2">Real-time scanning, alerts, positioning, and journaling across markets.</p>
+        <div class="outcome-steps">
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f59e0b18;color:#f59e0b">🔍</div> Market scanning</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f59e0b18;color:#f59e0b">🪙</div> Price alerts</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f59e0b18;color:#f59e0b">🧮</div> Position sizing</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f59e0b18;color:#f59e0b">📓</div> Trade journal</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f59e0b18;color:#f59e0b">📊</div> Review</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Automation -->
+  <section class="outcome-section">
+    <div class="outcome-inner">
+      <div>
+        <div class="outcome-number reveal" style="color:#7dd3fc">03 / AUTOMATION</div>
+        <h2 class="outcome-title reveal delay-1">Automation Pipeline</h2>
+        <p class="outcome-desc reveal delay-2">Visual pipeline that connects your tools, transforms data, and executes actions.</p>
+        <div class="outcome-steps">
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#7dd3fc18;color:#7dd3fc">🔀</div> Trigger event</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#7dd3fc18;color:#7dd3fc">🔄</div> Data transformation</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#7dd3fc18;color:#7dd3fc">🔀</div> Conditional routing</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#7dd3fc18;color:#7dd3fc">⚡</div> Action execution</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#7dd3fc18;color:#7dd3fc">📡</div> Monitoring</div>
+        </div>
+      </div>
+      <div class="outcome-orb reveal delay-2">
+        <div class="outcome-orb-core" style="background:#7dd3fc"></div>
+        <div class="outcome-orb-ring" style="border-color:#7dd3fc"></div>
+        <div class="outcome-orb-ring2" style="border-color:#7dd3fc"></div>
+        <span class="outcome-orb-label">⚡</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Restaurant -->
+  <section class="outcome-section" style="background:var(--surface)">
+    <div class="outcome-inner">
+      <div class="outcome-orb reveal" style="order:1">
+        <div class="outcome-orb-core" style="background:#f97316"></div>
+        <div class="outcome-orb-ring" style="border-color:#f97316"></div>
+        <div class="outcome-orb-ring2" style="border-color:#f97316"></div>
+        <span class="outcome-orb-label">🍽️</span>
+      </div>
+      <div style="order:2">
+        <div class="outcome-number reveal" style="color:#f97316">04 / RESTAURANT</div>
+        <h2 class="outcome-title reveal delay-1">Restaurant Platform</h2>
+        <p class="outcome-desc reveal delay-2">Digital menus, QR ordering, kitchen display, and inventory — unified.</p>
+        <div class="outcome-steps">
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f9731618;color:#f97316">🍽️</div> Menu setup</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f9731618;color:#f97316">📱</div> QR ordering</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f9731618;color:#f97316">📋</div> Kitchen display</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f9731618;color:#f97316">📦</div> Inventory</div>
+          <div class="outcome-step reveal delay-3"><div class="outcome-step-icon" style="background:#f9731618;color:#f97316">📈</div> Analytics</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="fixed-footer" id="footer">
+  <div></div>
+  <div class="footer-center">
+    <p class="footer-stagger">Let us help you build the way it was meant</p>
+    <div class="footer-logo-outer footer-stagger d2">
+      <svg class="footer-logo-blur" viewBox="0 0 48 48" fill="#7c6df0" width="48" height="48"><path d="M24 2l3 14h14l-11 9 4 14-10-7-10 7 4-14L7 16h14z"/></svg>
+      <svg viewBox="0 0 48 48" fill="#7c6df0" width="clamp(40px,5vw,60px)" height="clamp(40px,5vw,60px)"><path d="M24 2l3 14h14l-11 9 4 14-10-7-10 7 4-14L7 16h14z"/></svg>
+    </div>
+    <a href="mailto:hello@weavestack.dev" class="footer-email footer-stagger d3">hello@weavestack.dev</a>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-stagger d4"></div>
+    <div class="footer-stagger d4" style="display:flex;gap:clamp(20px,3vw,40px);width:100%;justify-content:center">
+      <a href="https://github.com/techweave-ds/Tool-aggregator" target="_blank" style="font-size:clamp(12px,1vw,16px);color:var(--text2);text-decoration:none">GitHub</a>
+      <a href="#" style="font-size:clamp(12px,1vw,16px);color:var(--text2);text-decoration:none">Docs</a>
+      <a href="#" style="font-size:clamp(12px,1vw,16px);color:var(--text2);text-decoration:none">v3</a>
+    </div>
+    <div class="footer-stagger d4"></div>
+  </div>
+</footer>
+
+<script>
+// ===== PRELOADER =====
+(function(){
+  const preloader = document.getElementById('preloader');
+  const r = { value: 0 };
+  let start = null;
+  const duration = 1200;
+  const maxRadius = 80;
+
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const elapsed = timestamp - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    r.value = eased * maxRadius;
+    preloader.style.setProperty('--r', r.value + 'vmax');
+    preloader.classList.add('revealing');
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      preloader.style.opacity = '0';
+      preloader.style.pointerEvents = 'none';
+      preloader.style.transition = 'opacity 0.5s ease';
+      setTimeout(() => { preloader.style.display = 'none'; }, 500);
+    }
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(() => requestAnimationFrame(step), 400);
+  });
+})();
+
+// ===== HERO WORD — CHAR WRAPPING =====
+(function(){
+  const h1 = document.getElementById('heroWord');
+  const text = h1.textContent;
+  const chars = text.split('');
+  const pads = [0.94,0.96,0.93,1.0,0.98,1.01,0.96,0.94];
+  h1.innerHTML = chars.map((c, i) =>
+    `<span class="char" style="padding-right:${pads[i % pads.length]}em">${c === ' ' ? '&nbsp;' : c}</span>`
+  ).join('');
+})();
+
+// ===== START BUTTON FADE-IN =====
+setTimeout(() => {
+  document.getElementById('startBtn').classList.add('visible');
+}, 1600);
+setTimeout(() => {
+  document.getElementById('scrollPrompt').classList.add('visible');
+}, 2200);
+
+// ===== INTERSECTION OBSERVER =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal, .footer-stagger').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

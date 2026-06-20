@@ -14,10 +14,10 @@ export default function StackReveal({ system }) {
     .filter(s => s.tool);
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden" style={{ background: 'var(--bg)' }}>
-      <div className="absolute inset-0 grid-bg opacity-[0.04] pointer-events-none" />
+    <section className="relative py-24 md:py-32 overflow-hidden" style={{ background: 'var(--surface)' }}>
+      <div className="absolute inset-0 grid-bg opacity-[0.2] pointer-events-none" />
       <div className="absolute inset-0 pointer-events-none" style={{
-        background: `radial-gradient(ellipse 50% 40% at 50% 50%, ${system.color}03 0%, transparent 70%)`,
+        background: `radial-gradient(ellipse 50% 40% at 50% 50%, ${system.color}05 0%, transparent 70%)`,
       }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
@@ -55,10 +55,12 @@ export default function StackReveal({ system }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 + i * 0.1 }}
-                  className="relative w-full md:w-60 p-5 rounded-[16px] transition-all duration-300 hover:scale-[1.02]"
+                  className="relative w-full md:w-60 p-5 rounded-[16px] transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
                   style={{
-                    background: `${catColor}04`,
-                    border: `1px solid ${catColor}14`,
+                    background: 'var(--card)',
+                    border: `1px solid ${catColor}18`,
+                    boxShadow: 'var(--shadow-sm)',
+                    borderTop: `3px solid ${catColor}`,
                   }}
                 >
                   <div className="flex items-center gap-3 mb-3.5">
@@ -79,7 +81,7 @@ export default function StackReveal({ system }) {
                   />
                 </motion.div>
                 {i < tools.length - 1 && (
-                  <div className="flex items-center justify-center py-1.5 md:px-1 md:py-0" style={{ color: `${catColor}30` }}>
+                  <div className="flex items-center justify-center py-1.5 md:px-1 md:py-0" style={{ color: `${catColor}40` }}>
                     <ArrowRight size={15} className="hidden md:block" />
                     <svg className="md:hidden" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ transform: 'rotate(90deg)' }}>
                       <path d="M5 12h14M12 5l7 7-7 7" />
@@ -97,18 +99,18 @@ export default function StackReveal({ system }) {
           viewport={{ once: true }}
           transition={{ delay: 0.45 }}
           className="mx-auto mt-12 p-4 rounded-[12px] flex flex-wrap items-center justify-center gap-6"
-          style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(255,255,255,0.05)', maxWidth: 440 }}
+          style={{ background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', maxWidth: 440 }}
         >
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-mono tracking-wider" style={{ color: 'var(--text3)' }}>Setup</span>
             <span className="text-xs font-semibold" style={{ color: 'var(--text)' }}>{system.setup}</span>
           </div>
-          <div className="w-px h-4" style={{ background: 'rgba(255,255,255,0.06)' }} />
+          <div className="w-px h-4" style={{ background: 'var(--border)' }} />
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-mono tracking-wider" style={{ color: 'var(--text3)' }}>Best for</span>
             <span className="text-xs font-semibold" style={{ color: 'var(--text)' }}>{system.ideal}</span>
           </div>
-          <div className="w-px h-4" style={{ background: 'rgba(255,255,255,0.06)' }} />
+          <div className="w-px h-4" style={{ background: 'var(--border)' }} />
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-mono tracking-wider" style={{ color: 'var(--text3)' }}>Tools</span>
             <span className="text-xs font-semibold" style={{ color: 'var(--text)' }}>{tools.length}</span>

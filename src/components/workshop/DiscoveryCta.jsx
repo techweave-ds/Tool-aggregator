@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 const SUGGESTIONS = [
   'I want a crypto alert bot',
@@ -29,9 +29,9 @@ export default function DiscoveryCta() {
 
   return (
     <section className="relative py-36 md:py-48 overflow-hidden" style={{ background: 'var(--bg)' }}>
-      <div className="absolute inset-0 grid-bg opacity-[0.04] pointer-events-none" />
+      <div className="absolute inset-0 grid-bg opacity-[0.2] pointer-events-none" />
       <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(99,102,241,0.03) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(99,102,241,0.05) 0%, transparent 70%)',
       }} />
 
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
@@ -65,8 +65,9 @@ export default function DiscoveryCta() {
           className="mx-auto flex items-center gap-0 rounded-[14px] overflow-hidden"
           style={{
             maxWidth: 540,
-            background: 'var(--surface2)',
+            background: 'var(--card)',
             border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-md)',
           }}
         >
           <input
@@ -77,7 +78,7 @@ export default function DiscoveryCta() {
             style={{ color: 'var(--text)', border: 'none', fontFamily: 'Satoshi, sans-serif' }}
           />
           <button type="submit"
-            className="flex items-center gap-2 px-5 py-4 text-sm font-semibold shrink-0 transition-all hover:opacity-90"
+            className="flex items-center gap-2 px-5 py-4 text-sm font-semibold shrink-0 transition-all hover:shadow-lg"
             style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent2))', color: '#fff' }}
           >
             Start
@@ -90,9 +91,10 @@ export default function DiscoveryCta() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="text-xs mt-6"
+          className="text-xs mt-6 flex items-center justify-center gap-1.5"
           style={{ color: 'var(--text3)' }}
         >
+          <Sparkles size={11} />
           Describe your project in natural language. We'll recommend the right tools.
         </motion.p>
       </div>

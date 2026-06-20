@@ -32,9 +32,9 @@ export default function WorkflowStory({ system, onRevealStack }) {
 
   return (
     <section ref={ref} className="relative py-28 md:py-36 overflow-hidden" style={{ background: 'var(--surface)' }}>
-      <div className="absolute inset-0 grid-bg opacity-[0.04] pointer-events-none" />
+      <div className="absolute inset-0 grid-bg opacity-[0.2] pointer-events-none" />
       <div className="absolute inset-0 pointer-events-none" style={{
-        background: `radial-gradient(ellipse 40% 30% at 50% 0%, ${system.color}04 0%, transparent 70%)`,
+        background: `radial-gradient(ellipse 40% 30% at 50% 0%, ${system.color}06 0%, transparent 70%)`,
       }} />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
@@ -75,12 +75,13 @@ export default function WorkflowStory({ system, onRevealStack }) {
         <div className="hidden md:block">
           <div className="relative" style={{ padding: '0 4%' }}>
             {/* Track */}
-            <div className="absolute top-[28px] left-[calc(6%+24px)] right-[calc(6%+24px)] h-[2px] rounded-full overflow-hidden" style={{ background: `${system.color}0a` }}>
+            <div className="absolute top-[28px] left-[calc(6%+24px)] right-[calc(6%+24px)] h-[3px] rounded-full overflow-hidden" style={{ background: `${system.color}0a` }}>
               <div
                 className="h-full rounded-full transition-all duration-700 ease-out"
                 style={{
                   width: `${(activeStage / (stages.length - 1 || 1)) * 100}%`,
-                  background: `linear-gradient(90deg, ${system.color}cc, ${system.color}60)`,
+                  background: `linear-gradient(90deg, ${system.color}, ${system.color}60)`,
+                  boxShadow: `0 0 12px ${system.color}40`,
                 }}
               />
             </div>
@@ -105,9 +106,9 @@ export default function WorkflowStory({ system, onRevealStack }) {
                       style={{
                         width: isCurrent ? 56 : 46,
                         height: isCurrent ? 56 : 46,
-                        background: isActive ? `${system.color}14` : 'rgba(255,255,255,0.025)',
-                        border: `2px solid ${isActive ? `${system.color}60` : 'rgba(255,255,255,0.06)'}`,
-                        boxShadow: isCurrent ? `0 0 30px ${system.color}18` : 'none',
+                        background: isActive ? `${system.color}14` : 'var(--card)',
+                        border: `2px solid ${isCurrent ? system.color : isActive ? `${system.color}60` : 'var(--border)'}`,
+                        boxShadow: isCurrent ? `0 0 30px ${system.color}18, var(--shadow-md)` : isActive ? 'var(--shadow-sm)' : 'none',
                       }}
                     >
                       <span style={{ fontSize: isCurrent ? 22 : 16, transition: 'font-size 0.35s' }}>{stage.icon}</span>
@@ -128,8 +129,9 @@ export default function WorkflowStory({ system, onRevealStack }) {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="mx-auto mt-12 p-5 rounded-[14px] text-center"
             style={{
-              background: `${system.color}04`,
-              border: `1px solid ${system.color}10`,
+              background: 'var(--card)',
+              border: `1px solid ${system.color}15`,
+              boxShadow: 'var(--shadow-md)',
               maxWidth: 520,
             }}
           >
@@ -160,14 +162,14 @@ export default function WorkflowStory({ system, onRevealStack }) {
                     style={{
                       width: isCurrent ? 40 : 34,
                       height: isCurrent ? 40 : 34,
-                      background: isActive ? `${system.color}14` : 'rgba(255,255,255,0.025)',
-                      border: `2px solid ${isActive ? `${system.color}60` : 'rgba(255,255,255,0.06)'}`,
+                      background: isActive ? `${system.color}14` : 'var(--card)',
+                      border: `2px solid ${isActive ? `${system.color}60` : 'var(--border)'}`,
                     }}
                   >
                     <span style={{ fontSize: isCurrent ? 16 : 12 }}>{stage.icon}</span>
                   </div>
                   {i < stages.length - 1 && (
-                    <div className="w-[2px] flex-1 my-1 rounded-full" style={{ background: isActive ? system.color : 'rgba(255,255,255,0.04)', opacity: isActive ? 0.3 : 0.1 }} />
+                    <div className="w-[2px] flex-1 my-1 rounded-full" style={{ background: isActive ? system.color : 'var(--border)', opacity: isActive ? 0.3 : 0.1 }} />
                   )}
                 </div>
                 <div className="flex-1" style={{ paddingTop: isCurrent ? 3 : 7 }}>
@@ -197,11 +199,11 @@ export default function WorkflowStory({ system, onRevealStack }) {
         >
           <button
             onClick={onRevealStack}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-[10px] text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-lg"
             style={{
               background: 'linear-gradient(135deg, var(--accent), var(--accent2))',
               color: '#fff',
-              boxShadow: `0 4px 20px rgba(99,102,241,0.25)`,
+              boxShadow: 'var(--shadow-glow-indigo)',
             }}
           >
             See the tools behind this workflow

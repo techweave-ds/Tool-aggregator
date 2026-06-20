@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { GOALS } from '@/data/systems';
 
+const DOMAIN_COLORS = { AI: '#8b5cf6', Trading: '#f59e0b', Automations: '#06b6d4', Restaurant: '#f97316', Development: '#3b82f6', Marketing: '#ec4899' };
+
 export default function BuildPaths({ onSelectSystem }) {
   const [expanded, setExpanded] = useState(null);
 
   return (
-    <section className="relative py-28 md:py-36 overflow-hidden" style={{ background: 'var(--surface)' }}>
-      <div className="absolute inset-0 grid-bg opacity-[0.03] pointer-events-none" />
+    <section className="relative py-28 md:py-36 overflow-hidden" style={{ background: 'var(--bg)' }}>
+      <div className="absolute inset-0 grid-bg opacity-[0.25] pointer-events-none" />
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <motion.p
@@ -32,43 +34,46 @@ export default function BuildPaths({ onSelectSystem }) {
           </motion.h2>
         </div>
 
-        <div className="max-w-3xl mx-auto flex flex-col gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
           {GOALS.map((goal, i) => {
             const isExpanded = expanded === goal.id;
+            const color = DOMAIN_COLORS[goal.domain] || goal.color || 'var(--accent)';
             return (
               <motion.div
                 key={goal.id}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.06 + i * 0.035 }}
-                className="rounded-[14px] transition-all duration-300"
+                transition={{ delay: 0.06 + i * 0.04 }}
+                className="rounded-2xl transition-all duration-300 flex flex-col"
                 style={{
-                  background: isExpanded ? `${goal.color}04` : 'rgba(255,255,255,0.015)',
-                  border: `1px solid ${isExpanded ? `${goal.color}20` : 'rgba(255,255,255,0.04)'}`,
+                  background: 'var(--card)',
+                  border: `1px solid ${isExpanded ? `${color}30` : 'var(--border)'}`,
+                  boxShadow: isExpanded ? `var(--shadow-md), 0 0 30px ${color}08` : 'var(--shadow-sm)',
+                  borderLeft: `4px solid ${color}`,
                 }}
               >
                 <button
                   onClick={() => setExpanded(isExpanded ? null : goal.id)}
-                  className="w-full text-left p-4 md:p-5 flex items-center gap-4"
+                  className="w-full text-left p-5 flex items-start gap-4"
                 >
-                  <div className="flex items-center justify-center w-10 h-10 rounded-[12px] shrink-0" style={{ background: `${goal.color}12` }}>
-                    <span style={{ fontSize: 18 }}>{goal.icon}</span>
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl shrink-0" style={{ background: `${color}10` }}>
+                    <span style={{ fontSize: 22 }}>{goal.icon}</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold tracking-tight" style={{ fontSize: 'clamp(14px, 1.1vw, 16px)' }}>
                       {goal.name}
                     </div>
-                    <div className="text-xs mt-0.5" style={{ color: 'var(--text3)' }}>{goal.description}</div>
+                    <div className="text-xs mt-1 leading-relaxed" style={{ color: 'var(--text2)' }}>{goal.description}</div>
                   </div>
                   <ChevronRight
-                    size={17}
+                    size={16}
                     style={{
-                      color: goal.color,
+                      color: color,
                       transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
                       transition: 'transform 0.3s',
                       flexShrink: 0,
-                      opacity: 0.4,
+                      opacity: 0.5,
                     }}
                   />
                 </button>
@@ -77,16 +82,17 @@ export default function BuildPaths({ onSelectSystem }) {
                   className="overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
                   style={{ maxHeight: isExpanded ? 300 : 0, opacity: isExpanded ? 1 : 0 }}
                 >
-                  <div className="flex flex-col gap-1 pl-[60px] pr-4 pb-4 pt-1">
+                  <div className="flex flex-col gap-1.5 px-5 pb-5 pt-0">
                     {goal.pathways.map((path) => (
                       <button
                         key={path.systemId}
                         onClick={() => onSelectSystem(path.systemId)}
-                        className="flex items-center gap-3 p-2.5 rounded-[10px] transition-all text-left group"
+                        className="flex items-center gap-3 p-2.5 rounded-lg transition-all text-left group hover:bg-opacity-50"
+                        style={{ background: isExpanded ? `${color}04` : 'transparent' }}
                       >
-                        <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: goal.color, opacity: 0.4 }} />
-                        <span className="text-sm" style={{ color: 'var(--text2)' }}>{path.label}</span>
-                        <ChevronRight size={12} className="ml-auto transition-all duration-200" style={{ color: goal.color, opacity: 0, flexShrink: 0 }} />
+                        <div className="w-2 h-2 rounded-full shrink-0" style={{ background: color, opacity: 0.4 }} />
+                        <span className="text-sm flex-1" style={{ color: 'var(--text2)' }}>{path.label}</span>
+                        <ChevronRight size={12} className="transition-all duration-200 group-hover:translate-x-0.5" style={{ color: color, opacity: 0.3, flexShrink: 0 }} />
                       </button>
                     ))}
                   </div>
