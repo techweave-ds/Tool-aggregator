@@ -34,8 +34,8 @@ function AdminContent() {
 
   function Card({ title, children }) {
     return (
-      <div className="rounded-2xl overflow-hidden" style={{ background:'var(--os-card)', border:'1px solid rgba(255,255,255,0.07)' }}>
-        <p className="px-5 py-3 text-[9px] font-mono tracking-widest" style={{ color:'var(--os-text3)', borderBottom:'1px solid rgba(255,255,255,0.06)' }}>{title}</p>
+      <div className="rounded-2xl overflow-hidden" style={{ background:'var(--card)', border:'1px solid rgba(0,0,0,0.06)' }}>
+        <p className="px-5 py-3 text-[9px] font-mono tracking-widest" style={{ color:'var(--text3)', borderBottom:'1px solid rgba(0,0,0,0.05)' }}>{title}</p>
         <div className="p-5">{children}</div>
       </div>
     );
@@ -47,14 +47,14 @@ function AdminContent() {
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-2 h-2 rounded-full" style={{ background:'var(--os-green)' }}/>
-              <span className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>ADMIN PANEL</span>
+              <div className="w-2 h-2 rounded-full" style={{ background:'var(--green)' }}/>
+              <span className="text-[10px] font-mono" style={{ color:'var(--text3)' }}>ADMIN PANEL</span>
             </div>
-            <h1 className="font-display font-bold text-3xl" style={{ color:'var(--os-text)' }}>Admin</h1>
-            <p className="text-sm mt-0.5" style={{ color:'var(--os-text2)' }}>WeaveStack control centre</p>
+            <h1 className="font-display font-bold text-3xl" style={{ color:'var(--text)' }}>Admin</h1>
+            <p className="text-sm mt-0.5" style={{ color:'var(--text2)' }}>WeaveStack control centre</p>
           </div>
           <button onClick={lock} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono"
-            style={{ border:'1px solid rgba(255,255,255,0.1)', color:'var(--os-text3)' }}>
+            style={{ border:'1px solid rgba(0,0,0,0.08)', color:'var(--text3)' }}>
             <LogOut size={12}/> Lock
           </button>
         </div>
@@ -68,14 +68,14 @@ function AdminContent() {
             { label:'Production',   val: allTools.filter(t=>t.status==='Production').length, color:'#22c55e', icon:BarChart3 },
           ].map(({ label,val,color,icon:Icon }) => (
             <motion.div key={label} initial={{ opacity:0,y:10 }} animate={{ opacity:1,y:0 }}
-              className="p-4 rounded-2xl" style={{ background:'var(--os-card)', border:'1px solid rgba(255,255,255,0.06)' }}>
+              className="p-4 rounded-2xl" style={{ background:'var(--card)', border:'1px solid rgba(0,0,0,0.05)' }}>
               <div className="flex items-center justify-between mb-2">
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background:color+'18' }}>
                   <Icon size={13} style={{ color }}/>
                 </div>
                 <span className="font-display font-bold text-2xl" style={{ color }}>{val}</span>
               </div>
-              <p className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>{label}</p>
+              <p className="text-[10px] font-mono" style={{ color:'var(--text3)' }}>{label}</p>
             </motion.div>
           ))}
         </div>
@@ -85,15 +85,15 @@ function AdminContent() {
           <Card title="CATEGORY BREAKDOWN">
             <div className="space-y-3">
               {catBreakdown.map(([cat,n]) => {
-                const c = CAT_COLORS[cat]||'var(--os-accent)';
+                const c = CAT_COLORS[cat]||'var(--accent)';
                 const pct = Math.round((n/allTools.length)*100);
                 return (
                   <div key={cat}>
                     <div className="flex justify-between mb-1">
-                      <span className="text-xs" style={{ color:'var(--os-text2)' }}>{cat}</span>
-                      <span className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>{n} · {pct}%</span>
+                      <span className="text-xs" style={{ color:'var(--text2)' }}>{cat}</span>
+                      <span className="text-[10px] font-mono" style={{ color:'var(--text3)' }}>{n} · {pct}%</span>
                     </div>
-                    <div className="h-1.5 rounded-full" style={{ background:'rgba(255,255,255,0.06)' }}>
+                    <div className="h-1.5 rounded-full" style={{ background:'rgba(0,0,0,0.05)' }}>
                       <motion.div initial={{ width:0 }} animate={{ width:`${pct}%` }} transition={{ duration:0.8, delay:0.1 }}
                         className="h-1.5 rounded-full" style={{ background:c }}/>
                     </div>
@@ -109,10 +109,10 @@ function AdminContent() {
               {statusBreakdown.map(({ s,n }) => {
                 const c = { Production:'#22c55e',Beta:'#f59e0b',Alpha:'#6366f1',Archived:'#6b7280' }[s];
                 return (
-                  <div key={s} className="flex items-center justify-between py-2.5" style={{ borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
+                  <div key={s} className="flex items-center justify-between py-2.5" style={{ borderBottom:'1px solid var(--bg)' }}>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full" style={{ background:c }}/>
-                      <span className="text-xs" style={{ color:'var(--os-text2)' }}>{s}</span>
+                      <span className="text-xs" style={{ color:'var(--text2)' }}>{s}</span>
                     </div>
                     <span className="font-display font-bold text-lg" style={{ color:c }}>{n}</span>
                   </div>
@@ -132,11 +132,11 @@ function AdminContent() {
               return (
                 <button key={a.name} onClick={() => applyAccent(a.hex)} title={a.name}
                   className="w-8 h-8 rounded-full transition-all"
-                  style={{ background:a.hex, transform:active?'scale(1.2)':'scale(1)', boxShadow:active?`0 0 0 2px var(--os-card), 0 0 0 4px ${a.hex}`:'none' }}/>
+                  style={{ background:a.hex, transform:active?'scale(1.2)':'scale(1)', boxShadow:active?`0 0 0 2px var(--card), 0 0 0 4px ${a.hex}`:'none' }}/>
               );
             })}
           </div>
-          <p className="text-xs font-mono" style={{ color:'var(--os-text3)' }}>Persists across sessions</p>
+          <p className="text-xs font-mono" style={{ color:'var(--text3)' }}>Persists across sessions</p>
         </Card>
 
         {/* Data management */}
@@ -148,10 +148,10 @@ function AdminContent() {
               { label:'Clear activity log',   key:'activity-log',   desc:'Reset the activity log' },
               { label:'Clear pinned',         key:'pinned-tools',   desc:'Unpin all tools' },
             ].map(({ label,key,desc }) => (
-              <div key={key} className="flex items-center justify-between gap-4 py-2.5" style={{ borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
+              <div key={key} className="flex items-center justify-between gap-4 py-2.5" style={{ borderBottom:'1px solid var(--bg)' }}>
                 <div>
-                  <p className="text-xs font-medium" style={{ color:'var(--os-text)' }}>{label}</p>
-                  <p className="text-[10px] font-mono mt-0.5" style={{ color:'var(--os-text3)' }}>{desc}</p>
+                  <p className="text-xs font-medium" style={{ color:'var(--text)' }}>{label}</p>
+                  <p className="text-[10px] font-mono mt-0.5" style={{ color:'var(--text3)' }}>{desc}</p>
                 </div>
                 <button onClick={() => { localStorage.removeItem(key); window.location.reload(); }}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono shrink-0 transition-all"
@@ -170,9 +170,9 @@ function AdminContent() {
             ['Deployment', 'Cloudflare Pages via GitHub'],
             ['Total Tools', allTools.length],
           ].map(([k,v]) => (
-            <div key={k} className="flex items-center justify-between py-2" style={{ borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
-              <span className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>{k}</span>
-              <span className="text-xs font-medium" style={{ color:'var(--os-text2)' }}>{v}</span>
+            <div key={k} className="flex items-center justify-between py-2" style={{ borderBottom:'1px solid var(--bg)' }}>
+              <span className="text-[10px] font-mono" style={{ color:'var(--text3)' }}>{k}</span>
+              <span className="text-xs font-medium" style={{ color:'var(--text2)' }}>{v}</span>
             </div>
           ))}
         </Card>

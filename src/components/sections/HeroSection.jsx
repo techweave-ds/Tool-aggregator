@@ -15,7 +15,7 @@ function ToolTicker() {
         <div className="flex gap-6" style={{ animation: 'moveScroll 30s linear infinite' }}>
           {[...names, ...names].map((n, i) => (
             <span key={i} className="text-xs font-mono shrink-0 px-3 py-1 rounded-full"
-              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)', color: 'var(--os-text3)' }}>
+              style={{ background: 'var(--surface)', border: '1px solid rgba(0,0,0,0.05)', color: 'var(--text3)' }}>
               {n}
             </span>
           ))}
@@ -67,9 +67,9 @@ export default function HeroSection() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
           style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}
         >
-          <Sparkles size={13} style={{ color: 'var(--os-accent)' }} />
-          <span className="text-xs font-mono font-medium" style={{ color: 'var(--os-accent)' }}>Discovery-First Tool Ecosystem · v3.0</span>
-          <div className="w-1.5 h-1.5 rounded-full animate-pulse-glow" style={{ background: 'var(--os-green)' }} />
+          <Sparkles size={13} style={{ color: 'var(--accent)' }} />
+          <span className="text-xs font-mono font-medium" style={{ color: 'var(--accent)' }}>Discovery-First Tool Ecosystem · v3.0</span>
+          <div className="w-1.5 h-1.5 rounded-full animate-pulse-glow" style={{ background: 'var(--green)' }} />
         </motion.div>
 
         {/* Headline */}
@@ -78,11 +78,11 @@ export default function HeroSection() {
           className="font-display font-bold leading-none mb-6"
           style={{ fontSize: 'clamp(44px, 7vw, 88px)', letterSpacing: '-0.03em' }}
         >
-          <span style={{ color: 'var(--os-text)' }}>Build Faster.</span>
+          <span style={{ color: 'var(--text)' }}>Build Faster.</span>
           <br />
           <span className="text-gradient">Automate Smarter.</span>
           <br />
-          <span style={{ color: 'var(--os-text)' }}>Create </span>
+          <span style={{ color: 'var(--text)' }}>Create </span>
           <span className="text-gradient-cyan">Anything.</span>
         </motion.h1>
 
@@ -90,7 +90,7 @@ export default function HeroSection() {
         <motion.p
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.25 }}
           className="text-lg mb-10 mx-auto max-w-2xl leading-relaxed"
-          style={{ color: 'var(--os-text2)' }}
+          style={{ color: 'var(--text2)' }}
         >
           Discover, combine, and build with intelligent tools. WeaveStack helps you find the right tools, understand how they work together, and build complete workflows.
         </motion.p>
@@ -103,18 +103,18 @@ export default function HeroSection() {
           style={{ background: 'rgba(13,20,36,0.8)', border: '1px solid rgba(99,102,241,0.25)', borderRadius: 14, backdropFilter: 'blur(20px)', overflow: 'hidden' }}
         >
           <div className="flex items-center gap-3 px-4 flex-1">
-            <Search size={16} style={{ color: 'var(--os-accent)', flexShrink: 0 }} />
+            <Search size={16} style={{ color: 'var(--accent)', flexShrink: 0 }} />
             <input
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder={suggestions[suggIdx]}
               className="flex-1 py-4 bg-transparent text-sm outline-none"
-              style={{ color: 'var(--os-text)', caretColor: 'var(--os-accent)', border: 'none', minWidth: 0 }}
+              style={{ color: 'var(--text)', caretColor: 'var(--accent)', border: 'none', minWidth: 0 }}
             />
           </div>
           <button type="submit"
             className="px-5 py-4 text-sm font-semibold transition-all shrink-0 flex items-center gap-2"
-            style={{ background: 'var(--os-accent)', color: '#fff', margin: 3, borderRadius: 10 }}>
+            style={{ background: 'var(--accent)', color: '#fff', margin: 3, borderRadius: 10 }}>
             Search
             <ArrowRight size={14} />
           </button>
@@ -127,13 +127,13 @@ export default function HeroSection() {
         >
           <button onClick={() => setStackOpen(true)}
             className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
-            style={{ background: 'linear-gradient(135deg, var(--os-accent), var(--os-violet))', color: '#fff', boxShadow: '0 4px 24px rgba(99,102,241,0.35)' }}>
+            style={{ background: 'linear-gradient(135deg, var(--accent), var(--violet))', color: '#fff', boxShadow: '0 4px 24px rgba(99,102,241,0.35)' }}>
             <Wand2 size={15} />
             Build a Stack
           </button>
           <Link to="/tools"
             className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-all hover:scale-[1.02]"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--os-text2)' }}>
+            style={{ background: 'var(--bg)', border: '1px solid rgba(0,0,0,0.08)', color: 'var(--text2)' }}>
             <Zap size={15} />
             Explore Tools
           </Link>
@@ -151,8 +151,8 @@ export default function HeroSection() {
             ['99.9%', 'Uptime'],
           ].map(([val, label]) => (
             <div key={label} className="text-center">
-              <div className="font-display font-bold text-2xl" style={{ color: 'var(--os-text)' }}>{val}</div>
-              <div className="text-xs font-mono" style={{ color: 'var(--os-text3)' }}>{label}</div>
+              <div className="font-display font-bold text-2xl" style={{ color: 'var(--text)' }}>{val}</div>
+              <div className="text-xs font-mono" style={{ color: 'var(--text3)' }}>{label}</div>
             </div>
           ))}
         </motion.div>

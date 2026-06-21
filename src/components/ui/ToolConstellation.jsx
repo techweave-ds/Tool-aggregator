@@ -67,7 +67,7 @@ export default function ToolConstellation({ onClose }) {
       .selectAll('line')
       .data(edges)
       .join('line')
-      .attr('stroke', 'rgba(99,102,241,0.1)')
+      .attr('stroke', 'rgba(99,102,241,0.15)')
       .attr('stroke-width', 1)
       .attr('stroke-opacity', 0.4);
 
@@ -99,7 +99,7 @@ export default function ToolConstellation({ onClose }) {
       .append('circle')
       .attr('r', d => d.radius + 6)
       .attr('fill', 'none')
-      .attr('stroke', d => d.color + '20')
+      .attr('stroke', d => d.color + '30')
       .attr('stroke-width', 1)
       .style('pointer-events', 'none');
 
@@ -109,7 +109,7 @@ export default function ToolConstellation({ onClose }) {
       .attr('x', 0)
       .attr('y', d => d.radius + 12)
       .attr('text-anchor', 'middle')
-      .attr('fill', 'rgba(148,163,184,0.7)')
+      .attr('fill', '#64748b')
       .attr('font-size', 9)
       .attr('font-family', 'JetBrains Mono, monospace')
       .style('pointer-events', 'none');
@@ -135,7 +135,7 @@ export default function ToolConstellation({ onClose }) {
       legend.append('text')
         .attr('x', 10).attr('y', ly + 4)
         .text(name)
-        .attr('fill', 'rgba(148,163,184,0.6)')
+        .attr('fill', '#94a3b8')
         .attr('font-size', 9)
         .attr('font-family', 'JetBrains Mono, monospace');
     });
@@ -144,7 +144,7 @@ export default function ToolConstellation({ onClose }) {
   }, [handleNodeClick]);
 
   return (
-    <div ref={containerRef} className="w-full rounded-2xl overflow-hidden" style={{ background: 'var(--os-card)', border: '1px solid rgba(255,255,255,0.06)' }}>
+    <div ref={containerRef} className="w-full rounded-2xl overflow-hidden" style={{ background: 'var(--card)', border: '1px solid rgba(0,0,0,0.05)' }}>
       <svg ref={svgRef} style={{ width: '100%', height: 'auto' }} />
     </div>
   );

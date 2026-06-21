@@ -9,19 +9,19 @@ const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilit
 
 function ToolChip({ tool, compact }) {
   const navigate = useNavigate();
-  const c = CAT_COLORS[tool.category] || 'var(--os-accent)';
+  const c = CAT_COLORS[tool.category] || 'var(--accent)';
   const Icon = getIcon(tool.icon);
 
   return (
     <div
       onClick={() => navigate(`/tool/${tool.id}`)}
       className="flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all hover:-translate-y-0.5"
-      style={{ background: 'var(--os-card2)', border: '1px solid rgba(255,255,255,0.06)' }}
+      style={{ background: 'var(--card2)', border: '1px solid rgba(0,0,0,0.05)' }}
     >
       <div className="w-6 h-6 rounded flex items-center justify-center shrink-0" style={{ background: c + '18' }}>
         <Icon size={11} style={{ color: c }} />
       </div>
-      <span className="text-xs font-medium truncate" style={{ color: 'var(--os-text)' }}>{tool.name}</span>
+      <span className="text-xs font-medium truncate" style={{ color: 'var(--text)' }}>{tool.name}</span>
       {!compact && <span className="text-[9px] font-mono px-1.5 py-0.5 rounded shrink-0" style={{ background: c + '15', color: c }}>{tool.category}</span>}
     </div>
   );
@@ -84,11 +84,11 @@ export default function ToolRelationships({ toolId }) {
               <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: section.color + '15' }}>
                 <Icon size={12} style={{ color: section.color }} />
               </div>
-              <span className="text-sm font-semibold" style={{ color: 'var(--os-text)' }}>{section.label}</span>
-              <span className="text-[10px] font-mono ml-auto" style={{ color: 'var(--os-text3)' }}>{section.tools.length} tools</span>
+              <span className="text-sm font-semibold" style={{ color: 'var(--text)' }}>{section.label}</span>
+              <span className="text-[10px] font-mono ml-auto" style={{ color: 'var(--text3)' }}>{section.tools.length} tools</span>
             </div>
             {section.desc && (
-              <p className="text-xs mb-3" style={{ color: 'var(--os-text3)' }}>{section.desc}</p>
+              <p className="text-xs mb-3" style={{ color: 'var(--text3)' }}>{section.desc}</p>
             )}
             <div className="flex flex-wrap gap-2">
               {section.tools.map(tool => (

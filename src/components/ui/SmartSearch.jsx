@@ -68,12 +68,12 @@ export default function SmartSearch({ variant = 'full', onResult }) {
       <div
         className="flex items-center gap-2 rounded-xl px-3.5 py-2.5 transition-all"
         style={{
-          background: focused ? 'var(--os-card)' : 'rgba(255,255,255,0.04)',
-          border: `1px solid ${focused ? 'rgba(99,102,241,0.3)' : 'rgba(255,255,255,0.07)'}`,
+          background: focused ? 'var(--card)' : 'var(--surface)',
+          border: `1px solid ${focused ? 'rgba(99,102,241,0.3)' : 'rgba(0,0,0,0.06)'}`,
           boxShadow: focused ? '0 0 0 3px rgba(99,102,241,0.1)' : 'none'
         }}
       >
-        <Search size={14} style={{ color: focused ? 'var(--os-accent)' : 'var(--os-text3)', flexShrink: 0 }} />
+        <Search size={14} style={{ color: focused ? 'var(--accent)' : 'var(--text3)', flexShrink: 0 }} />
         <input
           ref={inputRef}
           value={query}
@@ -83,16 +83,16 @@ export default function SmartSearch({ variant = 'full', onResult }) {
           onKeyDown={handleKeyDown}
           placeholder="Search tools, categories, or describe what you need..."
           className="flex-1 bg-transparent text-xs outline-none"
-          style={{ color: 'var(--os-text)', border: 'none' }}
+          style={{ color: 'var(--text)', border: 'none' }}
         />
         {query && (
-          <button onClick={() => { setQuery(''); setResults([]); }} style={{ color: 'var(--os-text3)' }}>
+          <button onClick={() => { setQuery(''); setResults([]); }} style={{ color: 'var(--text3)' }}>
             <X size={12} />
           </button>
         )}
         {!query && (
           <kbd className="hidden sm:inline-flex items-center gap-1 text-[10px]">
-            <Sparkles size={10} style={{ color: 'var(--os-accent)' }} /> AI
+            <Sparkles size={10} style={{ color: 'var(--accent)' }} /> AI
           </kbd>
         )}
       </div>
@@ -102,12 +102,12 @@ export default function SmartSearch({ variant = 'full', onResult }) {
           <motion.div
             initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
             className="absolute top-full left-0 right-0 mt-1 rounded-xl overflow-hidden z-50"
-            style={{ background: 'var(--os-card)', border: '1px solid var(--os-border)', boxShadow: '0 16px 48px rgba(0,0,0,0.4)' }}
+            style={{ background: 'var(--card)', border: '1px solid var(--border)', boxShadow: '0 16px 48px rgba(0,0,0,0.4)' }}
           >
             {results.length > 0 ? (
               <div className="py-1">
                 {results.map((tool, i) => {
-                  const c = CAT_COLORS[tool.category] || 'var(--os-accent)';
+                  const c = CAT_COLORS[tool.category] || 'var(--accent)';
                   const Icon = getIcon(tool.icon);
                   const CatIcon = CAT_ICONS[tool.category];
                   return (
@@ -123,12 +123,12 @@ export default function SmartSearch({ variant = 'full', onResult }) {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium truncate" style={{ color: 'var(--os-text)' }}>{tool.name}</span>
+                          <span className="text-sm font-medium truncate" style={{ color: 'var(--text)' }}>{tool.name}</span>
                           <span className="text-[9px] font-mono px-1.5 py-0.5 rounded shrink-0" style={{ background: c + '15', color: c }}>
                             {tool.category}
                           </span>
                         </div>
-                        <p className="text-[11px] truncate mt-0.5" style={{ color: 'var(--os-text3)' }}>{tool.description}</p>
+                        <p className="text-[11px] truncate mt-0.5" style={{ color: 'var(--text3)' }}>{tool.description}</p>
                       </div>
                       <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded shrink-0 ${tool.status === 'Production' ? 'badge-prod' : tool.status === 'Beta' ? 'badge-beta' : 'badge-alpha'}`}>
                         {tool.status}
@@ -136,14 +136,14 @@ export default function SmartSearch({ variant = 'full', onResult }) {
                     </button>
                   );
                 })}
-                <div className="px-4 py-2 border-t text-[10px] font-mono" style={{ borderColor: 'rgba(255,255,255,0.06)', color: 'var(--os-text3)' }}>
+                <div className="px-4 py-2 border-t text-[10px] font-mono" style={{ borderColor: 'rgba(0,0,0,0.05)', color: 'var(--text3)' }}>
                   {results.length} result{results.length !== 1 ? 's' : ''} — Press Enter to view all
                 </div>
               </div>
             ) : (
               <div className="px-4 py-6 text-center">
-                <p className="text-sm" style={{ color: 'var(--os-text3)' }}>No tools found for "{query}"</p>
-                <p className="text-xs mt-1" style={{ color: 'var(--os-text3)' }}>Try a different search or browse categories</p>
+                <p className="text-sm" style={{ color: 'var(--text3)' }}>No tools found for "{query}"</p>
+                <p className="text-xs mt-1" style={{ color: 'var(--text3)' }}>Try a different search or browse categories</p>
               </div>
             )}
           </motion.div>

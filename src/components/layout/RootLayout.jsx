@@ -7,7 +7,7 @@ export default function RootLayout() {
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   const isLanding = pathname === '/';
   return (
-    <div className="noise min-h-screen" style={{ background: 'var(--os-bg)' }}>
+    <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar transparent={isLanding} />
       <Outlet />
     </div>

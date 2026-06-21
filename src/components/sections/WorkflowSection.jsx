@@ -24,11 +24,11 @@ export default function WorkflowSection() {
       <div className="max-w-5xl mx-auto">
         <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           className="text-center mb-16">
-          <p className="text-xs font-mono tracking-widest mb-3" style={{ color: 'var(--os-accent)' }}>04 / WORKFLOW</p>
-          <h2 className="font-display font-bold leading-tight mb-4" style={{ fontSize: 'clamp(28px,4vw,48px)', color: 'var(--os-text)' }}>
+          <p className="text-xs font-mono tracking-widest mb-3" style={{ color: 'var(--accent)' }}>04 / WORKFLOW</p>
+          <h2 className="font-display font-bold leading-tight mb-4" style={{ fontSize: 'clamp(28px,4vw,48px)', color: 'var(--text)' }}>
             Tools that work <span className="text-gradient">together</span>
           </h2>
-          <p className="text-base max-w-xl mx-auto" style={{ color: 'var(--os-text2)' }}>
+          <p className="text-base max-w-xl mx-auto" style={{ color: 'var(--text2)' }}>
             Every tool in WeaveStack is designed to compose with others — building end-to-end pipelines without writing a single line of glue code.
           </p>
         </motion.div>
@@ -46,8 +46,8 @@ export default function WorkflowSection() {
                   whileHover={{ scale: 1.04 }}
                   className="relative flex flex-col items-center p-6 rounded-2xl cursor-pointer transition-all duration-300 w-44"
                   style={{
-                    background: isActive ? `${step.color}12` : 'rgba(255,255,255,0.02)',
-                    border: `1px solid ${isActive ? step.color + '50' : 'rgba(255,255,255,0.06)'}`,
+                    background: isActive ? `${step.color}12` : 'var(--bg)',
+                    border: `1px solid ${isActive ? step.color + '50' : 'rgba(0,0,0,0.05)'}`,
                     boxShadow: isActive ? `0 0 40px ${step.color}20` : 'none',
                   }}
                 >
@@ -67,10 +67,10 @@ export default function WorkflowSection() {
                         : <Icon size={20} style={{ color: step.color }} />
                     }
                   </div>
-                  <p className="font-display font-bold text-sm text-center mb-1" style={{ color: isActive ? 'var(--os-text)' : 'var(--os-text2)' }}>
+                  <p className="font-display font-bold text-sm text-center mb-1" style={{ color: isActive ? 'var(--text)' : 'var(--text2)' }}>
                     {step.label}
                   </p>
-                  <p className="text-[10px] font-mono text-center leading-tight" style={{ color: 'var(--os-text3)' }}>
+                  <p className="text-[10px] font-mono text-center leading-tight" style={{ color: 'var(--text3)' }}>
                     {step.desc}
                   </p>
                   <div className="mt-2 text-[9px] font-mono" style={{ color: step.color + '80' }}>0{i+1}</div>
@@ -96,7 +96,7 @@ export default function WorkflowSection() {
           <button
             onClick={() => { setActiveStep(0); setRunning(true); }}
             className="text-xs font-mono px-4 py-2 rounded-lg transition-all"
-            style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)', color: 'var(--os-accent)' }}
+            style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)', color: 'var(--accent)' }}
           >
             {running ? '⏸ Pause animation' : '▶ Resume animation'}
           </button>

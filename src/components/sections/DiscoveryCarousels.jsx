@@ -8,7 +8,7 @@ import useDiscoveryStore from '@/stores/discoveryStore';
 
 const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
 
-function Carousel({ title, icon: TitleIcon, tools, color = 'var(--os-accent)' }) {
+function Carousel({ title, icon: TitleIcon, tools, color = 'var(--accent)' }) {
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
@@ -25,21 +25,21 @@ function Carousel({ title, icon: TitleIcon, tools, color = 'var(--os-accent)' })
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <TitleIcon size={15} style={{ color }} />
-          <h3 className="text-sm font-semibold" style={{ color: 'var(--os-text)' }}>{title}</h3>
-          <span className="text-[10px] font-mono" style={{ color: 'var(--os-text3)' }}>{tools.length} tools</span>
+          <h3 className="text-sm font-semibold" style={{ color: 'var(--text)' }}>{title}</h3>
+          <span className="text-[10px] font-mono" style={{ color: 'var(--text3)' }}>{tools.length} tools</span>
         </div>
         <div className="flex gap-1">
-          <button onClick={() => scroll(-1)} className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
-            <ChevronLeft size={13} style={{ color: 'var(--os-text3)' }} />
+          <button onClick={() => scroll(-1)} className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'var(--bg)' }}>
+            <ChevronLeft size={13} style={{ color: 'var(--text3)' }} />
           </button>
-          <button onClick={() => scroll(1)} className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
-            <ChevronRight size={13} style={{ color: 'var(--os-text3)' }} />
+          <button onClick={() => scroll(1)} className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'var(--bg)' }}>
+            <ChevronRight size={13} style={{ color: 'var(--text3)' }} />
           </button>
         </div>
       </div>
       <div ref={scrollRef} className="flex gap-3 overflow-x-auto no-scroll pb-2">
         {tools.map((tool, i) => {
-          const c = CAT_COLORS[tool.category] || 'var(--os-accent)';
+          const c = CAT_COLORS[tool.category] || 'var(--accent)';
           const Icon = getIcon(tool.icon);
           return (
             <motion.div
@@ -48,15 +48,15 @@ function Carousel({ title, icon: TitleIcon, tools, color = 'var(--os-accent)' })
               viewport={{ once: true }} transition={{ delay: i * 0.03 }}
               onClick={() => navigate(`/tool/${tool.id}`)}
               className="shrink-0 w-56 p-4 rounded-xl cursor-pointer transition-all hover:-translate-y-0.5"
-              style={{ background: 'var(--os-card)', border: '1px solid rgba(255,255,255,0.06)' }}
+              style={{ background: 'var(--card)', border: '1px solid rgba(0,0,0,0.05)' }}
             >
               <div className="flex items-center gap-2.5 mb-2.5">
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: c + '18' }}>
                   <Icon size={13} style={{ color: c }} />
                 </div>
-                <span className="text-xs font-semibold truncate" style={{ color: 'var(--os-text)' }}>{tool.name}</span>
+                <span className="text-xs font-semibold truncate" style={{ color: 'var(--text)' }}>{tool.name}</span>
               </div>
-              <p className="text-[10px] leading-relaxed line-clamp-2" style={{ color: 'var(--os-text3)' }}>{tool.description}</p>
+              <p className="text-[10px] leading-relaxed line-clamp-2" style={{ color: 'var(--text3)' }}>{tool.description}</p>
               <div className="flex items-center gap-1.5 mt-2.5">
                 <span className="text-[8px] font-mono px-1.5 py-0.5 rounded" style={{ background: c + '15', color: c }}>{tool.category}</span>
                 <span className={`text-[8px] font-mono px-1.5 py-0.5 rounded ${tool.status === 'Production' ? 'badge-prod' : tool.status === 'Beta' ? 'badge-beta' : 'badge-alpha'}`}>
@@ -89,8 +89,8 @@ export default function DiscoveryCarousels() {
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="mb-10">
-          <p className="text-xs font-mono tracking-widest mb-3" style={{ color: 'var(--os-accent)' }}>DISCOVER</p>
-          <h2 className="font-display font-bold leading-tight" style={{ fontSize: 'clamp(28px,4vw,48px)', color: 'var(--os-text)' }}>
+          <p className="text-xs font-mono tracking-widest mb-3" style={{ color: 'var(--accent)' }}>DISCOVER</p>
+          <h2 className="font-display font-bold leading-tight" style={{ fontSize: 'clamp(28px,4vw,48px)', color: 'var(--text)' }}>
             Find your next <span className="text-gradient">tool</span>
           </h2>
         </motion.div>

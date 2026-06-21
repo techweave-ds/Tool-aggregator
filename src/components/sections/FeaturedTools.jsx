@@ -18,12 +18,12 @@ export default function FeaturedTools() {
   const activeTool = featured.find(t => t.id === active) || featured[0];
 
   return (
-    <section className="py-24 px-6" style={{ background: 'var(--os-surface)' }}>
+    <section className="py-24 px-6" style={{ background: 'var(--surface)' }}>
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           className="mb-12">
-          <p className="text-xs font-mono tracking-widest mb-3" style={{ color: 'var(--os-accent)' }}>03 / FEATURED</p>
-          <h2 className="font-display font-bold leading-tight" style={{ fontSize: 'clamp(28px,4vw,48px)', color: 'var(--os-text)' }}>
+          <p className="text-xs font-mono tracking-widest mb-3" style={{ color: 'var(--accent)' }}>03 / FEATURED</p>
+          <h2 className="font-display font-bold leading-tight" style={{ fontSize: 'clamp(28px,4vw,48px)', color: 'var(--text)' }}>
             Hand-picked, <span className="text-gradient">production-ready</span>
           </h2>
         </motion.div>
@@ -33,7 +33,7 @@ export default function FeaturedTools() {
           <div className="lg:col-span-2 flex flex-col gap-2">
             {featured.map((tool, i) => {
               const Icon = getIcon(tool.icon);
-              const c = CAT_COLORS[tool.category] || 'var(--os-accent)';
+              const c = CAT_COLORS[tool.category] || 'var(--accent)';
               const isActive = active === tool.id;
               return (
                 <motion.button key={tool.id}
@@ -42,8 +42,8 @@ export default function FeaturedTools() {
                   onClick={() => setActive(tool.id)}
                   className="flex items-center gap-3 p-3.5 rounded-xl text-left w-full transition-all"
                   style={{
-                    background: isActive ? `${c}12` : 'rgba(255,255,255,0.02)',
-                    border: `1px solid ${isActive ? c+'40' : 'rgba(255,255,255,0.05)'}`,
+                    background: isActive ? `${c}12` : 'var(--bg)',
+                    border: `1px solid ${isActive ? c+'40' : 'var(--bg)'}`,
                   }}
                 >
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
@@ -51,8 +51,8 @@ export default function FeaturedTools() {
                     <Icon size={16} style={{ color: c }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold truncate" style={{ color: 'var(--os-text)' }}>{tool.name}</p>
-                    <p className="text-xs truncate" style={{ color: 'var(--os-text3)' }}>{tool.category}</p>
+                    <p className="text-sm font-semibold truncate" style={{ color: 'var(--text)' }}>{tool.name}</p>
+                    <p className="text-xs truncate" style={{ color: 'var(--text3)' }}>{tool.category}</p>
                   </div>
                   {isActive && <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: c }} />}
                 </motion.button>
@@ -68,17 +68,17 @@ export default function FeaturedTools() {
                   initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-8 }}
                   transition={{ duration: 0.25 }}
                   className="h-full rounded-2xl overflow-hidden flex flex-col"
-                  style={{ background: 'var(--os-card)', border: '1px solid rgba(255,255,255,0.07)', minHeight: 320 }}
+                  style={{ background: 'var(--card)', border: '1px solid rgba(0,0,0,0.06)', minHeight: 320 }}
                 >
                   {/* Color header */}
                   {(() => {
-                    const c = CAT_COLORS[activeTool.category] || 'var(--os-accent)';
+                    const c = CAT_COLORS[activeTool.category] || 'var(--accent)';
                     const Icon = getIcon(activeTool.icon);
                     const fav = isFavorite(activeTool.id);
                     return (
                       <>
                         <div className="relative h-48 flex items-center justify-center overflow-hidden"
-                          style={{ background: `radial-gradient(ellipse at 50% 0%, ${c}22 0%, transparent 70%), var(--os-card2)` }}>
+                          style={{ background: `radial-gradient(ellipse at 50% 0%, ${c}22 0%, transparent 70%), var(--card2)` }}>
                           {/* Decorative grid */}
                           <div className="absolute inset-0 grid-bg opacity-30" />
                           {/* Big icon */}
@@ -95,7 +95,7 @@ export default function FeaturedTools() {
                           <button
                             onClick={() => toggleFavorite(activeTool.id)}
                             className="absolute top-3 right-3 w-8 h-8 rounded-lg flex items-center justify-center transition-all"
-                            style={{ background: fav ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.05)', color: fav ? '#ef4444' : 'var(--os-text3)' }}
+                            style={{ background: fav ? 'rgba(239,68,68,0.15)' : 'var(--bg)', color: fav ? '#ef4444' : 'var(--text3)' }}
                           >
                             <Star size={14} fill={fav ? 'currentColor' : 'none'} />
                           </button>
@@ -103,12 +103,12 @@ export default function FeaturedTools() {
 
                         {/* Body */}
                         <div className="p-5 flex flex-col flex-1">
-                          <h3 className="font-display font-bold text-xl mb-2" style={{ color: 'var(--os-text)' }}>{activeTool.name}</h3>
-                          <p className="text-sm leading-relaxed mb-4 flex-1" style={{ color: 'var(--os-text2)' }}>{activeTool.description}</p>
+                          <h3 className="font-display font-bold text-xl mb-2" style={{ color: 'var(--text)' }}>{activeTool.name}</h3>
+                          <p className="text-sm leading-relaxed mb-4 flex-1" style={{ color: 'var(--text2)' }}>{activeTool.description}</p>
                           <div className="flex items-center gap-1.5 flex-wrap mb-4">
                             {activeTool.tags.map(tag => (
                               <span key={tag} className="text-[10px] font-mono px-2 py-1 rounded-md"
-                                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--os-text3)' }}>
+                                style={{ background: 'var(--bg)', border: '1px solid rgba(0,0,0,0.07)', color: 'var(--text3)' }}>
                                 {tag}
                               </span>
                             ))}
@@ -123,7 +123,7 @@ export default function FeaturedTools() {
                             </button>
                             <button onClick={() => navigate(`/tool/${activeTool.id}`)}
                               className="px-4 py-2.5 rounded-xl text-sm font-medium transition-all"
-                              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--os-text2)' }}>
+                              style={{ background: 'var(--bg)', border: '1px solid rgba(0,0,0,0.07)', color: 'var(--text2)' }}>
                               Details
                             </button>
                           </div>

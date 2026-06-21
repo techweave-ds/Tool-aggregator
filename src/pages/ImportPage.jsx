@@ -58,7 +58,7 @@ function siteToTool(s) {
 function HelpCard({ children }) {
   return (
     <div className="text-xs leading-relaxed px-4 py-3 rounded-xl font-mono"
-      style={{ background:'rgba(99,102,241,0.06)', border:'1px solid rgba(99,102,241,0.15)', color:'var(--os-text3)' }}>
+      style={{ background:'rgba(99,102,241,0.06)', border:'1px solid rgba(99,102,241,0.15)', color:'var(--text3)' }}>
       💡 {children}
     </div>
   );
@@ -76,12 +76,12 @@ function ErrMsg({ msg }) {
 function RepoList({ items, selected, onToggle, onSelectAll, color }) {
   const all = items.length>0 && items.every(i => selected.has(i.id));
   return (
-    <div className="rounded-xl overflow-hidden" style={{ border:'1px solid rgba(255,255,255,0.07)' }}>
+    <div className="rounded-xl overflow-hidden" style={{ border:'1px solid rgba(0,0,0,0.06)' }}>
       <div className="flex items-center justify-between px-4 py-2.5"
-        style={{ background:'rgba(255,255,255,0.03)', borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
-        <span className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>{items.length} found</span>
+        style={{ background:'var(--bg)', borderBottom:'1px solid rgba(0,0,0,0.05)' }}>
+        <span className="text-[10px] font-mono" style={{ color:'var(--text3)' }}>{items.length} found</span>
         <button onClick={onSelectAll} className="text-[10px] font-mono transition-opacity hover:opacity-80"
-          style={{ color: all?'var(--os-text3)':color }}>{all?'Deselect all':'Select all'}</button>
+          style={{ color: all?'var(--text3)':color }}>{all?'Deselect all':'Select all'}</button>
       </div>
       <div className="max-h-64 overflow-y-auto no-scroll">
         {items.map(item => {
@@ -89,20 +89,20 @@ function RepoList({ items, selected, onToggle, onSelectAll, color }) {
           return (
             <label key={item.id}
               className="flex items-center gap-3 px-4 py-2.5 cursor-pointer transition-colors"
-              style={{ borderBottom:'1px solid rgba(255,255,255,0.04)', background: sel?color+'08':'transparent' }}>
+              style={{ borderBottom:'1px solid var(--surface)', background: sel?color+'08':'transparent' }}>
               <div className="w-4 h-4 rounded flex items-center justify-center shrink-0 transition-all"
-                style={{ background: sel?color:'rgba(255,255,255,0.06)', border:`1px solid ${sel?color:'rgba(255,255,255,0.12)'}` }}
+                style={{ background: sel?color:'rgba(0,0,0,0.05)', border:`1px solid ${sel?color:'rgba(0,0,0,0.09)'}` }}
                 onClick={() => onToggle(item.id)}>
                 {sel && <CheckCircle2 size={10} color="#fff" fill="#fff" strokeWidth={3}/>}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium truncate" style={{ color:'var(--os-text)' }}>{item.name}</p>
-                <p className="text-[10px] truncate" style={{ color:'var(--os-text3)' }}>{item.desc||item.meta}</p>
+                <p className="text-xs font-medium truncate" style={{ color:'var(--text)' }}>{item.name}</p>
+                <p className="text-[10px] truncate" style={{ color:'var(--text3)' }}>{item.desc||item.meta}</p>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
-                {item.updated && <span className="text-[9px] font-mono" style={{ color:'var(--os-text3)' }}>{item.updated}</span>}
+                {item.updated && <span className="text-[9px] font-mono" style={{ color:'var(--text3)' }}>{item.updated}</span>}
                 {item.url && <a href={item.url} target="_blank" rel="noopener noreferrer"
-                  onClick={e => e.stopPropagation()} style={{ color:'var(--os-text3)', opacity:0.5 }}>
+                  onClick={e => e.stopPropagation()} style={{ color:'var(--text3)', opacity:0.5 }}>
                   <ArrowUpRight size={11}/>
                 </a>}
               </div>
@@ -166,21 +166,21 @@ function ImportContent() {
     <div className="pt-24 pb-16 px-6 min-h-screen">
       <div className="max-w-3xl mx-auto space-y-10">
         <div>
-          <h1 className="font-display font-bold text-3xl" style={{ color:'var(--os-text)' }}>Import Tools</h1>
-          <p className="text-sm mt-1.5" style={{ color:'var(--os-text2)' }}>
+          <h1 className="font-display font-bold text-3xl" style={{ color:'var(--text)' }}>Import Tools</h1>
+          <p className="text-sm mt-1.5" style={{ color:'var(--text2)' }}>
             Connect GitHub or Netlify — pick repos and sites — import in one click. No manual entry.
           </p>
         </div>
 
         {/* GitHub */}
-        <div className="rounded-2xl overflow-hidden" style={{ background:'var(--os-card)', border:'1px solid rgba(255,255,255,0.07)' }}>
-          <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
+        <div className="rounded-2xl overflow-hidden" style={{ background:'var(--card)', border:'1px solid rgba(0,0,0,0.06)' }}>
+          <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom:'1px solid rgba(0,0,0,0.05)' }}>
             <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background:'rgba(59,130,246,0.12)' }}>
               <Github size={17} style={{ color:'#60a5fa' }}/>
             </div>
             <div>
-              <h2 className="font-display font-semibold text-sm" style={{ color:'var(--os-text)' }}>GitHub Repositories</h2>
-              <p className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>Public repos free · Token needed for private</p>
+              <h2 className="font-display font-semibold text-sm" style={{ color:'var(--text)' }}>GitHub Repositories</h2>
+              <p className="text-[10px] font-mono" style={{ color:'var(--text3)' }}>Public repos free · Token needed for private</p>
             </div>
           </div>
           <div className="p-5 space-y-3">
@@ -188,10 +188,10 @@ function ImportContent() {
               <input value={ghUser} onChange={e => setGhUser(e.target.value)}
                 onKeyDown={e => e.key==='Enter' && loadGH()}
                 placeholder="GitHub username" className="flex-1 px-3 py-2 text-sm rounded-xl"
-                style={{ background:'rgba(255,255,255,0.05)' }}/>
+                style={{ background:'var(--bg)' }}/>
               <input value={ghToken} onChange={e => setGhToken(e.target.value)}
                 placeholder="Token (optional)" type="password" className="flex-1 px-3 py-2 text-sm rounded-xl"
-                style={{ background:'rgba(255,255,255,0.05)' }}/>
+                style={{ background:'var(--bg)' }}/>
             </div>
             <HelpCard>github.com/settings/tokens → New token (classic) → check <code>repo</code> scope.</HelpCard>
             <button onClick={loadGH} disabled={!ghUser.trim()||ghLoading}
@@ -212,20 +212,20 @@ function ImportContent() {
         </div>
 
         {/* Netlify */}
-        <div className="rounded-2xl overflow-hidden" style={{ background:'var(--os-card)', border:'1px solid rgba(255,255,255,0.07)' }}>
-          <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
+        <div className="rounded-2xl overflow-hidden" style={{ background:'var(--card)', border:'1px solid rgba(0,0,0,0.06)' }}>
+          <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom:'1px solid rgba(0,0,0,0.05)' }}>
             <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background:'rgba(34,197,94,0.1)' }}>
               <Globe size={17} style={{ color:'#22c55e' }}/>
             </div>
             <div>
-              <h2 className="font-display font-semibold text-sm" style={{ color:'var(--os-text)' }}>Netlify Sites</h2>
-              <p className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>Personal Access Token required</p>
+              <h2 className="font-display font-semibold text-sm" style={{ color:'var(--text)' }}>Netlify Sites</h2>
+              <p className="text-[10px] font-mono" style={{ color:'var(--text3)' }}>Personal Access Token required</p>
             </div>
           </div>
           <div className="p-5 space-y-3">
             <input value={nlToken} onChange={e => setNlToken(e.target.value)}
               placeholder="Netlify Personal Access Token" type="password"
-              className="w-full px-3 py-2 text-sm rounded-xl" style={{ background:'rgba(255,255,255,0.05)' }}/>
+              className="w-full px-3 py-2 text-sm rounded-xl" style={{ background:'var(--bg)' }}/>
             <HelpCard>app.netlify.com → User settings → Applications → Personal access tokens → New access token.</HelpCard>
             <button onClick={loadNL} disabled={!nlToken.trim()||nlLoading}
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium disabled:opacity-40"
@@ -249,18 +249,18 @@ function ImportContent() {
           {total > 0 && (
             <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:20 }}
               className="sticky bottom-6 flex items-center justify-between gap-4 rounded-2xl px-5 py-4"
-              style={{ background:'rgba(10,15,30,0.95)', border:'1px solid rgba(99,102,241,0.3)', backdropFilter:'blur(20px)', boxShadow:'0 16px 48px rgba(0,0,0,0.5)' }}>
+              style={{ background:'rgba(255,255,255,0.97)', border:'1px solid rgba(99,102,241,0.3)', backdropFilter:'blur(20px)', boxShadow:'0 16px 48px rgba(15,23,42,0.12)' }}>
               <div>
-                <p className="font-display font-semibold text-sm" style={{ color:'var(--os-text)' }}>{total} selected</p>
-                <p className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>{ghSel.size} GitHub · {nlSel.size} Netlify</p>
+                <p className="font-display font-semibold text-sm" style={{ color:'var(--text)' }}>{total} selected</p>
+                <p className="text-[10px] font-mono" style={{ color:'var(--text3)' }}>{ghSel.size} GitHub · {nlSel.size} Netlify</p>
               </div>
               <div className="flex items-center gap-2">
                 <button onClick={() => { setGhSel(new Set()); setNlSel(new Set()); }}
                   className="text-xs font-mono px-3 py-1.5 rounded-lg"
-                  style={{ background:'rgba(255,255,255,0.06)', color:'var(--os-text3)' }}>Clear</button>
+                  style={{ background:'rgba(0,0,0,0.05)', color:'var(--text3)' }}>Clear</button>
                 <button onClick={doImport} disabled={importing}
                   className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold disabled:opacity-50 transition-all"
-                  style={{ background: done?'#22c55e':'var(--os-accent)', color:'#fff' }}>
+                  style={{ background: done?'#22c55e':'var(--accent)', color:'#fff' }}>
                   {importing ? <Loader2 size={14} className="animate-spin"/> : done ? <CheckCircle2 size={14}/> : <Plus size={14}/>}
                   {importing?'Importing…':done?'Imported!':'Import to WeaveStack'}
                 </button>
@@ -273,22 +273,22 @@ function ImportContent() {
         {saved.length > 0 && (
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-display font-semibold text-sm" style={{ color:'var(--os-text)' }}>Previously Imported ({saved.length})</h2>
+              <h2 className="font-display font-semibold text-sm" style={{ color:'var(--text)' }}>Previously Imported ({saved.length})</h2>
               <button onClick={() => { localStorage.removeItem('imported-tools'); setSaved([]); }}
-                className="text-[10px] font-mono flex items-center gap-1" style={{ color:'var(--os-text3)' }}>
+                className="text-[10px] font-mono flex items-center gap-1" style={{ color:'var(--text3)' }}>
                 <X size={10}/> Clear all
               </button>
             </div>
             <div className="space-y-1.5">
               {saved.map(t => (
                 <div key={t.id} className="flex items-center gap-3 px-4 py-2.5 rounded-xl"
-                  style={{ background:'var(--os-card)', border:'1px solid rgba(255,255,255,0.05)' }}>
+                  style={{ background:'var(--card)', border:'1px solid var(--bg)' }}>
                   <div className="w-1.5 h-1.5 rounded-full shrink-0"
                     style={{ background: t._src==='github'?'#60a5fa':'#22c55e' }}/>
-                  <p className="text-sm font-medium flex-1 truncate" style={{ color:'var(--os-text)' }}>{t.name}</p>
-                  <span className="text-[10px] font-mono" style={{ color:'var(--os-text3)' }}>{t.category}</span>
+                  <p className="text-sm font-medium flex-1 truncate" style={{ color:'var(--text)' }}>{t.name}</p>
+                  <span className="text-[10px] font-mono" style={{ color:'var(--text3)' }}>{t.category}</span>
                   {t.url && <a href={t.url} target="_blank" rel="noopener noreferrer"
-                    style={{ color:'var(--os-text3)', opacity:0.5 }} className="hover:opacity-100">
+                    style={{ color:'var(--text3)', opacity:0.5 }} className="hover:opacity-100">
                     <ArrowUpRight size={13}/>
                   </a>}
                 </div>

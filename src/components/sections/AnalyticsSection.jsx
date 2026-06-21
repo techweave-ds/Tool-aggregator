@@ -9,7 +9,7 @@ const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilit
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="px-3 py-2 rounded-lg text-xs" style={{ background: 'var(--os-card)', border: '1px solid var(--os-border)', color: 'var(--os-text)' }}>
+    <div className="px-3 py-2 rounded-lg text-xs" style={{ background: 'var(--card)', border: '1px solid var(--border)', color: 'var(--text)' }}>
       <p className="font-medium">{label || payload[0].name}</p>
       {payload.map((p, i) => (
         <p key={i} style={{ color: p.color }}>{p.name}: {p.value}</p>
@@ -25,12 +25,12 @@ export default function AnalyticsSection() {
   const statusData = Object.entries(getStatusBreakdown(allTools)).map(([name, count]) => ({ name, count, color: STATUS_COLORS[name] || '#6b7280' }));
 
   return (
-    <section className="py-24 px-6" style={{ background: 'var(--os-surface)' }}>
+    <section className="py-24 px-6" style={{ background: 'var(--surface)' }}>
       <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="mb-12">
-          <p className="text-xs font-mono tracking-widest mb-3" style={{ color: 'var(--os-accent)' }}>INSIGHTS</p>
-          <h2 className="font-display font-bold leading-tight" style={{ fontSize: 'clamp(28px,4vw,48px)', color: 'var(--os-text)' }}>
+          <p className="text-xs font-mono tracking-widest mb-3" style={{ color: 'var(--accent)' }}>INSIGHTS</p>
+          <h2 className="font-display font-bold leading-tight" style={{ fontSize: 'clamp(28px,4vw,48px)', color: 'var(--text)' }}>
             Platform <span className="text-gradient">analytics</span>
           </h2>
         </motion.div>
@@ -39,15 +39,15 @@ export default function AnalyticsSection() {
           {/* Category Distribution */}
           <motion.div
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="rounded-2xl p-5" style={{ background: 'var(--os-card)', border: '1px solid rgba(255,255,255,0.06)' }}>
-            <p className="text-xs font-mono mb-4" style={{ color: 'var(--os-text3)' }}>CATEGORY DISTRIBUTION</p>
+            className="rounded-2xl p-5" style={{ background: 'var(--card)', border: '1px solid rgba(0,0,0,0.05)' }}>
+            <p className="text-xs font-mono mb-4" style={{ color: 'var(--text3)' }}>CATEGORY DISTRIBUTION</p>
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie data={catData} cx="50%" cy="50%" innerRadius={45} outerRadius={75} paddingAngle={2} dataKey="count"
                     onMouseEnter={null}>
                     {catData.map((entry, i) => (
-                      <Cell key={i} fill={CAT_COLORS[entry.name] || '#6366f1'} stroke="rgba(255,255,255,0.05)" strokeWidth={0} />
+                      <Cell key={i} fill={CAT_COLORS[entry.name] || '#6366f1'} stroke="var(--bg)" strokeWidth={0} />
                     ))}
                   </Pie>
                   <Tooltip content={<CustomTooltip />} />
@@ -58,7 +58,7 @@ export default function AnalyticsSection() {
               {catData.map(d => (
                 <div key={d.name} className="flex items-center gap-1.5 text-[10px] font-mono">
                   <div className="w-2 h-2 rounded-full" style={{ background: CAT_COLORS[d.name] || '#6366f1' }} />
-                  <span style={{ color: 'var(--os-text3)' }}>{d.name} ({d.count})</span>
+                  <span style={{ color: 'var(--text3)' }}>{d.name} ({d.count})</span>
                 </div>
               ))}
             </div>
@@ -68,8 +68,8 @@ export default function AnalyticsSection() {
           <motion.div
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="rounded-2xl p-5" style={{ background: 'var(--os-card)', border: '1px solid rgba(255,255,255,0.06)' }}>
-            <p className="text-xs font-mono mb-4" style={{ color: 'var(--os-text3)' }}>TOOL GROWTH</p>
+            className="rounded-2xl p-5" style={{ background: 'var(--card)', border: '1px solid rgba(0,0,0,0.05)' }}>
+            <p className="text-xs font-mono mb-4" style={{ color: 'var(--text3)' }}>TOOL GROWTH</p>
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={monthlyData} barCategoryGap={4}>
@@ -86,8 +86,8 @@ export default function AnalyticsSection() {
           <motion.div
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="rounded-2xl p-5" style={{ background: 'var(--os-card)', border: '1px solid rgba(255,255,255,0.06)' }}>
-            <p className="text-xs font-mono mb-4" style={{ color: 'var(--os-text3)' }}>PRODUCTION VS BETA</p>
+            className="rounded-2xl p-5" style={{ background: 'var(--card)', border: '1px solid rgba(0,0,0,0.05)' }}>
+            <p className="text-xs font-mono mb-4" style={{ color: 'var(--text3)' }}>PRODUCTION VS BETA</p>
             <div className="flex items-center gap-6 h-48 justify-center">
               {statusData.map(s => {
                 const total = statusData.reduce((a, b) => a + b.count, 0);
@@ -96,7 +96,7 @@ export default function AnalyticsSection() {
                   <div key={s.name} className="flex flex-col items-center gap-2">
                     <div className="relative w-24 h-24">
                       <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
-                        <circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="3" />
+                        <circle cx="18" cy="18" r="15.5" fill="none" stroke="var(--bg)" strokeWidth="3" />
                         <circle cx="18" cy="18" r="15.5" fill="none" stroke={s.color} strokeWidth="3"
                           strokeDasharray={`${pct} ${100 - pct}`} strokeLinecap="round" />
                       </svg>
@@ -104,7 +104,7 @@ export default function AnalyticsSection() {
                         <span className="text-lg font-bold font-display" style={{ color: s.color }}>{s.count}</span>
                       </div>
                     </div>
-                    <span className="text-xs font-mono" style={{ color: 'var(--os-text3)' }}>{s.name}</span>
+                    <span className="text-xs font-mono" style={{ color: 'var(--text3)' }}>{s.name}</span>
                   </div>
                 );
               })}
@@ -115,21 +115,21 @@ export default function AnalyticsSection() {
           <motion.div
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="rounded-2xl p-5" style={{ background: 'var(--os-card)', border: '1px solid rgba(255,255,255,0.06)' }}>
-            <p className="text-xs font-mono mb-4" style={{ color: 'var(--os-text3)' }}>CATEGORY INSIGHTS</p>
+            className="rounded-2xl p-5" style={{ background: 'var(--card)', border: '1px solid rgba(0,0,0,0.05)' }}>
+            <p className="text-xs font-mono mb-4" style={{ color: 'var(--text3)' }}>CATEGORY INSIGHTS</p>
             <div className="space-y-3">
               {catData.slice(0, 5).map(cat => {
                 const catTools = allTools.filter(t => t.category === cat.name);
                 const recent = catTools.filter(t => t.changelog?.[0]?.date).sort((a, b) => b.changelog[0].date.localeCompare(a.changelog[0].date));
                 return (
-                  <div key={cat.name} className="flex items-center justify-between p-2.5 rounded-lg" style={{ background: 'rgba(255,255,255,0.02)' }}>
+                  <div key={cat.name} className="flex items-center justify-between p-2.5 rounded-lg" style={{ background: 'var(--bg)' }}>
                     <div className="flex items-center gap-2.5">
                       <div className="w-2.5 h-2.5 rounded-full" style={{ background: CAT_COLORS[cat.name] || '#6366f1' }} />
-                      <span className="text-sm" style={{ color: 'var(--os-text)' }}>{cat.name}</span>
-                      <span className="text-xs font-mono" style={{ color: 'var(--os-text3)' }}>{cat.count} tools</span>
+                      <span className="text-sm" style={{ color: 'var(--text)' }}>{cat.name}</span>
+                      <span className="text-xs font-mono" style={{ color: 'var(--text3)' }}>{cat.count} tools</span>
                     </div>
                     <div className="flex items-center gap-2 text-[10px] font-mono">
-                      {recent[0] && <span style={{ color: 'var(--os-text3)' }}>Updated: {recent[0].changelog[0].date}</span>}
+                      {recent[0] && <span style={{ color: 'var(--text3)' }}>Updated: {recent[0].changelog[0].date}</span>}
                     </div>
                   </div>
                 );
