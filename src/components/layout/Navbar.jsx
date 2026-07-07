@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Command, X, ExternalLink, Zap, Menu, Sparkles, ChevronDown } from 'lucide-react';
+import { Search, Command, X, ExternalLink, Zap, Menu, Sparkles, ChevronDown, Sun, Moon } from 'lucide-react';
 import { getAllTools } from '@/utils/tools';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
+import { useTheme } from '@/context/ThemeContext';
 import StackBuilder from '@/components/ui/StackBuilder';
 
 const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
@@ -24,6 +25,7 @@ export default function Navbar({ transparent }) {
   const loc = useLocation();
   const navigate = useNavigate();
   const { trackOpen } = useRecentToolsContext();
+  const { isDark, toggle } = useTheme();
 
   useEffect(() => {
     const s = () => setScrolled(window.scrollY > 20);
@@ -113,6 +115,21 @@ export default function Navbar({ transparent }) {
         </div>
 
         <div className="flex-1" />
+
+        {/* Theme toggle */}
+        <button
+          onClick={toggle}
+          className="hidden md:flex items-center justify-center w-8 h-8 rounded-xl transition-all hover:scale-105 active:scale-95 mr-2"
+          style={{
+            background: 'var(--surface)',
+            border: '1px solid var(--border2)',
+            color: 'var(--text2)',
+            boxShadow: 'var(--shadow-xs)',
+          }}
+          aria-label={isDark ? 'Switch to warm theme' : 'Switch to cool theme'}
+        >
+          {isDark ? <Sun size={13} /> : <Moon size={13} />}
+        </button>
 
         {/* Build Stack */}
         <button

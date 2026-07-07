@@ -143,6 +143,12 @@ export default function WorkshopHero({ onSelect, selectedId }) {
         <p className="text-center font-mono text-[10px] tracking-[0.2em] mb-5" style={{ color: 'var(--text3)' }}>
           SELECT A SYSTEM TO EXPLORE
         </p>
+        {SYSTEMS.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-sm font-medium" style={{ color: 'var(--text2)' }}>No systems available yet</p>
+            <p className="text-xs mt-1" style={{ color: 'var(--text3)' }}>Systems will appear here once configured</p>
+          </div>
+        ) : (
         <div className="flex flex-wrap gap-2.5 justify-center">
           {SYSTEMS.map((sys) => {
             const isSel = selectedId === sys.id;
@@ -175,6 +181,7 @@ export default function WorkshopHero({ onSelect, selectedId }) {
             );
           })}
         </div>
+        )}
       </motion.div>
 
       {/* Scroll hint */}

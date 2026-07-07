@@ -51,6 +51,12 @@ export default function FeaturedSystems({ onSelectSystem }) {
         </div>
 
         {/* Horizontal scroll rail */}
+        {SYSTEMS.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-sm font-medium" style={{ color: 'var(--text2)' }}>No featured systems yet</p>
+            <p className="text-xs mt-1" style={{ color: 'var(--text3)' }}>Systems will be available once added to the catalog</p>
+          </div>
+        ) : (
         <div ref={railRef} className="flex gap-4 overflow-x-auto no-scrollbar pb-4" style={{ scrollSnapType: 'x mandatory' }}>
           {SYSTEMS.map((sys, i) => {
             const color = DOMAIN_COLORS[sys.domain] || sys.color;
@@ -154,6 +160,7 @@ export default function FeaturedSystems({ onSelectSystem }) {
             );
           })}
         </div>
+        )}
 
         {/* Scroll dots indicator */}
         <div className="flex justify-center gap-1.5 mt-5">
