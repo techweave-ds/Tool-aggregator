@@ -180,7 +180,26 @@ Floating radial gradients with `filter: blur(60px)` for depth. Used in HeroOrbs 
 
 ---
 
-## 6. Status Badges
+## 6. Theme Variant: Warm/Amber (`.light-mode`)
+
+When the `.light-mode` class is applied to `<html>`, 33 CSS variables switch to a warm/amber alternative palette:
+
+```
+--bg:       #fefcf5   (warm cream)
+--bg2:      #f8f5ed   (warm beige)
+--surface:  #ffffff   (white)
+--text:     #292524   (warm stone-900)
+--accent:   #d97706   (amber-600, warm brand)
+--border:   rgba(245,158,11,0.14) (amber-tinted)
+```
+
+Shadows shift to warm stone base (`rgba(41,37,36, ...)`) instead of slate. All 9 category colors, 6 shadow levels, and 3 glow colors are recalculated for the warm palette.
+
+To toggle: switch `localStorage('os-theme')` from `'dark'` to `'light'` (no UI button currently exists).
+
+---
+
+## 7. Status Badges
 
 | Status | Style | Color |
 |--------|-------|-------|
@@ -193,7 +212,7 @@ Status dots: `.dot-prod` (green + glow), `.dot-beta` (amber), `.dot-alpha` (indi
 
 ---
 
-## 7. Animations
+## 8. Animations
 
 ### CSS Keyframes (in index.css)
 | Name | Effect |
@@ -223,7 +242,7 @@ Delay classes: `.delay-100` through `.delay-800`
 
 ---
 
-## 8. Component Design Patterns
+## 9. Component Design Patterns
 
 ### Tool Card (ToolsPage)
 ```
@@ -257,7 +276,7 @@ Footer (actions)
 
 ---
 
-## 9. Responsive Breakpoints
+## 10. Responsive Breakpoints
 
 | Breakpoint | Tailwind | Usage |
 |-----------|----------|-------|
@@ -268,7 +287,7 @@ Footer (actions)
 
 ---
 
-## 10. Custom CSS Classes (index.css)
+## 11. Custom CSS Classes (index.css)
 
 ```
 .grid-bg              → Subtle grid pattern overlay
@@ -289,10 +308,10 @@ Footer (actions)
 
 ---
 
-## 11. Design Assets
+## 12. Design Assets
 
 - **Favicon**: SVG lightning bolt on gradient rounded square (`public/favicon.svg`)
 - **No external images** — all visuals are CSS, SVG, Canvas, or emoji
 - **Icons**: lucide-react (32+ icon mappings in `src/utils/icons.jsx`)
 - **Data visualization**: d3 force-directed graphs, recharts pie/bar/donut charts
-- **Canvas**: interactive particle node network in EcosystemHero
+- **Canvas**: interactive particle node network (removed in v3.0.1 cleanup)

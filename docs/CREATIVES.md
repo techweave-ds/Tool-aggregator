@@ -73,7 +73,7 @@ The brand lives at the intersection of:
 
 ## 4. The "Workshop" Metaphor
 
-The landing page is a **workshop-first** flow — the old landing sections (hero carousels, category grid, stats, analytics) still exist in code but are not used on the landing page. Instead, users enter an interactive workshop:
+The landing page is a **workshop-first** flow — users enter an interactive workshop:
 
 ```
 Step 1: "What are you trying to build?"     (WorkshopHero — 3D cards + radial menu)
@@ -160,7 +160,7 @@ These boundaries guide all creative decisions:
 1. **Local-first**: No backend. All data is static or in localStorage. The experience must feel complete without a server.
 2. **SPA, no SSR**: No server rendering. Everything happens in the browser.
 3. **No images**: All visuals are CSS, SVG, Canvas, or emoji. No JPGs, no PNGs, no external assets.
-4. **Light-theme primary**: CSS defines a light/air color palette. Dark mode toggle exists in ThemeContext but is vestigial (no dark CSS variables defined).
+4. **Light-theme with toggle**: Default is cool/indigo light theme. `.light-mode` class switches to a warm/amber variant. No dark theme.
 5. **Single developer tooling**: No complex build pipelines, no monorepo, no design system library. Just React + Tailwind.
 6. **3D-first hero**: HeroCard3D component uses CSS perspective + framer-motion spring physics for tilt-on-hover 3D card stacks.
 

@@ -149,10 +149,6 @@ weavestack-discovery: {...}         │ discoveryStore      │ ToolDetailPage (
 │  ├── Brand, links, social (GitHub)              │
 │  └── Operational status indicator               │
 └──────────────────────────────────────────────────┘
-
-*Legacy sections (HeroSection, CategoryGrid, DiscoveryCarousels,
-FeaturedTools, StatsSection, WorkflowSection, AnalyticsSection) exist in
-`src/components/sections/` but are NOT imported on the landing page.*
 ```
 
 ### Tools Page (`/tools`) — The Directory

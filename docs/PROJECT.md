@@ -95,7 +95,7 @@ silent-meadow/
 │   │   └── NotFoundPage.jsx            # 404
 │   │
 │   ├── context/                        # React Context providers
-│   │   ├── ThemeContext.jsx            # Dark/light toggle (currently always dark)
+│   │   ├── ThemeContext.jsx            # Cool/warm theme toggle (cool/indigo default, warm/amber .light-mode)
 │   │   ├── FavoritesContext.jsx
 │   │   ├── PinnedContext.jsx
 │   │   ├── RecentToolsContext.jsx
@@ -157,8 +157,7 @@ tools.json (built-in 31 tools)
     │
     ├─ utils/tools.js ── getAllTools()
     │   merges built-in + localStorage('custom-tools') + localStorage('imported-tools')
-    │   └─ consumed by Navbar, ToolsPage, ToolDetailPage, FeaturedTools,
-    │      DiscoveryCarousels, FeaturedSystems, StackReveal, AdminPage
+    │   └─ consumed by Navbar, ToolsPage, ToolDetailPage, FeaturedSystems, StackReveal, AdminPage
     │
     ├─ utils/relationships.js
     │   static map of toolId -> { complements, alternatives, workflow }

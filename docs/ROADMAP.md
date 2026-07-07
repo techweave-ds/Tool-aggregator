@@ -2,7 +2,7 @@
 
 ## Current State
 
-WeaveStack v3.0 is a **light-theme, discovery-first tool ecosystem** with an interactive workshop landing page, full tool directory, and admin dashboard. The project is complete and deployable but has known issues and unfinished features.
+WeaveStack v3.0.1 is a **light-theme, discovery-first tool ecosystem** with an interactive workshop landing page, full tool directory, and admin dashboard. All v2→v3 migration cleanup (unused sections, stale fonts, missing theme variables, dead CSS) is complete. The project is clean, deployable, and ready for feature work.
 
 ---
 
@@ -10,11 +10,9 @@ WeaveStack v3.0 is a **light-theme, discovery-first tool ecosystem** with an int
 
 | Priority | Issue | Files | Description |
 |----------|-------|-------|-------------|
-| High | HeroSection.jsx vs WorkshopHero.jsx conflict | `LandingPage.jsx`, `HeroSection.jsx` | LandingPage uses workshop components. HeroSection.jsx (old landing) is unused but still imports EcosystemHero + StackBuilder. Clean up unused sections. |
-| High | Tailwind font config stale | `tailwind.config.js` | Font families in config (Cabinet Grotesk, Satoshi) don't match actual usage (Plus Jakarta Sans, Inter). Update or remove. |
-| Medium | ThemeContext light-mode incomplete | `ThemeContext.jsx`, `index.css` | `.light-mode` class toggles but light CSS variables are undefined. The project is effectively light-only now. Remove theme toggle or complete the light variables. |
-| Medium | Missing AGENTS.md | root | Should document commands (npm run dev/build/deploy) for AI coding assistants. |
-| Low | index.css .noise class | `index.css` | `.noise` texture overlay class exists but isn't applied anywhere. Remove or wire it in. |
+| Medium | Theme toggle has no UI | `ThemeContext.jsx`, `Navbar.jsx` | Theme toggle exists in context but no button triggers `.light-mode` switching. Add a toggle to Navbar or settings panel. |
+| Medium | Empty states in workshop | `WorkshopHero.jsx`, `FeaturedSystems.jsx` | WorkshopHero has no "no systems" state; FeaturedSystems empty rail needs better messaging. |
+| Low | Toast notifications | `Navbar.jsx`, `FavoritesContext.jsx` | No feedback on save/pin/favorite actions. Add lightweight toast system. |
 
 ---
 
@@ -26,10 +24,8 @@ WeaveStack v3.0 is a **light-theme, discovery-first tool ecosystem** with an int
 - Memoize heavy components (ToolConstellation d3 re-render, ToolDetailPage context consumers)
 
 ### UX
-- **Empty states**: WorkshopHero has no "no systems" state; FeaturedSystems empty rail needs better messaging
 - **Keyboard shortcuts**: Full shortcut reference modal (currently only Cmd+K)
 - **Onboarding**: First-visit walkthrough highlighting the workshop flow
-- **Toast notifications**: For save/pin/favorite actions (currently no feedback)
 - **Shareable stack URLs**: Encode selected system + tools in URL hash for sharing
 
 ### Data
@@ -61,7 +57,6 @@ WeaveStack v3.0 is a **light-theme, discovery-first tool ecosystem** with an int
 - **Backend integration**: Optional sync layer for cross-device persistence
 
 ### Design
-- **Light mode polish**: Complete the ThemeContext light switch with proper CSS variable overrides
 - **Dark mode reintroduction**: Option to switch back to a dark variant
 - **Animated "weaving" visual**: Thread/strand metaphor for stack composition
 - **Tool "sounds"**: Subtle audio feedback on key interactions
@@ -72,6 +67,7 @@ WeaveStack v3.0 is a **light-theme, discovery-first tool ecosystem** with an int
 
 | Date | Version | Changes |
 |------|---------|---------|
+| 2026-07-07 | v3.0.1 | Cleanup: removed 9 unused files (HeroSection, CategoryGrid, DiscoveryCarousels, FeaturedTools, RecentUpdates, StatsSection, WorkflowSection, AnalyticsSection, EcosystemHero). Fixed tailwind.config.js font families (Cabinet Grotesk→Plus Jakarta Sans, Satoshi→Inter). Completed `.light-mode` CSS with warm/amber alternative theme. Added AGENTS.md. |
 | 2026-07-06 | v3.0.0 | Bugfix: migrated 18 files from dark-theme --os-* vars to light-theme --* vars. Removed tool detail page sidebar layout, unified to hero card. |
 | 2026-07-06 | v3.0.0 | Light theme redesign: replaced dark theme with light/air color palette, Plus Jakarta Sans + Inter fonts, 3D hero components, platform layout, workshop landing flow. |
 | 2026-07-06 | v3.0.0 | Initial workshop redesign: interactive workshop flow replaces old landing page. |

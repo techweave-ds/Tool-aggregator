@@ -90,7 +90,6 @@ src/components/ui/ComparePanel.jsx    → Side-by-side comparison (up to 4 tools
 src/components/ui/SmartSearch.jsx     → Search input with fuzzy dropdown
 src/components/ui/HeroCard3D.jsx      → 3 stacked tool preview cards (mouse tilt)
 src/components/ui/HeroOrbs.jsx        → 4 floating gradient blobs
-src/components/ui/EcosystemHero.jsx   → Canvas particle network
 src/components/ui/StackBuilder.jsx    → Stack recommendation modal
 src/components/ui/ToolConstellation.jsx → D3 force-directed graph
 src/components/ui/ToolRelationships.jsx → Related tool chips
@@ -107,18 +106,10 @@ src/components/workshop/FeaturedSystems.jsx → Horizontal scroll of system card
 src/components/workshop/DiscoveryCta.jsx    → Search CTA with cycling suggestions
 ```
 
-### Phase 8: Sections (used by old LandingPage, kept for compatibility)
+### Phase 8: Shared Sections
 
 ```
-src/components/sections/HeroSection.jsx
-src/components/sections/CategoryGrid.jsx
-src/components/sections/DiscoveryCarousels.jsx
-src/components/sections/FeaturedTools.jsx
 src/components/sections/FooterSection.jsx
-src/components/sections/RecentUpdates.jsx
-src/components/sections/StatsSection.jsx
-src/components/sections/WorkflowSection.jsx
-src/components/sections/AnalyticsSection.jsx
 ```
 
 ### Phase 9: Pages
@@ -329,7 +320,5 @@ index.html
 
 ## 6. Known Gaps for Rebuilding
 
-- **ThemeContext.jsx**: sets `.light-mode` class but light mode CSS variables are incomplete. The project is effectively light-only.
-- **tailwind.config.js**: The fontFamily extensions (`display`, `body`, `mono`) are NOT actually used — fonts are set via `font-family` in CSS variables. The config is vestigial.
-- **hero sections conflict**: Both `sections/HeroSection.jsx` and `workshop/WorkshopHero.jsx` exist. LandingPage uses WorkshopHero (workshop flow). The old HeroSection is unused on the landing page.
+- **ThemeContext.jsx**: toggle exists but no UI button triggers it. Add toggle to Navbar.
 - **No tests**: No test framework, no test files exist.

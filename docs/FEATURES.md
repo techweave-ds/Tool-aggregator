@@ -32,43 +32,18 @@ D3 force-directed graph showing all tools as connected nodes.
 - Legend with category color key
 - Highlight on hover
 
-### 1.3 Discovery Carousels [DEPRECATED — unused on landing page]
-**File**: `src/components/sections/DiscoveryCarousels.jsx` · `src/stores/discoveryStore.js`
+### 1.3 Discovery Engine
+**File**: `src/stores/discoveryStore.js`
 
-Horizontal scrollable carousels. No longer imported on the landing page.
-- **Trending**: tools ranked by discovery score (weighted views + favorites)
-- **Recommended**: user-personalized based on favorites and view history
-- **New Releases**: sorted by most recent
-- **AI Favorites**: AI-category tools sorted by popularity
-- Scroll buttons (left/right) with auto-hide at bounds
-- *Note: discoveryStore is still used by ToolDetailPage for view tracking*
+Zustand store with persist middleware for discovery recommendations.
+- `trackView(toolId)`: records a tool view (capped at 100, deduped)
+- `getRecommendations(tools)`: personalized recs based on viewed categories
+- `getTrending(tools)`: globally trending tools by view count
+- `discoveryScore`: cumulative engagement score (capped at 100)
+- `trendingWeights`: map of toolId → view count
+- Persists to localStorage as `weavestack-discovery`
 
-### 1.4 Category Grid [DEPRECATED — unused on landing page]
-**File**: `src/components/sections/CategoryGrid.jsx`
-
-Bento-grid layout of all 7 tool categories. No longer imported on the landing page.
-- Each card shows: icon, name, tool count, description
-- Links to `/tools?category=X`
-- Responsive: adapts from 1-col (mobile) to 3-col (desktop)
-
-### 1.5 Ecosystem Hero (Canvas) [DEPRECATED — unused on landing page]
-**File**: `src/components/ui/EcosystemHero.jsx`
-
-Interactive canvas-based particle network. No longer imported on the landing page (now only in orphaned HeroSection).
-- Floating nodes connected by thin lines
-- Category-colored nodes that glow
-- Mouse interaction: nodes repel from cursor
-- Subtle ambient animation (pulsing, orbiting)
-
-### 1.6 Tool Ticker [DEPRECATED — unused on landing page]
-**File**: `src/components/sections/HeroSection.jsx`
-
-Infinite auto-scrolling ticker strip of tool names. Only in orphaned HeroSection.
-- Smooth CSS animation
-- Duplicated array for seamless loop
-- Links to tool detail pages
-
-### 1.7 Recent Tools
+### 1.4 Recent Tools
 **File**: `src/hooks/useRecentTools.js` · `src/context/RecentToolsContext.jsx`
 
 Tracks the last 20 tools the user has opened.
@@ -292,25 +267,7 @@ Import tools from Netlify sites.
 
 Features that provide insights, analytics, and smart recommendations.
 
-### 5.1 Analytics Dashboard [DEPRECATED — unused on landing page]
-**File**: `src/components/sections/AnalyticsSection.jsx` · `src/utils/smartSearch.js`
-
-Landing page analytics section. No longer imported on the landing page.
-- Category distribution (recharts pie chart with custom colors)
-- Monthly growth (recharts bar chart)
-- Status breakdown (recharts donut chart)
-- Category insights table (category, count, percentage, growth)
-
-### 5.2 Stats Section (Animated Counters) [DEPRECATED — unused on landing page]
-**File**: `src/components/sections/StatsSection.jsx`
-
-Animated statistics with count-up effect. No longer imported on the landing page.
-- 4 stats: Tasks Processed, Tools Available, Uptime, Executions
-- IntersectionObserver triggers animation when visible
-- Counts up from 0 to target over 2s
-- Human-readable formatting (e.g., "99.9%", "150K+")
-
-### 5.3 Discovery Engine
+### 5.1 Discovery Engine
 **File**: `src/stores/discoveryStore.js`
 
 Zustand store with persist middleware for discovery recommendations.
@@ -333,35 +290,16 @@ Tool stack recommendation engine with keyword matching.
 - Results: tool cards with rationale for each recommendation
 - Save stack to localStorage via `weavestack-stacks` persistence
 
-### 5.5 Workflow Pipeline Animation [DEPRECATED — unused on landing page]
-**File**: `src/components/sections/WorkflowSection.jsx`
-
-Animated 4-stage workflow pipeline. No longer imported on the landing page (replaced by workshop WorkflowStory).
-- Stages: User Query → AI Processing → Automation → Output
-- Each stage: icon, title, short description
-- Auto-advances every 1.8s with current-stage highlighting
-- Connector arrows between stages
-- Accent-colored progress indicator
-
-### 5.6 Featured Tools (Split Panel) [DEPRECATED — unused on landing page]
-**File**: `src/components/sections/FeaturedTools.jsx`
-
-Two-panel featured tools display. No longer imported on the landing page.
-- Left: vertical list of production tools (scrollable)
-- Right: detail panel showing selected tool's icon, description, tags, launch button
-- Pin/favorite support per tool
-- Filters to production-status tools only
-
 ---
 
 ## 6. UI/UX DOMAIN
 
 Features that enhance the user experience, navigation, and visual polish.
 
-### 6.1 Light Theme (default)
+### 6.1 Cool/Indigo Theme (default)
 **File**: `src/index.css`
 
-Light/air-themed UI with custom CSS variables (no dark mode CSS defined).
+Light/air-themed UI with cool-toned color palette.
 - Cool-toned light backgrounds (`#f0f3fa` base, `#ffffff` surfaces)
 - High contrast text (`#0f172a`) with muted secondary colors
 - Indigo accent (`#6366f1`) for interactive elements
@@ -369,13 +307,15 @@ Light/air-themed UI with custom CSS variables (no dark mode CSS defined).
 - Subtle indigo grid and dot background patterns
 - 3D perspective utilities (`.perspective-1000`, `.preserve-3d`)
 
-### 6.2 Theme Toggle (vestigial)
-**File**: `src/context/ThemeContext.jsx`
+### 6.2 Warm/Amber Theme (`.light-mode`)
+**File**: `src/context/ThemeContext.jsx` · `src/index.css`
 
-Toggleable theme via localStorage `os-theme`. CSS only defines light variables; dark mode is not implemented.
-- Defaults to `'dark'` key despite light-only CSS
-- Toggles `.light-mode` class on `<html>` (no visual effect without dark CSS vars)
-- Persisted via localStorage `os-theme`
+Toggleable warm variant via localStorage `os-theme`. 33 CSS variable overrides switch from cool/indigo to warm/amber.
+- Warm cream backgrounds (`#fefcf5` base, `#ffffff` surfaces)
+- Amber accent (`#d97706`) for interactive elements
+- Warm stone text (`#292524`) with complementary muted tones
+- Shadows re-based to warm stone (`rgba(41,37,36, ...)`)
+- Toggled via `.light-mode` class on `<html>` — no UI button currently exists
 
 ### 6.3 Fixed Navigation
 **File**: `src/components/layout/Navbar.jsx`
