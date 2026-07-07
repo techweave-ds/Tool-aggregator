@@ -2,36 +2,28 @@
 
 ## Current State
 
-WeaveStack v3.0.1 is a **light-theme, discovery-first tool ecosystem** with an interactive workshop landing page, full tool directory, and admin dashboard. All v2→v3 migration cleanup (unused sections, stale fonts, missing theme variables, dead CSS) is complete. The project is clean, deployable, and ready for feature work.
+WeaveStack v3.1.0 is a **light-theme, discovery-first tool ecosystem** with all v2→v3 migration cleanup complete. Phases 1-4 of feature work are shipped: theme toggle, toast system, empty states, React.lazy() code-splitting, memoization, shareable stack URLs, import dedup, relationship editor, and tool health indicators.
 
 ---
 
-## Short-Term Fixes (Next Session)
+## Next Up (Short-Term)
 
 | Priority | Issue | Files | Description |
 |----------|-------|-------|-------------|
-| Medium | Theme toggle has no UI | `ThemeContext.jsx`, `Navbar.jsx` | Theme toggle exists in context but no button triggers `.light-mode` switching. Add a toggle to Navbar or settings panel. |
-| Medium | Empty states in workshop | `WorkshopHero.jsx`, `FeaturedSystems.jsx` | WorkshopHero has no "no systems" state; FeaturedSystems empty rail needs better messaging. |
-| Low | Toast notifications | `Navbar.jsx`, `FavoritesContext.jsx` | No feedback on save/pin/favorite actions. Add lightweight toast system. |
+| Medium | Keyboard shortcuts modal | `Navbar.jsx` | Full shortcut reference (currently only Cmd+K). Add modal showing all keyboard shortcuts. |
+| Low | Onboarding walkthrough | `LandingPage.jsx`, `WorkshopHero.jsx` | First-visit tutorial highlighting the workshop flow. |
 
 ---
 
 ## Medium-Term Improvements
 
 ### Performance
-- Lazy-load pages with `React.lazy()` + `Suspense` instead of eager imports in router
 - Reduce framer-motion bundle — evaluate `motion` standalone vs full library
-- Memoize heavy components (ToolConstellation d3 re-render, ToolDetailPage context consumers)
+- Memoize ToolDetailPage context consumers (currently re-renders on every tool change)
 
 ### UX
-- **Keyboard shortcuts**: Full shortcut reference modal (currently only Cmd+K)
 - **Onboarding**: First-visit walkthrough highlighting the workshop flow
-- **Shareable stack URLs**: Encode selected system + tools in URL hash for sharing
-
-### Data
-- **Validate localStorage data** on load (handle corrupted JSON gracefully)
-- **Import dedup**: Better duplicate detection when importing from GitHub/Netlify
-- **Relationship editor**: Allow admins to add/edit tool relationships in AdminPage
+- **Dark mode reintroduction**: Option to switch back to a dark variant
 
 ### Dev Experience
 - Add ESLint + Prettier config
@@ -47,7 +39,6 @@ WeaveStack v3.0.1 is a **light-theme, discovery-first tool ecosystem** with an i
 - **Visual Stack Builder**: Drag-and-drop canvas for composing tool pipelines
 - **Community Tools**: GitHub Issues integration for tool submissions
 - **Export**: Export stack as markdown, JSON, or shareable link
-- **Tool Health**: Show last updated date, maintainer activity, API status
 - **System Comparison**: Side-by-side workflow comparison between systems
 - **PWA**: Service worker for offline access + install prompt
 
@@ -67,7 +58,11 @@ WeaveStack v3.0.1 is a **light-theme, discovery-first tool ecosystem** with an i
 
 | Date | Version | Changes |
 |------|---------|---------|
-| 2026-07-07 | v3.0.1 | Cleanup: removed 9 unused files (HeroSection, CategoryGrid, DiscoveryCarousels, FeaturedTools, RecentUpdates, StatsSection, WorkflowSection, AnalyticsSection, EcosystemHero). Fixed tailwind.config.js font families (Cabinet Grotesk→Plus Jakarta Sans, Satoshi→Inter). Completed `.light-mode` CSS with warm/amber alternative theme. Added AGENTS.md. |
+| 2026-07-07 | v3.1.0 | Phase 4: Admin relationship editor (select tool, edit complements/alternatives/workflow, save overrides to localStorage). Tool health indicators (active/maintained/stable/dormant computed from changelog dates + status). |
+| 2026-07-07 | v3.1.0 | Phase 3: Shareable stack URLs via `#systemId` hash. Import dedup in `getAllTools()` (filters by unique ID, includes imported-tools in merge). localStorage validation already handled by useLocalStorage try/catch. |
+| 2026-07-07 | v3.1.0 | Phase 2: `React.lazy()` code-split across 6 page chunks (main entry 218 kB→52 kB). `memo()` on ToolConstellation to prevent d3 re-renders. Suspense boundary with spinner in RootLayout. |
+| 2026-07-07 | v3.1.0 | Phase 1: Theme toggle (Sun/Moon button in Navbar, cool/indigo↔warm/amber). Toast notification system (pin/fav feedback via ToastContext). Empty states in WorkshopHero and FeaturedSystems. |
+| 2026-07-07 | v3.0.1 | Cleanup: removed 9 unused files (HeroSection, CategoryGrid, DiscoveryCarousels, FeaturedTools, RecentUpdates, StatsSection, WorkflowSection, AnalyticsSection, EcosystemHero). Fixed tailwind.config.js font families. Completed `.light-mode` CSS. Added AGENTS.md. |
 | 2026-07-06 | v3.0.0 | Bugfix: migrated 18 files from dark-theme --os-* vars to light-theme --* vars. Removed tool detail page sidebar layout, unified to hero card. |
 | 2026-07-06 | v3.0.0 | Light theme redesign: replaced dark theme with light/air color palette, Plus Jakarta Sans + Inter fonts, 3D hero components, platform layout, workshop landing flow. |
 | 2026-07-06 | v3.0.0 | Initial workshop redesign: interactive workshop flow replaces old landing page. |

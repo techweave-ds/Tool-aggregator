@@ -4,7 +4,7 @@
 
 WeaveStack is a **discovery-first tool ecosystem** — a React SPA that helps users find, compare, and combine tools into working systems. Users describe what they want to build, and WeaveStack recommends curated tool stacks across domains like AI, trading, automation, restaurant management, and more.
 
-**Version**: 3.0.0
+**Version**: 3.1.0
 **Stack**: React 18 + Vite + Tailwind CSS + Zustand + React Router v6
 **Deploy Targets**: Cloudflare Pages (primary), Netlify (secondary)
 
@@ -96,6 +96,7 @@ silent-meadow/
 │   │
 │   ├── context/                        # React Context providers
 │   │   ├── ThemeContext.jsx            # Cool/warm theme toggle (cool/indigo default, warm/amber .light-mode)
+│   │   ├── ToastContext.jsx            # Lightweight toast notification system (pin/fav feedback)
 │   │   ├── FavoritesContext.jsx
 │   │   ├── PinnedContext.jsx
 │   │   ├── RecentToolsContext.jsx

@@ -73,7 +73,7 @@ The brand lives at the intersection of:
 
 ## 4. The "Workshop" Metaphor
 
-The landing page is a **workshop-first** flow — users enter an interactive workshop:
+The landing page is a **workshop-first** flow — users enter an interactive workshop. System selection is shareable via URL hash (`#systemId`).
 
 ```
 Step 1: "What are you trying to build?"     (WorkshopHero — 3D cards + radial menu)

@@ -86,6 +86,7 @@ activity-log: [entry, ...]          │ ActivityContext     │ ActivityContext
 admin-session: "unlocked"           │ AdminGate           │ AdminGate
 weavestack-stacks: {...}            │ stackStore (zustand)│ StackBuilder
 weavestack-discovery: {...}         │ discoveryStore      │ ToolDetailPage (view tracking)
+relationship-overrides: {...}       │ AdminPage           │ relationships.js (getRelationships)
 ```
 
 ### Data Merge Flow (in `getAllTools()`)

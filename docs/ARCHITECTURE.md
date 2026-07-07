@@ -70,7 +70,8 @@ src/hooks/useLocalStorage.js   → generic localStorage React hook
 src/hooks/useFavorites.js      → (utility functions for favorites context)
 src/hooks/useRecentTools.js    → (utility functions for recent tools context)
 
-src/context/ThemeContext.jsx        → dark/light toggle (light mode incomplete)
+src/context/ThemeContext.jsx        → cool/warm theme toggle (Sun/Moon button in Navbar)
+src/context/ToastContext.jsx        → toast notification system (pin/fav/save feedback)
 src/context/FavoritesContext.jsx    → favorite tool IDs (localStorage)
 src/context/PinnedContext.jsx       → pinned tool IDs (localStorage)
 src/context/RecentToolsContext.jsx  → last 20 opened tools (localStorage)
@@ -305,6 +306,7 @@ index.html
 | Key | Type | Source |
 |-----|------|--------|
 | `os-theme` | `"dark" \| "light"` | ThemeContext |
+`relationship-overrides` | `object` (toolId → { complements, alternatives, workflow }) | AdminPage relationship editor |
 | `favorites` | `string[]` (tool IDs) | FavoritesContext |
 | `pinned-tools` | `string[]` (tool IDs) | PinnedContext |
 | `recent-tools` | `string[]` (tool IDs) | RecentToolsContext |
@@ -320,5 +322,4 @@ index.html
 
 ## 6. Known Gaps for Rebuilding
 
-- **ThemeContext.jsx**: toggle exists but no UI button triggers it. Add toggle to Navbar.
 - **No tests**: No test framework, no test files exist.

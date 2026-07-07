@@ -109,7 +109,17 @@ Expandable accordion of all 8 featured systems.
 - Tool names link to tool detail pages
 - "Build this system" CTA per system
 
-### 2.6 Discovery CTA
+### 2.6 Shareable Stack URLs
+**File**: `src/pages/LandingPage.jsx`
+
+System selection state is encoded in the URL hash for sharing.
+- Selecting a system adds `#systemId` to the URL
+- Loading a page with `#systemId` in the hash auto-selects that system
+- Deselecting all systems clears the hash
+- Enables bookmarking and sharing specific system views
+- Uses `window.location.hash` with history.replaceState for clean fallback
+
+### 2.7 Discovery CTA
 **File**: `src/components/workshop/DiscoveryCta.jsx`
 
 Final call-to-action section.
@@ -182,7 +192,19 @@ Shows related tools grouped by relationship type.
 - Clickable chips navigate to tool detail
 - Relationship data in `src/utils/relationships.js` (static map)
 
-### 3.7 Add Custom Tool
+### 3.7 Tool Health Indicators
+**File**: `src/utils/tools.js` · `src/pages/ToolDetailPage.jsx` · `src/pages/ToolsPage.jsx`
+
+Computed health status for each tool based on changelog dates and status.
+- **Active**: Production/Beta status with update within last 3 months
+- **Maintained**: Updated within last 12 months
+- **Stable**: Updated within last 18 months
+- **Dormant**: No update in 18+ months or Archived status
+- Displayed as a colored badge on ToolDetailPage (hero section)
+- Displayed as a small colored dot on tool card grid items
+- Colors: green (active), blue (maintained), amber (stable), gray (dormant)
+
+### 3.8 Add Custom Tool
 **File**: `src/components/ui/AddToolModal.jsx`
 
 Modal form for users to add their own tools.
@@ -244,7 +266,19 @@ PIN-based access control for admin pages.
 - Lock/unlock toggle
 - Non-intrusive: locks on route entry, not on app mount
 
-### 4.5 Import Tools (GitHub)
+### 4.5 Relationship Editor
+**File**: `src/pages/AdminPage.jsx` · `src/utils/relationships.js`
+
+Edit tool relationships from the admin panel.
+- Tool selector dropdown with all available tools
+- Three field inputs: complements, alternatives, workflow partners
+- Accepts comma-separated tool IDs
+- Saves to localStorage `relationship-overrides` key
+- Overrides merge with static relationship data at runtime
+- Persists across sessions; clearable from data management section
+- Reset button to discard changes for the selected tool
+
+### 4.6 Import Tools (GitHub)
 **File**: `src/pages/ImportPage.jsx`
 
 Import tools from GitHub repositories.
@@ -365,7 +399,18 @@ Implicit activity tracking for analytics.
 - Used by admin dashboard metrics
 - Clearable from admin panel
 
-### 6.8 Loading States
+### 6.8 Toast Notifications
+**File**: `src/context/ToastContext.jsx`
+
+Lightweight toast notification system for user actions.
+- Fires on pin/unpin (success toast) and favorite/unfavorite (info toast)
+- Animated entry/exit with framer-motion spring physics
+- Auto-dismisses after 3 seconds, manual dismiss via X button
+- Positioned bottom-right, stacked with gaps
+- Color-coded by type: success (green), info (indigo), error (red)
+- No external dependencies — pure React context + framer-motion
+
+### 6.9 Loading States
 **File**: Various components
 
 Loading indicators for async operations.
