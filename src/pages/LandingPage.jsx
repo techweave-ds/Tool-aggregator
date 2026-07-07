@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import WorkshopHero from '@/components/workshop/WorkshopHero';
 import WorkflowStory from '@/components/workshop/WorkflowStory';
 import StackReveal from '@/components/workshop/StackReveal';
@@ -9,12 +9,23 @@ import FooterSection from '@/components/sections/FooterSection';
 import SYSTEMS from '@/data/systems';
 
 export default function LandingPage() {
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(() => {
+    const hash = window.location.hash.replace('#', '');
+    return hash && SYSTEMS.find(s => s.id === hash) ? hash : null;
+  });
   const [showStack, setShowStack] = useState(false);
   const workflowRef = useRef(null);
   const stackRef = useRef(null);
 
   const selected = selectedId ? SYSTEMS.find(s => s.id === selectedId) : null;
+
+  useEffect(() => {
+    if (selectedId) {
+      window.location.hash = selectedId;
+    } else if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }, [selectedId]);
 
   const scrollTo = useCallback((el) => {
     if (!el) return;
