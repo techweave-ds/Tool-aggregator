@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, X, LayoutGrid, List, Pin, Heart, Plus, Orbit, SlidersHorizontal } from 'lucide-react';
 import { getIcon } from '@/utils/icons';
-import { getAllTools } from '@/utils/tools';
+import { getAllTools, getToolHealth, getHealthColor, getHealthLabel } from '@/utils/tools';
 import { useFavoritesContext } from '@/context/FavoritesContext';
 import { usePinnedContext } from '@/context/PinnedContext';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
@@ -95,6 +95,7 @@ function ToolCard({ tool, index }) {
             <span className="font-mono text-[10px]" style={{ color:'var(--text3)' }}>
               {tool.status === 'Production' ? `v${tool.version}` : tool.status}
             </span>
+            <div className="w-1 h-1 rounded-full" style={{ background: getHealthColor(getToolHealth(tool)), opacity: 0.7 }} />
           </div>
           <button
             onClick={e => { e.stopPropagation(); trackOpen(tool.id); if(tool.url) window.open(tool.url,'_blank'); else navigate(`/tool/${tool.id}`); }}

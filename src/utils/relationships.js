@@ -167,7 +167,18 @@ const RELATIONSHIPS = {
 };
 
 export function getRelationships(toolId) {
-  return RELATIONSHIPS[toolId] || { complements: [], alternatives: [], workflow: [] };
+  const base = RELATIONSHIPS[toolId] || { complements: [], alternatives: [], workflow: [] };
+  try {
+    const overrides = JSON.parse(localStorage.getItem('relationship-overrides') || '{}');
+    if (overrides[toolId]) {
+      return {
+        complements: overrides[toolId].complements ?? base.complements,
+        alternatives: overrides[toolId].alternatives ?? base.alternatives,
+        workflow: overrides[toolId].workflow ?? base.workflow,
+      };
+    }
+  } catch {}
+  return base;
 }
 
 export function getComplementaryTools(toolId, allTools) {
@@ -188,14 +199,25 @@ export function getWorkflowPartners(toolId, allTools) {
 export function getAllEdges(allTools) {
   const edges = [];
   allTools.forEach(tool => {
-    const rel = RELATIONSHIPS[tool.id];
-    if (rel) {
-      rel.complements.forEach(target => {
-        edges.push({ source: tool.id, target, type: 'complement' });
-      });
-    }
+    const rel = getRelationships(tool.id);
+    rel.complements.forEach(target => {
+      edges.push({ source: tool.id, target, type: 'complement' });
+    });
   });
   return edges;
+}
+
+export function saveRelationshipOverride(toolId, data) {
+  try {
+    const overrides = JSON.parse(localStorage.getItem('relationship-overrides') || '{}');
+    overrides[toolId] = data;
+    localStorage.setItem('relationship-overrides', JSON.stringify(overrides));
+    return true;
+  } catch { return false; }
+}
+
+export function clearRelationshipOverrides() {
+  localStorage.removeItem('relationship-overrides');
 }
 
 export default RELATIONSHIPS;

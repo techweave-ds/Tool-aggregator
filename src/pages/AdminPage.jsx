@@ -1,8 +1,9 @@
 import AdminGate, { useAdmin } from '@/components/ui/AdminGate';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { LogOut, BarChart3, Layers, Tag, Trash2, Link as LinkIcon } from 'lucide-react';
+import { LogOut, BarChart3, Layers, Tag, Trash2, Link as LinkIcon, Save, RotateCcw, Plus, X } from 'lucide-react';
 import { getAllTools } from '@/utils/tools';
+import { getRelationships as getBaseRelationships, saveRelationshipOverride, clearRelationshipOverrides } from '@/utils/relationships';
 
 const ACCENT_PRESETS = [
   { name:'Indigo',  hex:'#6366f1' },{ name:'Violet', hex:'#8b5cf6' },
@@ -31,6 +32,89 @@ function AdminContent() {
     const storedAccent = localStorage.getItem('os-accent');
     if (storedAccent) applyAccent(storedAccent);
   }, []);
+
+  function RelationshipEditor({ tools }) {
+    const [selectedId, setSelectedId] = useState('');
+    const [comps, setComps] = useState('');
+    const [alts, setAlts] = useState('');
+    const [wf, setWf] = useState('');
+    const [saved, setSaved] = useState(false);
+
+    const toolNames = tools.reduce((a, t) => { a[t.id] = t.name; return a; }, {});
+
+    useEffect(() => {
+      if (!selectedId) { setComps(''); setAlts(''); setWf(''); return; }
+      const rel = getBaseRelationships(selectedId);
+      setComps(rel.complements.join(', '));
+      setAlts(rel.alternatives.join(', '));
+      setWf(rel.workflow.join(', '));
+      setSaved(false);
+    }, [selectedId]);
+
+    const handleSave = useCallback(() => {
+      const parse = (s) => s.split(',').map(x => x.trim()).filter(Boolean);
+      saveRelationshipOverride(selectedId, {
+        complements: parse(comps),
+        alternatives: parse(alts),
+        workflow: parse(wf),
+      });
+      setSaved(true);
+    }, [selectedId, comps, alts, wf]);
+
+    const otherToolIds = tools.filter(t => t.id !== selectedId).map(t => t.id);
+
+    return (
+      <div className="space-y-3">
+        <select value={selectedId} onChange={e => setSelectedId(e.target.value)}
+          className="w-full text-xs px-3 py-2 rounded-xl"
+          style={{ background:'var(--bg)', border:'1px solid var(--border2)', color:'var(--text)' }}>
+          <option value="">— Select a tool —</option>
+          {tools.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+        </select>
+
+        {selectedId && (
+          <>
+            <div>
+              <label className="text-[10px] font-mono block mb-1" style={{ color:'var(--text3)' }}>Complements (tool IDs, comma-separated)</label>
+              <input value={comps} onChange={e => setComps(e.target.value)} placeholder={otherToolIds.slice(0,3).join(', ')}
+                className="w-full text-xs px-3 py-2 rounded-xl"
+                style={{ background:'var(--bg)', border:'1px solid var(--border2)', color:'var(--text)' }}
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-mono block mb-1" style={{ color:'var(--text3)' }}>Alternatives (tool IDs, comma-separated)</label>
+              <input value={alts} onChange={e => setAlts(e.target.value)} placeholder={otherToolIds.slice(0,2).join(', ')}
+                className="w-full text-xs px-3 py-2 rounded-xl"
+                style={{ background:'var(--bg)', border:'1px solid var(--border2)', color:'var(--text)' }}
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-mono block mb-1" style={{ color:'var(--text3)' }}>Workflow partners (tool IDs, comma-separated)</label>
+              <input value={wf} onChange={e => setWf(e.target.value)} placeholder={otherToolIds.slice(0,3).join(', ')}
+                className="w-full text-xs px-3 py-2 rounded-xl"
+                style={{ background:'var(--bg)', border:'1px solid var(--border2)', color:'var(--text)' }}
+              />
+            </div>
+            <div className="flex items-center gap-2 pt-1">
+              <button onClick={handleSave}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+                style={{ background:'var(--accent)', color:'#fff' }}>
+                <Save size={11}/> Save {saved ? '✓' : ''}
+              </button>
+              <button onClick={() => { setSelectedId(''); setComps(''); setAlts(''); setWf(''); }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all"
+                style={{ border:'1px solid var(--border2)', color:'var(--text3)' }}>
+                <RotateCcw size={11}/> Reset
+              </button>
+            </div>
+            <p className="text-[9px] font-mono" style={{ color:'var(--text3)' }}>
+              Available IDs: {otherToolIds.slice(0,5).join(', ')}{otherToolIds.length > 5 ? '…' : ''}
+            </p>
+          </>
+        )}
+      </div>
+    );
+  }
 
   function Card({ title, children }) {
     return (
@@ -139,6 +223,11 @@ function AdminContent() {
           <p className="text-xs font-mono" style={{ color:'var(--text3)' }}>Persists across sessions</p>
         </Card>
 
+        {/* Relationship editor */}
+        <Card title="RELATIONSHIP EDITOR">
+          <RelationshipEditor tools={allTools} />
+        </Card>
+
         {/* Data management */}
         <Card title="DATA MANAGEMENT">
           <div className="space-y-3">
@@ -147,6 +236,7 @@ function AdminContent() {
               { label:'Clear custom tools',   key:'custom-tools',   desc:'Remove all manually added tools' },
               { label:'Clear activity log',   key:'activity-log',   desc:'Reset the activity log' },
               { label:'Clear pinned',         key:'pinned-tools',   desc:'Unpin all tools' },
+              { label:'Clear relationship overrides', key:'relationship-overrides', desc:'Reset all custom relationships to defaults' },
             ].map(({ label,key,desc }) => (
               <div key={key} className="flex items-center justify-between gap-4 py-2.5" style={{ borderBottom:'1px solid var(--bg)' }}>
                 <div>
@@ -165,7 +255,7 @@ function AdminContent() {
 
         <Card title="SYSTEM INFO">
           {[
-            ['Version', '2.0.0'],
+            ['Version', '3.0.1'],
             ['Stack', 'React · Vite · Tailwind · Framer Motion'],
             ['Deployment', 'Cloudflare Pages via GitHub'],
             ['Total Tools', allTools.length],

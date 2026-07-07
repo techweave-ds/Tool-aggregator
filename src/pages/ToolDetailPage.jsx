@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Star, Pin, Tag, GitBranch } from 'lucide-react';
 import { getIcon } from '@/utils/icons';
-import { getAllTools } from '@/utils/tools';
+import { getAllTools, getToolHealth, getHealthColor, getHealthLabel } from '@/utils/tools';
 import { useFavoritesContext } from '@/context/FavoritesContext';
 import { usePinnedContext } from '@/context/PinnedContext';
 import { useRecentToolsContext } from '@/context/RecentToolsContext';
@@ -34,6 +34,9 @@ export default function ToolDetailPage() {
   const c = CAT_COLORS[tool.category] || 'var(--accent)';
   const fav = isFavorite(tool.id);
   const pin = isPinned(tool.id);
+  const health = getToolHealth(tool);
+  const healthCol = getHealthColor(health);
+  const healthLabel = getHealthLabel(health);
 
   return (
     <div className="pt-24 pb-16 px-6 min-h-screen">
@@ -85,6 +88,11 @@ export default function ToolDetailPage() {
               <div className="flex items-center gap-3 mt-5 flex-wrap">
                 <span className={`text-[10px] font-mono px-2.5 py-1 rounded-full ${tool.status==='Production'?'badge-prod':tool.status==='Beta'?'badge-beta':'badge-alpha'}`}>
                   {tool.status} · v{tool.version}
+                </span>
+                <span className="flex items-center gap-1.5 text-[10px] font-mono px-2.5 py-1 rounded-full"
+                  style={{ background: `${healthCol}15`, color: healthCol, border: `1px solid ${healthCol}30` }}>
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: healthCol }} />
+                  {healthLabel}
                 </span>
                 {(tool.tags || []).map(tag => (
                   <span key={tag} className="flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded"
