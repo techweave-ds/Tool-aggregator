@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { memo, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as d3 from 'd3';
 import { getAllTools } from '@/utils/tools';
@@ -6,7 +6,7 @@ import { getRelationships } from '@/utils/relationships';
 
 const CAT_COLORS = { Trading:'#f59e0b',AI:'#8b5cf6',Development:'#3b82f6',Utilities:'#22c55e',Restaurant:'#f97316',Automations:'#06b6d4',Archive:'#6b7280' };
 
-export default function ToolConstellation({ onClose }) {
+const ToolConstellation = memo(function ToolConstellation({ onClose }) {
   const containerRef = useRef(null);
   const svgRef = useRef(null);
   const navigate = useNavigate();
@@ -148,4 +148,6 @@ export default function ToolConstellation({ onClose }) {
       <svg ref={svgRef} style={{ width: '100%', height: 'auto' }} />
     </div>
   );
-}
+});
+
+export default ToolConstellation;

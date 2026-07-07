@@ -1,11 +1,13 @@
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from '@/components/layout/RootLayout';
-import LandingPage from '@/pages/LandingPage';
-import ToolsPage from '@/pages/ToolsPage';
-import ToolDetailPage from '@/pages/ToolDetailPage';
-import ImportPage from '@/pages/ImportPage';
-import AdminPage from '@/pages/AdminPage';
 import NotFoundPage from '@/pages/NotFoundPage';
+
+const LandingPage = lazy(() => import('@/pages/LandingPage'));
+const ToolsPage = lazy(() => import('@/pages/ToolsPage'));
+const ToolDetailPage = lazy(() => import('@/pages/ToolDetailPage'));
+const ImportPage = lazy(() => import('@/pages/ImportPage'));
+const AdminPage = lazy(() => import('@/pages/AdminPage'));
 
 export const router = createBrowserRouter([
   {
