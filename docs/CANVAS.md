@@ -5,7 +5,7 @@
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                        WEAVESTACK                                 │
-│             Discovery-first Tool Ecosystem v3.0                   │
+│             Workshop-first Tool Ecosystem v3.0                    │
 │                                                                   │
 │   "What are you trying to build?"                                 │
 │   └─> We show you the workflow and the tools that make it possible│
@@ -84,8 +84,8 @@ custom-tools: [toolObj, ...]        │ AddToolModal        │ getAllTools()
 imported-tools: [toolObj, ...]      │ ImportPage          │ getAllTools()
 activity-log: [entry, ...]          │ ActivityContext     │ ActivityContext
 admin-session: "unlocked"           │ AdminGate           │ AdminGate
-weavestack-stack-store: {...}       │ stackStore (zustand)│ StackBuilder
-weavestack-discovery-store: {...}   │ discoveryStore      │ DiscoveryCarousels
+weavestack-stacks: {...}            │ stackStore (zustand)│ StackBuilder
+weavestack-discovery: {...}         │ discoveryStore      │ ToolDetailPage (view tracking)
 ```
 
 ### Data Merge Flow (in `getAllTools()`)
@@ -113,54 +113,46 @@ weavestack-discovery-store: {...}   │ discoveryStore      │ DiscoveryCarouse
 │  ├── [Home] [Tools] [Stack Builder] [Cmd+K]      │
 │  └── Hamburger (mobile)                          │
 ├──────────────────────────────────────────────────┤
-│  HERO SECTION (HeroSection.jsx)                  │
-│  ├── Canvas: interactive particle network         │
-│  ├── Badge: "Discovery-First Tool Ecosystem v3.0" │
-│  ├── Headline + search bar                        │
-│  ├── CTAs: "Build Stack", "Explore Tools"         │
-│  ├── Stats row (animated count-up)                │
-│  └── Tool ticker strip (infinite scroll)          │
+│  WORKSHOP HERO (WorkshopHero.jsx)                │
+│  ├── 3D card display (HeroCard3D)                │
+│  ├── Badge: "Workshop-First Tool Ecosystem v3.0" │
+│  ├── Headline + subtitle                         │
+│  ├── Radial system selector — "What are you      │
+│  │   trying to build?"                           │
+│  └── Systems arranged as radial menu             │
 ├──────────────────────────────────────────────────┤
-│  CATEGORY GRID (CategoryGrid.jsx)                 │
-│  ├── 7 categories in bento layout                 │
-│  ├── Each: icon, name, count, description         │
-│  └── Links to /tools?category=X                   │
+│  WORKFLOW STORY (WorkflowStory.jsx)              │
+│  ├── Appears after system selection              │
+│  ├── Animated timeline of system workflow        │
+│  ├── Horizontal stages with progress track       │
+│  └── "See the tools" CTA → StackReveal          │
 ├──────────────────────────────────────────────────┤
-│  DISCOVERY CAROUSELS (DiscoveryCarousels.jsx)     │
-│  ├── Trending (by discovery score)                │
-│  ├── Recommended (for you)                        │
-│  ├── New Releases                                 │
-│  └── AI Favorites                                 │
+│  STACK REVEAL (StackReveal.jsx)                  │
+│  ├── Tool stack cards for selected system        │
+│  ├── Connector arrows showing data flow          │
+│  └── "Build this system" → /tools with filter    │
 ├──────────────────────────────────────────────────┤
-│  FEATURED TOOLS (FeaturedTools.jsx)               │
-│  ├── Split: left list + right detail panel        │
-│  └── Production tools only                        │
+│  BUILD PATHS (BuildPaths.jsx)                    │
+│  ├── Accordion of 7 goal-driven pathways         │
+│  └── Each goal shows linked system(s)           │
 ├──────────────────────────────────────────────────┤
-│  STATS (StatsSection.jsx)                         │
-│  └── Animated: tasks processed, tools, uptime     │
+│  FEATURED SYSTEMS (FeaturedSystems.jsx)          │
+│  ├── Expandable accordion of all 8 systems       │
+│  ├── Expanded: workflow + tool stack             │
+│  └── "Build this system" CTA per system          │
 ├──────────────────────────────────────────────────┤
-│  WORKFLOW (WorkflowSection.jsx)                   │
-│  ├── Animated 4-stage pipeline                    │
-│  └── Auto-advances every 1.8s                     │
+│  DISCOVERY CTA (DiscoveryCta.jsx)                │
+│  ├── Search input + cycling placeholder          │
+│  └── Submit navigates to /tools?search=X         │
 ├──────────────────────────────────────────────────┤
-│  ANALYTICS (AnalyticsSection.jsx)                 │
-│  ├── Pie: category distribution                   │
-│  ├── Bar: monthly growth                          │
-│  ├── Donut: status breakdown                      │
-│  └── Insights: top categories, trends             │
-├──────────────────────────────────────────────────┤
-│  WORKSHOP SECTION (workshop components)           │
-│  ├── WorkshopHero: radial system selector          │
-│  ├── WorkflowStory: animated timeline              │
-│  ├── StackReveal: tool stack with arrows           │
-│  ├── BuildPaths: accordion goal pathways           │
-│  ├── FeaturedSystems: expandable systems           │
-│  └── DiscoveryCta: final search + submit           │
-├──────────────────────────────────────────────────┤
-│  FOOTER (FooterSection.jsx)                        │
-│  ├── Brand, links, social (GitHub)                │
-│  └── Operational status indicator                 │
+│  FOOTER (FooterSection.jsx)                      │
+│  ├── Brand, links, social (GitHub)              │
+│  └── Operational status indicator               │
 └──────────────────────────────────────────────────┘
+
+*Legacy sections (HeroSection, CategoryGrid, DiscoveryCarousels,
+FeaturedTools, StatsSection, WorkflowSection, AnalyticsSection) exist in
+`src/components/sections/` but are NOT imported on the landing page.*
 ```
 
 ### Tools Page (`/tools`) — The Directory
@@ -257,13 +249,14 @@ weavestack-discovery-store: {...}   │ discoveryStore      │ DiscoveryCarouse
 DISCOVERY PHASE                            ACTION PHASE
 ───────────────                            ────────────
 1. User lands on /                         
-2. Sees "What are you trying to build?"    
-3. Browses categories                      4. Clicks a category
-   └─ scrolls through carousels            5. Navigates to /tools
-   └─ explores systems                     
-                                           6. Searches / filters
-                                           7. Views tool detail
-                                           8. Launches tool (external link)
+2. Interacts with WorkshopHero             
+3. Selects a system from radial menu       4. Watches WorkflowStory animation
+                                            5. Sees StackReveal (tools needed)
+                                            6. Clicks "Build this system"
+                                            
+7. Browses BuildPaths / FeaturedSystems    8. Navigates to /tools with filter
+9. Uses DiscoveryCta search                10. Views tool detail
+                                           11. Launches tool (external link)
                                            └─ or adds to compare
                                            └─ or favorites / pins
 ```

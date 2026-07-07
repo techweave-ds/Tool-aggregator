@@ -3,8 +3,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Cabinet Grotesk"','sans-serif'],
-        body: ['"Satoshi"','sans-serif'],
+        display: ['"Plus Jakarta Sans"','sans-serif'],
+        body: ['"Inter"','sans-serif'],
         mono: ['"JetBrains Mono"','monospace'],
       }
     }

@@ -32,37 +32,38 @@ D3 force-directed graph showing all tools as connected nodes.
 - Legend with category color key
 - Highlight on hover
 
-### 1.3 Discovery Carousels
+### 1.3 Discovery Carousels [DEPRECATED — unused on landing page]
 **File**: `src/components/sections/DiscoveryCarousels.jsx` · `src/stores/discoveryStore.js`
 
-Horizontal scrollable carousels on the landing page.
+Horizontal scrollable carousels. No longer imported on the landing page.
 - **Trending**: tools ranked by discovery score (weighted views + favorites)
 - **Recommended**: user-personalized based on favorites and view history
 - **New Releases**: sorted by most recent
 - **AI Favorites**: AI-category tools sorted by popularity
 - Scroll buttons (left/right) with auto-hide at bounds
+- *Note: discoveryStore is still used by ToolDetailPage for view tracking*
 
-### 1.4 Category Grid
+### 1.4 Category Grid [DEPRECATED — unused on landing page]
 **File**: `src/components/sections/CategoryGrid.jsx`
 
-Bento-grid layout of all 7 tool categories.
+Bento-grid layout of all 7 tool categories. No longer imported on the landing page.
 - Each card shows: icon, name, tool count, description
 - Links to `/tools?category=X`
 - Responsive: adapts from 1-col (mobile) to 3-col (desktop)
 
-### 1.5 Ecosystem Hero (Canvas)
+### 1.5 Ecosystem Hero (Canvas) [DEPRECATED — unused on landing page]
 **File**: `src/components/ui/EcosystemHero.jsx`
 
-Interactive canvas-based particle network on the landing hero.
+Interactive canvas-based particle network. No longer imported on the landing page (now only in orphaned HeroSection).
 - Floating nodes connected by thin lines
 - Category-colored nodes that glow
 - Mouse interaction: nodes repel from cursor
 - Subtle ambient animation (pulsing, orbiting)
 
-### 1.6 Tool Ticker
+### 1.6 Tool Ticker [DEPRECATED — unused on landing page]
 **File**: `src/components/sections/HeroSection.jsx`
 
-Infinite auto-scrolling ticker strip of tool names in the hero.
+Infinite auto-scrolling ticker strip of tool names. Only in orphaned HeroSection.
 - Smooth CSS animation
 - Duplicated array for seamless loop
 - Links to tool detail pages
@@ -84,7 +85,9 @@ Features that guide users from goal to stack. These form the interactive "worksh
 ### 2.1 Workshop Hero (Radial Selector)
 **File**: `src/components/workshop/WorkshopHero.jsx`
 
-Interactive radial menu asking "What are you trying to build?"
+Interactive hero section with 3D card display and radial system selector.
+- Left: HeroCard3D — stacked tool cards with CSS perspective tilt-on-hover (framer-motion spring physics)
+- Right: "What are you trying to build?" prompt with radial system menu
 - Systems arranged in a circle around center prompt
 - Hover: tooltip with system name and brief description
 - Select: triggers WorkflowStory and StackReveal
@@ -289,19 +292,19 @@ Import tools from Netlify sites.
 
 Features that provide insights, analytics, and smart recommendations.
 
-### 5.1 Analytics Dashboard
+### 5.1 Analytics Dashboard [DEPRECATED — unused on landing page]
 **File**: `src/components/sections/AnalyticsSection.jsx` · `src/utils/smartSearch.js`
 
-Landing page analytics section.
+Landing page analytics section. No longer imported on the landing page.
 - Category distribution (recharts pie chart with custom colors)
 - Monthly growth (recharts bar chart)
 - Status breakdown (recharts donut chart)
 - Category insights table (category, count, percentage, growth)
 
-### 5.2 Stats Section (Animated Counters)
+### 5.2 Stats Section (Animated Counters) [DEPRECATED — unused on landing page]
 **File**: `src/components/sections/StatsSection.jsx`
 
-Animated statistics with count-up effect.
+Animated statistics with count-up effect. No longer imported on the landing page.
 - 4 stats: Tasks Processed, Tools Available, Uptime, Executions
 - IntersectionObserver triggers animation when visible
 - Counts up from 0 to target over 2s
@@ -311,38 +314,39 @@ Animated statistics with count-up effect.
 **File**: `src/stores/discoveryStore.js`
 
 Zustand store with persist middleware for discovery recommendations.
-- `trackView(toolId)`: records a tool view
-- `getRecommendations()`: personalized recs based on favorites + viewed categories
-- `getTrending()`: globally trending tools by view count
-- Trending weights: recency-weighted (recent views count more)
-- Persists to localStorage
+- `trackView(toolId)`: records a tool view (capped at 100, deduped)
+- `getRecommendations(tools)`: personalized recs based on viewed categories
+- `getTrending(tools)`: globally trending tools by view count
+- `discoveryScore`: cumulative engagement score (capped at 100)
+- `trendingWeights`: map of toolId → view count
+- Persists to localStorage as `weavestack-discovery`
 
 ### 5.4 Stack Builder
 **File**: `src/components/ui/StackBuilder.jsx` · `src/stores/stackStore.js`
 
-AI-like tool stack recommendation engine.
+Tool stack recommendation engine with keyword matching.
 - Natural language query input or preset selection
 - Keywords matched against 6 stack templates:
   - AI Support Bot, Lead Generation, Trading Automation
   - Knowledge Base, Restaurant Ordering, DevOps Pipeline
-- Each template: name, description, tools array, use case
+- Each template: name, description, tools (string IDs), explanation, question
 - Results: tool cards with rationale for each recommendation
-- Save stack to localStorage, clear generated stacks
+- Save stack to localStorage via `weavestack-stacks` persistence
 
-### 5.5 Workflow Pipeline Animation
+### 5.5 Workflow Pipeline Animation [DEPRECATED — unused on landing page]
 **File**: `src/components/sections/WorkflowSection.jsx`
 
-Animated 4-stage workflow pipeline on landing page.
+Animated 4-stage workflow pipeline. No longer imported on the landing page (replaced by workshop WorkflowStory).
 - Stages: User Query → AI Processing → Automation → Output
 - Each stage: icon, title, short description
 - Auto-advances every 1.8s with current-stage highlighting
 - Connector arrows between stages
 - Accent-colored progress indicator
 
-### 5.6 Featured Tools (Split Panel)
+### 5.6 Featured Tools (Split Panel) [DEPRECATED — unused on landing page]
 **File**: `src/components/sections/FeaturedTools.jsx`
 
-Two-panel featured tools display.
+Two-panel featured tools display. No longer imported on the landing page.
 - Left: vertical list of production tools (scrollable)
 - Right: detail panel showing selected tool's icon, description, tags, launch button
 - Pin/favorite support per tool
@@ -354,23 +358,24 @@ Two-panel featured tools display.
 
 Features that enhance the user experience, navigation, and visual polish.
 
-### 6.1 Dark Theme (default)
-**File**: `src/context/ThemeContext.jsx` · `src/index.css`
+### 6.1 Light Theme (default)
+**File**: `src/index.css`
 
-Fully dark-themed UI with custom CSS variables.
-- Near-black backgrounds with subtle purple undertones
-- High contrast text with muted secondary colors
-- Accent-colored highlights and interactive elements
-- Noise texture overlay for depth
+Light/air-themed UI with custom CSS variables (no dark mode CSS defined).
+- Cool-toned light backgrounds (`#f0f3fa` base, `#ffffff` surfaces)
+- High contrast text (`#0f172a`) with muted secondary colors
+- Indigo accent (`#6366f1`) for interactive elements
+- Light glass surfaces with backdrop blur
+- Subtle indigo grid and dot background patterns
+- 3D perspective utilities (`.perspective-1000`, `.preserve-3d`)
 
-### 6.2 Light Mode (beta)
+### 6.2 Theme Toggle (vestigial)
 **File**: `src/context/ThemeContext.jsx`
 
-Toggleable light mode via CSS variable overrides.
-- `.light-mode` class on `<html>` reverses CSS variables
-- Light backgrounds, dark text, same accent colors
+Toggleable theme via localStorage `os-theme`. CSS only defines light variables; dark mode is not implemented.
+- Defaults to `'dark'` key despite light-only CSS
+- Toggles `.light-mode` class on `<html>` (no visual effect without dark CSS vars)
 - Persisted via localStorage `os-theme`
-- Toggle in footer (not fully implemented across all components)
 
 ### 6.3 Fixed Navigation
 **File**: `src/components/layout/Navbar.jsx`
@@ -508,9 +513,12 @@ SYSTEM: {
   icon: "💬",
   color: "#8b5cf6",
   domain: "AI",
+  shortDesc: "...",
   description: "...",
+  setup: "Medium",
+  ideal: "Support teams & helpdesk operators",
   workflow: [
-    { step: 1, title: "...", description: "..." }
+    { stage: "Customer submits question", detail: "...", icon: "📨" }
   ],
   stack: ["supportweave", "knowledgos", "prompt-generator", "ai-chat-dashboard"]
 }
@@ -546,12 +554,9 @@ RELATIONSHIPS: {
 STACK_TEMPLATE: {
   id: "ai-support-bot",
   name: "AI Support Bot",
-  description: "...",
-  keywords: ["customer", "support", "help desk", "ticket", "service"],
-  tools: [
-    { id: "supportweave", purpose: "..." },
-    { id: "knowledgos", purpose: "..." }
-  ],
-  useCase: "..."
+  question: "AI Support Bot",
+  description: "Automated customer support...",
+  tools: ["supportweave", "knowledgos", "leadlaunch"],  // string IDs
+  explanation: "SupportWeave handles email triage..."
 }
 ```

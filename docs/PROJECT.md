@@ -6,7 +6,7 @@ WeaveStack is a **discovery-first tool ecosystem** — a React SPA that helps us
 
 **Version**: 3.0.0
 **Stack**: React 18 + Vite + Tailwind CSS + Zustand + React Router v6
-**Deploy Targets**: Cloudflare Pages (primary), Netlify (secondary), Vercel, GitHub Pages
+**Deploy Targets**: Cloudflare Pages (primary), Netlify (secondary)
 
 ---
 
@@ -18,14 +18,13 @@ WeaveStack is a **discovery-first tool ecosystem** — a React SPA that helps us
 | **Bundler** | Vite 5+ | Dev server & production builds |
 | **Styling** | Tailwind CSS 3 + PostCSS + Autoprefixer | Utility-first CSS with custom design tokens |
 | **Routing** | react-router-dom v6 | SPA routing with nested layouts |
-| **State (global)** | Zustand 4 | Lightweight stores (compare, discovery, stack) |
+| **State (global)** | Zustand | Lightweight stores (compare, discovery, stack) |
 | **State (local)** | React Context + localStorage | Favorites, pins, recents, theme, activity |
 | **Animation** | framer-motion | Page transitions, scroll reveals, hover effects |
 | **Icons** | lucide-react | UI icon library |
 | **Charts** | recharts | Analytics charts (pie, bar, donut) |
 | **Graph** | d3 (force layout) | Tool constellation interactive graph |
-| **Fonts** | Cabinet Grotesk, Satoshi, JetBrains Mono | Display, body, mono typography |
-| **Linting** | None (no eslint/prettier config) | — |
+| **Fonts** | Plus Jakarta Sans + Inter + JetBrains Mono | Display, body, mono typography |
 
 ---
 
@@ -36,11 +35,11 @@ silent-meadow/
 ├── index.html                          # HTML entry point
 ├── package.json                        # Dependencies & scripts
 ├── vite.config.js                      # Vite bundler config
-├── tailwind.config.js                  # Tailwind with custom fonts
+├── tailwind.config.js                  # Tailwind (not actively used — all styles via index.css)
 ├── postcss.config.js                   # PostCSS processors
 ├── netlify.toml                        # Netlify deploy config
 ├── wrangler.toml                       # Cloudflare Pages deploy config
-├── DEPLOY.md                           # Deployment guide (4 targets)
+├── DEPLOY.md                           # Deployment guide
 ├── .gitignore                          # Ignore rules
 │
 ├── public/
@@ -50,11 +49,11 @@ silent-meadow/
 │
 ├── src/
 │   ├── main.jsx                        # App entry point
-│   ├── App.jsx                         # Root: providers + router
-│   ├── index.css                       # All Tailwind + custom CSS
+│   ├── App.jsx                         # Root: 5 context providers + RouterProvider
+│   ├── index.css                       # ALL styles — Tailwind base + custom CSS (no Tailwind classes used)
 │   │
 │   ├── router/
-│   │   └── index.jsx                   # Route definitions (6 routes)
+│   │   └── index.jsx                   # 6 routes (/, /tools, /tool/:id, /import, /admin, *)
 │   │
 │   ├── data/
 │   │   ├── tools.json                  # 31 built-in tool definitions
@@ -62,54 +61,47 @@ silent-meadow/
 │   │
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Navbar.jsx              # Fixed top nav with command palette
-│   │   │   └── RootLayout.jsx          # Navbar + Outlet wrapper
+│   │   │   ├── Navbar.jsx              # Fixed top nav + Cmd+K palette + StackBuilder modal
+│   │   │   └── RootLayout.jsx          # Navbar + Outlet
 │   │   │
-│   │   ├── sections/                   # Landing page sections
-│   │   │   ├── HeroSection.jsx
-│   │   │   ├── CategoryGrid.jsx
-│   │   │   ├── DiscoveryCarousels.jsx
-│   │   │   ├── FeaturedTools.jsx
-│   │   │   ├── FooterSection.jsx
-│   │   │   ├── RecentUpdates.jsx
-│   │   │   ├── StatsSection.jsx
-│   │   │   ├── WorkflowSection.jsx
-│   │   │   └── AnalyticsSection.jsx
+│   │   ├── sections/                   # Shared sections
+│   │   │   └── FooterSection.jsx
 │   │   │
-│   │   ├── workshop/                   # Interactive workshop (landing)
-│   │   │   ├── WorkshopHero.jsx        # Radial system selector
-│   │   │   ├── WorkflowStory.jsx       # Animated timeline
-│   │   │   ├── StackReveal.jsx         # Tool stack display
-│   │   │   ├── BuildPaths.jsx          # Goal pathways
-│   │   │   ├── FeaturedSystems.jsx     # System accordion
-│   │   │   └── DiscoveryCta.jsx        # Final CTA search
+│   │   ├── workshop/                   # Interactive workshop (current landing page)
+│   │   │   ├── WorkshopHero.jsx        # "What are you trying to build?" with 3D card
+│   │   │   ├── WorkflowStory.jsx       # Animated timeline with progress bar
+│   │   │   ├── StackReveal.jsx         # Tool pipeline with numbered step cards
+│   │   │   ├── BuildPaths.jsx          # Goal accordion with pathway buttons
+│   │   │   ├── FeaturedSystems.jsx     # Horizontal scroll rail of system cards
+│   │   │   └── DiscoveryCta.jsx        # Search CTA with cycling suggestions
 │   │   │
 │   │   └── ui/                         # Reusable UI components
 │   │       ├── AddToolModal.jsx
-│   │       ├── AdminGate.jsx           # PIN-protected gate
-│   │       ├── ComparePanel.jsx        # Side-by-side comparison
-│   │       ├── EcosystemHero.jsx       # Canvas network viz
-│   │       ├── SmartSearch.jsx         # Fuzzy search dropdown
-│   │       ├── StackBuilder.jsx        # AI stack builder
-│   │       ├── ToolConstellation.jsx   # D3 force graph
+│   │       ├── AdminGate.jsx           # PIN-protected gate (sessionStorage)
+│   │       ├── ComparePanel.jsx        # Side-by-side tool comparison
+│   │       ├── HeroCard3D.jsx          # 3D stacked tool preview cards
+│   │       ├── HeroOrbs.jsx            # Floating gradient ambient orbs
+│   │       ├── SmartSearch.jsx         # Fuzzy search with dropdown
+│   │       ├── StackBuilder.jsx        # AI stack generator (keyword matching)
+│   │       ├── ToolConstellation.jsx   # D3 force-directed graph
 │   │       └── ToolRelationships.jsx   # Related tool chips
 │   │
 │   ├── pages/
-│   │   ├── LandingPage.jsx             # Home page (workshop flow)
-│   │   ├── ToolsPage.jsx               # Full tool directory
-│   │   ├── ToolDetailPage.jsx          # Single tool detail
+│   │   ├── LandingPage.jsx             # Home page — workshop flow
+│   │   ├── ToolsPage.jsx               # Tool directory with grid/list/constellation views
+│   │   ├── ToolDetailPage.jsx          # Single tool detail with hero card
 │   │   ├── ImportPage.jsx              # Admin import from GitHub/Netlify
-│   │   ├── AdminPage.jsx               # Admin dashboard
+│   │   ├── AdminPage.jsx               # Admin dashboard + data management
 │   │   └── NotFoundPage.jsx            # 404
 │   │
 │   ├── context/                        # React Context providers
-│   │   ├── ThemeContext.jsx
+│   │   ├── ThemeContext.jsx            # Dark/light toggle (currently always dark)
 │   │   ├── FavoritesContext.jsx
 │   │   ├── PinnedContext.jsx
 │   │   ├── RecentToolsContext.jsx
 │   │   └── ActivityContext.jsx
 │   │
-│   ├── hooks/                          # Custom hooks
+│   ├── hooks/
 │   │   ├── useFavorites.js
 │   │   ├── useLocalStorage.js
 │   │   └── useRecentTools.js
@@ -131,76 +123,16 @@ silent-meadow/
 │
 ├── dist/                               # Build output (gitignored)
 │
-├── weavestack-nov1.html                # Standalone HTML (Noomo-inspired)
-├── weavestack-showcase.html            # Standalone HTML (full showcase)
-│
-├── docs/                               # Documentation (this dir)
+├── docs/
 │   ├── PROJECT.md                      # ← THIS FILE
 │   ├── DESIGN.md
-│   ├── CREATIVES.md
+│   ├── ARCHITECTURE.md                 # Rebuild guide
+│   ├── ROADMAP.md                      # Future work
 │   ├── CANVAS.md
-│   ├── FEATURES.md
-│   └── RELATIONSHIPS.md                # File dependency map
+│   ├── CREATIVES.md
+│   └── FEATURES.md
 │
 └── Tools_Aggregation_EXCEL.md          # Original tool spreadsheet
-```
-
----
-
-## File Relationships (Import Dependency Graph)
-
-```
-index.html
-  └─ src/main.jsx
-       └─ src/App.jsx
-            ├─ src/context/ThemeContext.jsx           # useLocalStorage('os-theme')
-            ├─ src/context/FavoritesContext.jsx       # useFavorites() -> useLocalStorage('favorites')
-            ├─ src/context/PinnedContext.jsx          # useLocalStorage('pinned-tools')
-            ├─ src/context/RecentToolsContext.jsx     # useRecentTools() -> useLocalStorage('recent-tools')
-            ├─ src/context/ActivityContext.jsx        # useLocalStorage('activity-log')
-            └─ src/router/index.jsx                   # react-router-dom v6
-                 │
-                 ├─ src/components/layout/RootLayout.jsx
-                 │    ├─ src/components/layout/Navbar.jsx
-                 │    │    ├─ src/utils/tools.js -> src/data/tools.json
-                 │    │    ├─ src/components/ui/StackBuilder.jsx
-                 │    │    │    └─ src/stores/stackStore.js (zustand + persist)
-                 │    │    └─ src/context/RecentToolsContext.jsx
-                 │    └─ <Outlet /> (page content)
-                 │
-                 ├─ src/pages/LandingPage.jsx (route: /)
-                 │    ├─ src/data/systems.js
-                 │    ├─ src/components/workshop/WorkshopHero.jsx
-                 │    ├─ src/components/workshop/WorkflowStory.jsx
-                 │    ├─ src/components/workshop/StackReveal.jsx -> src/utils/tools.js
-                 │    ├─ src/components/workshop/BuildPaths.jsx
-                 │    ├─ src/components/workshop/FeaturedSystems.jsx -> src/utils/tools.js
-                 │    ├─ src/components/workshop/DiscoveryCta.jsx
-                 │    └─ src/components/sections/FooterSection.jsx
-                 │
-                 ├─ src/pages/ToolsPage.jsx (route: /tools)
-                 │    ├─ src/utils/icons.jsx -> lucide-react
-                 │    ├─ src/utils/tools.js -> tools.json
-                 │    ├─ src/hooks/useLocalStorage.js
-                 │    ├─ src/components/ui/AddToolModal.jsx
-                 │    ├─ src/components/ui/ToolConstellation.jsx
-                 │    │    └─ src/utils/relationships.js + d3
-                 │    └─ src/components/ui/SmartSearch.jsx
-                 │         └─ src/utils/smartSearch.js
-                 │
-                 ├─ src/pages/ToolDetailPage.jsx (route: /tool/:id)
-                 │    ├─ src/utils/icons.jsx, src/utils/tools.js
-                 │    ├─ src/stores/discoveryStore.js (zustand persist)
-                 │    └─ src/components/ui/ToolRelationships.jsx -> relationships.js
-                 │
-                 ├─ src/pages/ImportPage.jsx (route: /import)
-                 │    └─ src/components/ui/AdminGate.jsx
-                 │
-                 ├─ src/pages/AdminPage.jsx (route: /admin)
-                 │    ├─ src/components/ui/AdminGate.jsx
-                 │    └─ src/utils/tools.js
-                 │
-                 └─ src/pages/NotFoundPage.jsx (route: *)
 ```
 
 ---
@@ -209,12 +141,12 @@ index.html
 
 | Path | Page | Auth | Description |
 |------|------|------|-------------|
-| `/` | LandingPage | — | Interactive workshop: hero -> workflow -> stack -> goals -> systems -> CTA |
+| `/` | LandingPage | — | Interactive workshop: hero → workflow → stack → goals → systems → CTA |
 | `/tools` | ToolsPage | — | Full tool directory with search, filter, graph, compare |
 | `/tool/:id` | ToolDetailPage | — | Single tool detail with relationships |
 | `/import` | ImportPage | PIN | Import tools from GitHub/Netlify |
 | `/admin` | AdminPage | PIN | Stats, data management, accent color picker |
-| `*` | NotFoundPage | — | 404 page |
+| `*` | NotFoundPage | — | 404 |
 
 ---
 
@@ -225,25 +157,25 @@ tools.json (built-in 31 tools)
     │
     ├─ utils/tools.js ── getAllTools()
     │   merges built-in + localStorage('custom-tools') + localStorage('imported-tools')
-    │   └─ consumed by: Navbar, ToolsPage, ToolDetailPage, FeaturedTools,
+    │   └─ consumed by Navbar, ToolsPage, ToolDetailPage, FeaturedTools,
     │      DiscoveryCarousels, FeaturedSystems, StackReveal, AdminPage
     │
     ├─ utils/relationships.js
     │   static map of toolId -> { complements, alternatives, workflow }
-    │   └─ consumed by: ToolConstellation (d3 graph), ToolRelationships (detail page)
+    │   └─ consumed by ToolConstellation (d3 graph), ToolRelationships
     │
     ├─ utils/smartSearch.js
-    │   fuzzy search + NLP patterns over tool names/descriptions/tags/categories
-    │   └─ consumed by: SmartSearch component, Navbar Cmd+K
+    │   fuzzy search + NLP patterns
+    │   └─ consumed by SmartSearch, Navbar Cmd+K
     │
     └─ stores/stackStore.js
         6 templates + keyword matching engine
-        └─ consumed by: StackBuilder component
+        └─ consumed by StackBuilder
 ```
 
 ---
 
-## State Management Strategy
+## State Management
 
 | State Type | Mechanism | Persistence |
 |-----------|-----------|-------------|
@@ -276,27 +208,17 @@ npm run deploy     # Deploy to Cloudflare Pages (requires wrangler auth)
 - `motion`: framer-motion
 - `icons`: lucide-react
 
-### Deployment Targets
-- **Cloudflare Pages** (primary): `wrangler.toml` config, `npm run deploy`
-- **Netlify**: `netlify.toml` config, SPA redirect
-- **Vercel**: manual config via dashboard
-- **GitHub Pages**: `gh-pages` branch
-
----
-
-## Environment Variables
-
+### Environment Variables
 | Variable | Default | Used In |
 |----------|---------|---------|
 | `VITE_ADMIN_PIN` | `9999` | AdminGate component |
 
 ---
 
-## Known Conventions
+## Key Conventions
 
-- **No linter** — no ESLint or Prettier config. Formatting is manual.
+- **No linter** — no ESLint or Prettier. Formatting is manual.
 - **No TypeScript** — all JSX files are plain JavaScript.
-- **CSS** — Tailwind utility classes + custom CSS in `index.css`. No CSS modules or styled-components.
+- **CSS** — All styles in `index.css` via custom properties. Tailwind classes are NOT used in components — all styling is via inline `style={}` with CSS variable references.
 - **Imports** — `@` alias maps to `src/` (configured in vite.config.js).
 - **Naming** — PascalCase for components, camelCase for hooks/utils/stores, lowercase for data files.
-- **Context providers** are consumed directly in components (no custom consumer hooks beyond the context wrappers).
